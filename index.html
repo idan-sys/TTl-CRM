@@ -2408,7 +2408,7 @@ const renderEmail = (emailStr) => {
         </div>
 
         <!-- אזור מחיקת לקוח (מוצג למנהל מערכת בלבד) -->
-        ${isAdmin ? \`
+        ${isAdmin ? `
         <div class="delete-card-zone">
           <button type="button" class="btn-delete-card-permanent" onclick="deleteActiveClient()">
             🗑️ מחק כרטיס לקוח זה — פעולה בלתי הפיכה (מנהל בלבד)
@@ -2416,10 +2416,10 @@ const renderEmail = (emailStr) => {
           <div class="delete-card-warning">
             ⚠️ אזהרה: לחיצה על כפתור זה תמחק את כלל נתוני הלקוח לצמיתות ממסד הנתונים של המערכת.
           </div>
-        </div>\` : \`
+        </div>` : `
         <div style="margin-top:14px; padding:10px 14px; background:#f1f5f9; border-radius:8px; font-size:12px; color:#64748b; text-align:center;">
           🔒 כרטיס לקוח מוגן • מחיקת תיקים לצמיתות מורשית למנהל מערכת בלבד
-        </div>\`}
+        </div>`}
       `;
     }
 
