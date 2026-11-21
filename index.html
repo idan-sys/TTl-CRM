@@ -496,6 +496,7 @@
           <div class="detail-title-group">
             <div class="detail-client-name" id="detName">שם הלקוח</div>
             <div class="detail-project-tag" id="detProjectTag">תרומת ביצית - קפריסין</div>
+            <div id="clientReadOnlyNotice" style="display:none; color:#92400e; font-size:12px; font-weight:800;">צפייה בלבד — רק מנהל או עובד בעל הרשאת עריכה לתיק זה יכול לערוך.</div>
             <div id="adminSurProjectTypeWrap" class="f-group" style="display:none; min-width:230px; margin:0;">
               <label for="detSurProjectType" class="f-label">סיווג תיק הפונדקאות</label>
               <select id="detSurProjectType" class="f-input" aria-label="סיווג תיק הפונדקאות">
@@ -667,7 +668,7 @@
               <label class="f-label">קישור לתיקיית לקוח ב-Drive</label>
               <input type="text" id="detDriveUrl" class="f-input ltr-input" placeholder="https://drive.google.com/..." >
             </div>
-            <div class="f-group">
+            <div class="f-group" id="agreementEditorWrap" style="display:none;">
               <label class="f-label">קישור לקובץ הסכם חתום (PDF)</label>
               <input type="text" id="detAgreementUrl" class="f-input ltr-input" placeholder="https://drive.google.com/..." >
             </div>
@@ -865,7 +866,7 @@
 
   <!-- ניהול עובדים -->
   <div id="adminModal" class="modal-overlay" style="display:none;">
-    <div class="admin-card" style="width: 750px; margin:auto;">
+    <div class="admin-card" style="width: 900px; margin:auto;">
       <div class="admin-card-header">
         <h3 style="font-size:17px; font-weight:900;">⚙️ ניהול משתמשים והרשאות מערכת</h3>
         <button onclick="closeModal('adminModal')" style="background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
@@ -882,15 +883,21 @@
               <option value="" selected disabled>בחר הרשאה</option>
               <option value="Admin">מנהל מערכת (Admin)</option>
               <option value="Staff_All">צוות (כל התיקים הפעילים)</option>
-              <option value="Staff_Egg">צוות (תרומת ביצית, תיקים משויכים)</option>
-              <option value="Staff_Sur">צוות (פונדקאות, תיקים משויכים)</option>
+              <option value="Staff_Egg">צוות (כל תיקי תרומת ביצית)</option>
+              <option value="Staff_Sur">צוות (כל תיקי פונדקאות)</option>
             </select>
           </div>
           <button class="btn-save-card" onclick="addNewUser()" id="btnAddUser">➕ שמירת פרופיל משתמש</button>
         </div>
+        <div style="background:#eff6ff; padding:16px; border-radius:12px; border:1px solid #bfdbfe; margin-bottom:16px;">
+          <strong>העברת קישורי הסכמים לאחסון מוגן</strong>
+          <p style="font-size:12px; color:#334155; font-weight:700; line-height:1.6; margin:8px 0 12px;">יש לבצע פעם אחת אחרי פרסום קוד וכללי Firestore החדשים. הפעולה מעבירה קישורים מכרטיסי הלקוחות למקום מוגן, ומסמנת את התיקים כמעודכנים. עובדים יראו תיק רק אחרי שהתיק סומן כמעודכן.</p>
+          <button type="button" class="btn-save-card" id="btnMigrateAgreementLinks" onclick="migrateAgreementLinks()">🔐 העברת קישורים והשלמת סימון תיקים</button>
+          <div id="agreementMigrationStatus" role="status" style="font-size:12px; color:#334155; font-weight:700; margin-top:8px;"></div>
+        </div>
         <div>
           <table class="user-table">
-            <thead><tr><th>שם עובד</th><th>דוא"ל התחברות</th><th>הרשאת צפייה</th><th>פעולות</th></tr></thead>
+            <thead><tr><th>שם עובד</th><th>דוא"ל התחברות</th><th>הרשאת צפייה</th><th>הסכמים חתומים</th><th>פעולות</th></tr></thead>
             <tbody id="userTableBody"></tbody>
           </table>
         </div>
@@ -929,8 +936,8 @@
       localNotice.style.display = 'block';
     }
     
-    let currentUser = null, currentUserRole = null;
-    let allProjects = [], sysLists = [], contacts = [];
+    let currentUser = null, currentUserRole = null, currentUserCanViewAgreements = false, projectsSnapshotReady = false;
+    let allProjects = [], allProjectDocs = [], sysLists = [], contacts = [];
     let currentActiveFilter = 'all';
     let currentSubFilter = 'all';
     let currentSurProjectType = 'all';
@@ -1221,6 +1228,17 @@
 
     function resetSignedOutUi() {
       document.getElementById('loginOverlay').style.display = 'flex';
+      currentUserCanViewAgreements = false;
+      projectsSnapshotReady = false;
+      allProjects = [];
+      allProjectDocs = [];
+      const agreementButton = document.getElementById('btnAgreement');
+      setLink(agreementButton, '');
+      agreementButton.style.display = 'none';
+      agreementButton.classList.remove('active-pdf');
+      document.getElementById('detAgreementUrl').value = '';
+      document.getElementById('clientDetailCard').style.display = 'none';
+      document.getElementById('clientPlaceholder').style.display = 'flex';
       document.getElementById('userBadgeDisplay').style.display = 'none';
       document.getElementById('tabEgg').style.display = 'none';
       document.getElementById('tabSur').style.display = 'none';
@@ -1286,6 +1304,26 @@
         document.getElementById('userBadgeDisplay').style.display = 'flex';
         document.getElementById('userNameDisplay').innerText = userData.full_name || user.email || '';
         currentUserRole = userData.role;
+        currentUserCanViewAgreements = currentUserRole === 'Admin' || userData.can_view_agreements === true;
+        dataUnsubscribers.push(db.collection('users').doc(user.uid).onSnapshot((profileSnapshot) => {
+          if (!profileSnapshot.exists || !currentUser || currentUser.uid !== user.uid) return;
+          const canViewAgreements = currentUserRole === 'Admin'
+            || profileSnapshot.data().can_view_agreements === true;
+          if (canViewAgreements === currentUserCanViewAgreements) return;
+          currentUserCanViewAgreements = canViewAgreements;
+          const agreementButton = document.getElementById('btnAgreement');
+          if (!canViewAgreements) {
+            setLink(agreementButton, '');
+            agreementButton.classList.remove('active-pdf');
+            agreementButton.style.display = 'none';
+            document.getElementById('detAgreementUrl').value = '';
+          } else {
+            const activeProjectId = document.getElementById('detProjectId').value;
+            if (activeProjectId) loadProjectAgreement(activeProjectId);
+          }
+        }, (error) => {
+          console.error('Unable to monitor agreement permission:', error);
+        }));
         const roleTag = document.getElementById('userRoleTag');
 
         document.getElementById('tabEgg').style.display = 'none';
@@ -1958,7 +1996,14 @@
         alert('יש לבחור סוג פרויקט תקין.');
         return;
       }
-      await db.collection('projects').add({ client_name: name, project_type: fullType, assigned_to: currentUser.uid, is_deleted: false, created_at: firebase.firestore.FieldValue.serverTimestamp() });
+      await db.collection('projects').add({
+        client_name: name,
+        project_type: fullType,
+        assigned_to: currentUser.uid,
+        is_deleted: false,
+        agreement_links_migrated: true,
+        created_at: firebase.firestore.FieldValue.serverTimestamp()
+      });
       closeModal('newClientModal'); document.getElementById('newClientName').value = '';
     }
 
@@ -1966,8 +2011,8 @@
       let projectsQuery = db.collection('projects');
       if (currentUserRole !== 'Admin') {
         projectsQuery = projectsQuery.where('is_deleted', '==', false);
+        projectsQuery = projectsQuery.where('agreement_links_migrated', '==', true);
         if (currentUserRole !== 'Staff_All') {
-          projectsQuery = projectsQuery.where('assigned_to', '==', currentUser.uid);
           if (currentUserRole === 'Staff_Egg') {
             projectsQuery = projectsQuery.where('project_type', '==', 'תרומת ביצית - קפריסין');
           } else if (currentUserRole === 'Staff_Sur') {
@@ -1979,8 +2024,10 @@
         }
       }
 
-      return projectsQuery.onSnapshot((snapshot) => {
+      return projectsQuery.onSnapshot({ includeMetadataChanges: true }, (snapshot) => {
           allProjects = [];
+          allProjectDocs = snapshot.docs.map((doc) => Object.assign({}, doc.data(), { id: doc.id }));
+          projectsSnapshotReady = !snapshot.metadata.fromCache;
           let countEgg = 0, countSur = 0, countSurGeorgia = 0, countSurGeorgiaEgg = 0, recycledCount = 0;
           const recycleTable = document.getElementById('recycleBinTableBody');
           if (currentUserRole === 'Admin') recycleTable.replaceChildren();
@@ -2038,6 +2085,95 @@
       });
     }
 
+    async function migrateAgreementLinks() {
+      if (!requireAdminAccess()) return;
+      const button = document.getElementById('btnMigrateAgreementLinks');
+      const status = document.getElementById('agreementMigrationStatus');
+      if (!projectsSnapshotReady) {
+        status.textContent = 'רשימת התיקים עדיין נטענת. המתן רגע ונסה שוב.';
+        return;
+      }
+      const projectsToMigrate = allProjectDocs.slice();
+      const malformedLinkCount = projectsToMigrate.filter((project) =>
+        Object.prototype.hasOwnProperty.call(project, 'agreement_url')
+        && project.agreement_url != null
+        && typeof project.agreement_url !== 'string'
+      ).length;
+      if (malformedLinkCount) {
+        status.textContent = 'נמצאו קישורים בפורמט לא צפוי. לא בוצעו שינויים; יש לבדוק את הנתונים לפני ההעברה.';
+        alert('נמצאו קישורים בפורמט לא צפוי. לא בוצעו שינויים.');
+        return;
+      }
+      const linksToMigrate = projectsToMigrate.filter((project) =>
+        typeof project.agreement_url === 'string' && project.agreement_url.trim()
+      ).length;
+      const projectsToUpdate = projectsToMigrate.filter((project) =>
+        project.agreement_links_migrated !== true
+        || Object.prototype.hasOwnProperty.call(project, 'agreement_url')
+      ).length;
+      if (!confirm(`נמצאו ${linksToMigrate} קישורי הסכמים להעברה ו-${projectsToUpdate} תיקים לעדכון. הקישורים יועתקו למקום מוגן ורק לאחר מכן יוסרו מכרטיסי הלקוחות. להמשיך?`)) return;
+
+      button.disabled = true;
+      status.textContent = 'מעביר קישורים ומעדכן תיקים... אין לסגור את המערכת עד לסיום.';
+      let migratedLinks = 0;
+      let updatedProjects = 0;
+      try {
+        for (let offset = 0; offset < projectsToMigrate.length; offset += 200) {
+          const records = projectsToMigrate.slice(offset, offset + 200);
+          const batch = db.batch();
+          let batchWrites = 0;
+
+          records.forEach((project) => {
+            const hasLegacyAgreement = Object.prototype.hasOwnProperty.call(project, 'agreement_url');
+            const legacyUrl = typeof project.agreement_url === 'string'
+              ? project.agreement_url.trim()
+              : '';
+            if (project.agreement_links_migrated === true && !hasLegacyAgreement) return;
+
+            const projectRef = db.collection('projects').doc(project.id);
+            if (legacyUrl) {
+              const agreementRef = db.collection('project_agreements').doc(project.id);
+              batch.set(agreementRef, {
+                agreement_url: legacyUrl,
+                migrated_at: firebase.firestore.FieldValue.serverTimestamp(),
+                migrated_by: currentUser.uid
+              }, { merge: true });
+              migratedLinks++;
+              batchWrites++;
+            }
+            const projectUpdate = {
+              agreement_links_migrated: true,
+              agreement_url: firebase.firestore.FieldValue.delete()
+            };
+            batch.update(projectRef, projectUpdate);
+            updatedProjects++;
+            batchWrites++;
+          });
+
+          if (batchWrites) await batch.commit();
+          status.textContent = `עודכנו ${updatedProjects} תיקים; הועברו ${migratedLinks} קישורי הסכמים...`;
+        }
+
+        allProjectDocs = allProjectDocs.map((project) => {
+          const migrated = Object.assign({}, project, { agreement_links_migrated: true });
+          delete migrated.agreement_url;
+          return migrated;
+        });
+        allProjects = allProjects.map((project) => {
+          const migrated = Object.assign({}, project, { agreement_links_migrated: true });
+          delete migrated.agreement_url;
+          return migrated;
+        });
+        status.textContent = `ההעברה הושלמה: ${updatedProjects} תיקים עודכנו ו-${migratedLinks} קישורים הועברו.`;
+      } catch (error) {
+        console.error('Unable to migrate agreement links:', error);
+        status.textContent = 'ההעברה נעצרה. חלק מהמנות אולי הושלמו; רענן את הדף ובדוק את הסטטוס לפני ניסיון נוסף.';
+        alert('העברת הקישורים נכשלה או נעצרה. בדוק חיבור והרשאות. רענון הדף יאפשר להמשיך בלי לפגוע במנות שכבר הושלמו.');
+      } finally {
+        button.disabled = false;
+      }
+    }
+
     async function restoreProject(id) {
       if (currentUserRole !== 'Admin') {
         alert('שחזור תיקים זמין למנהל מערכת בלבד.');
@@ -2062,7 +2198,10 @@
       }
       if (!confirm('אזהרה: מחיקה מוחלטת של התיק ומידעו, ללא אפשרות שחזור. להמשיך?')) return;
       try {
-        await db.collection('projects').doc(id).delete();
+        const batch = db.batch();
+        batch.delete(db.collection('projects').doc(id));
+        batch.delete(db.collection('project_agreements').doc(id));
+        await batch.commit();
       } catch (error) {
         console.error('Unable to permanently delete project:', error);
         alert('מחיקת התיק נכשלה. בדוק חיבור והרשאות ונסה שוב.');
@@ -2095,14 +2234,15 @@
           status.textContent = 'לא בוצעה מחיקה.';
           return;
         }
-        for (let offset = 0; offset < snapshot.docs.length; offset += 400) {
+        for (let offset = 0; offset < snapshot.docs.length; offset += 200) {
           const batch = db.batch();
-          const chunk = snapshot.docs.slice(offset, offset + 400);
+          const chunk = snapshot.docs.slice(offset, offset + 200);
           const currentDocs = await Promise.all(chunk.map(doc => doc.ref.get()));
           let deletedInBatch = 0;
           currentDocs.forEach(doc => {
             if (doc.exists && doc.data().is_deleted === true) {
               batch.delete(doc.ref);
+              batch.delete(db.collection('project_agreements').doc(doc.id));
               deletedInBatch++;
             }
           });
@@ -2195,6 +2335,35 @@
        grid.appendChild(newBox);
     }
 
+    function canEditProject(project) {
+      return currentUserRole === 'Admin'
+        || currentUserRole === 'Staff_All'
+        || (currentUser && project.assigned_to === currentUser.uid);
+    }
+
+    async function loadProjectAgreement(projectId) {
+      const agreementButton = document.getElementById('btnAgreement');
+      const agreementInput = document.getElementById('detAgreementUrl');
+      agreementInput.value = '';
+      setLink(agreementButton, '');
+      agreementButton.classList.remove('active-pdf');
+      agreementButton.style.display = currentUserCanViewAgreements ? '' : 'none';
+      if (!currentUserCanViewAgreements) return;
+
+      try {
+        const agreementDoc = await db.collection('project_agreements').doc(projectId).get();
+        if (document.getElementById('detProjectId').value !== projectId) return;
+        const agreementUrl = agreementDoc.exists ? agreementDoc.data().agreement_url : '';
+        const safeUrl = safeHttpsUrl(agreementUrl);
+        setLink(agreementButton, safeUrl);
+        agreementButton.classList.toggle('active-pdf', Boolean(safeUrl));
+        if (currentUserRole === 'Admin') agreementInput.value = safeUrl;
+      } catch (error) {
+        console.error('Unable to load project agreement:', error);
+        alert('לא ניתן לטעון את ההסכם. בדוק הרשאה וקישוריות ונסה שוב.');
+      }
+    }
+
     function openClientCard(projectId) {
       document.querySelectorAll('.client-row').forEach(row => row.classList.remove('active'));
       const aRow = document.getElementById('client_row_' + projectId); if(aRow) aRow.classList.add('active');
@@ -2212,6 +2381,7 @@
       const surProjectTypeSelect = document.getElementById('detSurProjectType');
       const canChangeSurProjectType = currentUserRole === 'Admin' && isSurrogacyProject(pType);
       surProjectTypeWrap.style.display = canChangeSurProjectType ? 'block' : 'none';
+      document.getElementById('agreementEditorWrap').style.display = currentUserRole === 'Admin' ? 'block' : 'none';
       if (canChangeSurProjectType) {
         surProjectTypeSelect.value = getProjectKind(pType) === 'surrogacyEgg'
           ? 'פונדקאות + תרומת ביצית - גאורגיה'
@@ -2219,10 +2389,11 @@
       }
 
       // Load static fields
-      const staticFields = ['detFullName','detPhoneWife','detPhoneHusband','detEmailWife','detEmailHusband','detAddress','detEmbryos','detExpectedBirth','detStatusSur','detSurrogateName','detDriveUrl','detAgreementUrl','detNotes'];
+      const staticFields = ['detFullName','detPhoneWife','detPhoneHusband','detEmailWife','detEmailHusband','detAddress','detEmbryos','detExpectedBirth','detStatusSur','detSurrogateName','detDriveUrl','detNotes'];
       staticFields.forEach(f => { if(document.getElementById(f)) document.getElementById(f).value = project[f.replace('det','').replace(/([A-Z])/g, "_$1").toLowerCase().substring(1)] || ''; });
       document.getElementById('detFullName').value = project.client_name || '';
       document.getElementById('detDriveUrl').value = project.drive_folder || '';
+      document.getElementById('detAgreementUrl').value = '';
       
       document.getElementById('detDoctor').value = project.doctor || '';
       document.getElementById('detTrack').value = project.track || '';
@@ -2268,10 +2439,18 @@
 
       const btnDrive = document.getElementById('btnDriveFolder');
       setLink(btnDrive, safeHttpsUrl(project.drive_folder));
-      
-      const btnContract = document.getElementById('btnAgreement');
-      setLink(btnContract, safeHttpsUrl(project.agreement_url));
-      btnContract.classList.toggle('active-pdf', !btnContract.classList.contains('disabled'));
+      loadProjectAgreement(project.id);
+
+      const editable = canEditProject(project);
+      document.getElementById('clientReadOnlyNotice').style.display = editable ? 'none' : 'block';
+      document.querySelectorAll('#clientDetailCard input, #clientDetailCard select, #clientDetailCard textarea').forEach((field) => {
+        if (field.id !== 'detProjectId') field.disabled = !editable;
+      });
+      document.getElementById('detAgreementUrl').disabled = currentUserRole !== 'Admin';
+      document.getElementById('btnUpdateClient').style.display = editable ? '' : 'none';
+      document.querySelectorAll('#clientDetailCard .btn-add-small').forEach((button) => {
+        button.disabled = !editable;
+      });
 
       // Email links
       const btnEmailW = document.getElementById('btnEmailWife');
@@ -2287,9 +2466,20 @@
 
     async function updateClientDetails() {
       const projectId = document.getElementById('detProjectId').value;
+      const currentProject = allProjects.find(project => project.id === projectId);
+      if (!currentProject || !canEditProject(currentProject)) {
+        alert('אין לך הרשאה לערוך תיק זה. אפשר לפנות למנהל המערכת.');
+        return;
+      }
+      if (currentUserRole === 'Admin'
+        && (currentProject.agreement_links_migrated !== true
+          || Object.prototype.hasOwnProperty.call(currentProject, 'agreement_url'))) {
+        alert('לפני עריכת התיק, יש להעביר את קישורי ההסכמים דרך מסך ניהול המשתמשים.');
+        return;
+      }
       const btn = document.getElementById('btnUpdateClient'); btn.innerText = "שומר...";
       const updateData = {};
-      const fields = ['detFullName','detPhoneWife','detPhoneHusband','detEmailWife','detEmailHusband','detAddress','detEmbryos','detExpectedBirth','detStatusSur','detSurrogateName','detDriveUrl','detAgreementUrl','detNotes'];
+      const fields = ['detFullName','detPhoneWife','detPhoneHusband','detEmailWife','detEmailHusband','detAddress','detEmbryos','detExpectedBirth','detStatusSur','detSurrogateName','detDriveUrl','detNotes'];
       fields.forEach(f => { if(document.getElementById(f)) updateData[f.replace('det','').replace(/([A-Z])/g, "_$1").toLowerCase().substring(1)] = document.getElementById(f).value; });
       updateData.client_name = document.getElementById('detFullName').value.trim();
       updateData.drive_folder = document.getElementById('detDriveUrl').value.trim();
@@ -2302,7 +2492,6 @@
       updateData.status_egg = document.getElementById('detStatusEgg').value; 
       updateData.stage_sur = document.getElementById('detStageSur').value;
       updateData.agreement_status = document.getElementById('detAgreementStatus').value;
-      const currentProject = allProjects.find(project => project.id === projectId);
       if (currentUserRole === 'Admin' && currentProject && isSurrogacyProject(currentProject.project_type)) {
         const selectedProjectType = document.getElementById('detSurProjectType').value;
         if (!['פונדקאות - גאורגיה', 'פונדקאות + תרומת ביצית - גאורגיה'].includes(selectedProjectType)) {
@@ -2321,10 +2510,36 @@
         }
       });
 
+      const agreementUrl = document.getElementById('detAgreementUrl').value.trim();
+      const safeAgreementUrl = safeHttpsUrl(agreementUrl);
+      if (currentUserRole === 'Admin' && agreementUrl && !safeAgreementUrl) {
+        btn.innerText = "💾 שמור שינויים";
+        alert('קישור ההסכם חייב להיות כתובת HTTPS תקינה.');
+        return;
+      }
+
       try {
-        await db.collection('projects').doc(projectId).update(updateData);
+        const batch = db.batch();
+        batch.update(db.collection('projects').doc(projectId), updateData);
+        if (currentUserRole === 'Admin') {
+          const agreementRef = db.collection('project_agreements').doc(projectId);
+          if (safeAgreementUrl) {
+            batch.set(agreementRef, {
+              agreement_url: safeAgreementUrl,
+              updated_at: firebase.firestore.FieldValue.serverTimestamp(),
+              updated_by: currentUser.uid
+            }, { merge: true });
+          } else {
+            batch.delete(agreementRef);
+          }
+        }
+        await batch.commit();
         btn.innerText = "✅ נשמר!"; setTimeout(() => { btn.innerText = "💾 שמור שינויים"; openClientCard(projectId); }, 1500);
-      } catch(error) { alert("שגיאה בשמירה."); btn.innerText = "💾 שמור שינויים"; }
+      } catch(error) {
+        console.error('Unable to save project changes:', error);
+        alert("שגיאה בשמירה. בדוק חיבור והרשאות ונסה שוב.");
+        btn.innerText = "💾 שמור שינויים";
+      }
     }
 
     async function moveToRecycleBin() {
@@ -2363,8 +2578,8 @@
           [
             ['Admin', 'מנהל מערכת'],
             ['Staff_All', 'כל התיקים הפעילים'],
-            ['Staff_Egg', 'תרומת ביצית — תיקים משויכים'],
-            ['Staff_Sur', 'פונדקאות — תיקים משויכים']
+            ['Staff_Egg', 'כל תיקי תרומת ביצית'],
+            ['Staff_Sur', 'כל תיקי פונדקאות']
           ].forEach(([value, label]) => {
             const option = createTextElement('option', label);
             option.value = value;
@@ -2373,11 +2588,29 @@
           if (validRoles.includes(user.role)) roleSelect.value = user.role;
           roleCell.appendChild(roleSelect);
           row.appendChild(roleCell);
+          const agreementCell = document.createElement('td');
+          let agreementPermission = null;
+          if (user.role === 'Admin') {
+            agreementCell.appendChild(createTextElement('span', 'מנהל — גישה מלאה'));
+          } else {
+            agreementPermission = document.createElement('input');
+            agreementPermission.type = 'checkbox';
+            agreementPermission.checked = user.can_view_agreements === true;
+            agreementPermission.setAttribute('aria-label', `גישה להסכמים עבור ${user.full_name || user.email || 'משתמש'}`);
+            agreementCell.appendChild(agreementPermission);
+            agreementCell.appendChild(createTextElement('span', ' מורשה'));
+          }
+          row.appendChild(agreementCell);
           const actionCell = document.createElement('td');
           actionCell.appendChild(createActionButton(
-            'שמור הרשאה',
+            'שמור הרשאות',
             'table-action-btn restore',
-            () => updateUserRole(doc.id, roleSelect.value)
+            () => updateUserAccess(
+              doc.id,
+              roleSelect.value,
+              agreementPermission ? agreementPermission.checked : undefined,
+              user.role
+            )
           ));
           actionCell.appendChild(createActionButton('הסר', 'table-action-btn danger', () => deleteUser(doc.id)));
           row.appendChild(actionCell);
@@ -2385,7 +2618,7 @@
         });
       });
     }
-    async function updateUserRole(uid, role) {
+    async function updateUserAccess(uid, role, canViewAgreements, previousRole) {
       if (!requireAdminAccess()) return;
       if (!['Admin', 'Staff_All', 'Staff_Egg', 'Staff_Sur'].includes(role)) {
         alert('יש לבחור הרשאה תקינה לפני השמירה.');
@@ -2395,11 +2628,17 @@
         alert('לא ניתן להסיר מעצמך הרשאת מנהל.');
         return;
       }
+      const updates = { role };
+      if (canViewAgreements !== undefined) {
+        updates.can_view_agreements = canViewAgreements === true;
+      } else if (previousRole === 'Admin' && role !== 'Admin') {
+        updates.can_view_agreements = false;
+      }
       try {
-        await db.collection('users').doc(uid).update({ role });
+        await db.collection('users').doc(uid).update(updates);
       } catch (error) {
-        console.error('Unable to update user role:', error);
-        alert('עדכון ההרשאה נכשל. בדוק חיבור והרשאות ונסה שוב.');
+        console.error('Unable to update user access:', error);
+        alert('עדכון ההרשאות נכשל. בדוק חיבור והרשאות ונסה שוב.');
       }
     }
     async function addNewUser() {
@@ -2421,7 +2660,7 @@
         alert('כבר קיים פרופיל משתמש עבור UID זה.');
         return;
       }
-      await userRef.set({ full_name: name, email, role, is_active: true });
+      await userRef.set({ full_name: name, email, role, is_active: true, can_view_agreements: false });
       document.getElementById('newUserName').value = '';
       document.getElementById('newUserEmail').value = '';
       document.getElementById('newUserUid').value = '';
