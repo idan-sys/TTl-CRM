@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ttl-crm-email-mfa",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-18",
+  "workers_dev": true,
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "OTP_STORE",
+        "class_name": "OtpStore"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["OtpStore"]
+    }
+  ],
+  "vars": {
+    "FIREBASE_PROJECT_ID": "tal-the-life-crm2",
+    "FIREBASE_API_KEY": "AIzaSyCGMYbs9qZZekgEslRKOWWqc-Go9IPwfEc",
+    "APP_ORIGIN": "https://talthelife-crm.idan-talthelife.workers.dev",
+    "GOOGLE_APPS_SCRIPT_URL": "https://script.google.com/macros/s/AKfycbyY0BvETEsKpNnDLAjMMeD6tu9GxkFsTJBxaFF7dQKTKcHGT2pBzveV87d00ZFiuKEn/exec",
+    "WIF_ISSUER": "https://ttl-crm-email-mfa.idan-talthelife.workers.dev",
+    "WIF_AUDIENCE": "https://iam.googleapis.com/projects/1044877642229/locations/global/workloadIdentityPools/ttl-crm-mfa/providers/cloudflare-worker",
+    "WIF_PROVIDER_RESOURCE": "//iam.googleapis.com/projects/1044877642229/locations/global/workloadIdentityPools/ttl-crm-mfa/providers/cloudflare-worker",
+    "WIF_SIGNING_KEY_ID": "ttl-crm-wif-key-1",
+    "FIREBASE_SERVICE_ACCOUNT_EMAIL": "ttl-crm-mfa-signer@tal-the-life-crm2.iam.gserviceaccount.com"
+  }
+}

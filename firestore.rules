@@ -1,0 +1,101 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedInWithEmailMfa() {
+      return request.auth != null
+        && request.auth.token.email_mfa_verified == true;
+    }
+
+    function signedInWithPassword() {
+      return request.auth != null
+        && request.auth.token.firebase.sign_in_provider == 'password';
+    }
+
+    function userDocument(uid) {
+      return /databases/$(database)/documents/users/$(uid);
+    }
+
+    function hasActiveProfile() {
+      return signedInWithEmailMfa()
+        && exists(userDocument(request.auth.uid))
+        && get(userDocument(request.auth.uid)).data.is_active != false
+        && get(userDocument(request.auth.uid)).data.role in [
+          'Admin', 'Staff_All', 'Staff_Egg', 'Staff_Sur'
+        ];
+    }
+
+    function isAdmin() {
+      return hasActiveProfile()
+        && get(userDocument(request.auth.uid)).data.role == 'Admin';
+    }
+
+    function hasStaffRole() {
+      return hasActiveProfile()
+        && get(userDocument(request.auth.uid)).data.role != 'Admin';
+    }
+
+    function isEggDonationType(projectType) {
+      return projectType == 'תרומת ביצית - קפריסין';
+    }
+
+    function isSurrogacyType(projectType) {
+      return projectType == 'פונדקאות - גאורגיה'
+        || projectType == 'פונדקאות + תרומת ביצית - גאורגיה';
+    }
+
+    function staffMayAccessProjectType(projectType) {
+      let role = get(userDocument(request.auth.uid)).data.role;
+      return role == 'Staff_All'
+        || (role == 'Staff_Egg' && isEggDonationType(projectType))
+        || (role == 'Staff_Sur' && isSurrogacyType(projectType));
+    }
+
+    function staffOwnsActiveProject(project) {
+      return hasStaffRole()
+        && project.is_deleted == false
+        && (get(userDocument(request.auth.uid)).data.role == 'Staff_All'
+          || project.assigned_to == request.auth.uid)
+        && staffMayAccessProjectType(project.project_type);
+    }
+
+    match /users/{uid} {
+      allow get: if isAdmin()
+        || (request.auth.uid == uid
+          && (signedInWithPassword() || signedInWithEmailMfa()));
+      allow list: if isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /projects/{projectId} {
+      allow read: if isAdmin() || staffOwnsActiveProject(resource.data);
+      allow create: if isAdmin()
+        || (staffOwnsActiveProject(request.resource.data)
+          && request.resource.data.assigned_to == request.auth.uid);
+      allow update: if isAdmin()
+        || (staffOwnsActiveProject(resource.data)
+          && request.resource.data.assigned_to == resource.data.assigned_to
+          && request.resource.data.project_type == resource.data.project_type
+          && request.resource.data.is_deleted == false);
+      allow delete: if isAdmin();
+    }
+
+    match /system_lists/{listId} {
+      allow read: if hasActiveProfile();
+      allow write: if isAdmin();
+    }
+
+    match /system_settings/{settingId} {
+      allow read: if hasActiveProfile();
+      allow write: if isAdmin();
+    }
+
+    match /phonebook/{contactId} {
+      allow read: if hasActiveProfile();
+      allow write: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

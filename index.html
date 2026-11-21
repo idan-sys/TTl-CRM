@@ -20,8 +20,13 @@
     /* Header */
     header { background: #0b1f44; color: white; padding: 10px 24px; box-shadow: 0 4px 20px rgba(11,31,68,0.3); border-bottom: 2.5px solid #2563eb; z-index: 50; flex-shrink: 0; }
     .header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 14px; max-width: 1920px; margin: 0 auto; width: 100%; }
-    .brand-wrap { display: flex; align-items: center; gap: 14px; cursor: pointer; }
-    .brand-text h1 { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: -0.3px; }
+    .brand-wrap { display: flex; align-items: center; gap: 11px; cursor: pointer; padding: 3px 5px; border-radius: 14px; transition: background 0.2s; }
+    .brand-wrap:hover { background: rgba(255,255,255,0.08); }
+    .header-logo-frame { width: 46px; height: 46px; flex: 0 0 46px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(255,255,255,0.55); border-radius: 12px; background: #ffffff; box-shadow: 0 3px 10px rgba(0,0,0,0.14); }
+    .header-logo-frame img { width: 100%; height: 100%; object-fit: contain; }
+    .brand-text { display: flex; flex-direction: column; gap: 1px; }
+    .brand-text h1 { font-size: 18px; line-height: 1.1; font-weight: 900; color: #ffffff; letter-spacing: -0.3px; }
+    .brand-text span { color: #bfdbfe; font-size: 11px; line-height: 1.2; font-weight: 700; }
     
     .nav-tabs { display: flex; background: #071329; padding: 4px; border-radius: 12px; gap: 4px; border: 1px solid rgba(255,255,255,0.1); }
     .nav-tab-btn { padding: 8px 18px; border: none; border-radius: 9px; font-size: 14.5px; font-weight: 800; cursor: pointer; color: #94a3b8; background: transparent; transition: all 0.2s; }
@@ -71,6 +76,34 @@
     .info-box-icon { font-size: 48px; margin-bottom: 16px; }
     .info-box h3 { font-size: 22px; font-weight: 900; color: #0f172a; margin-bottom: 10px; }
     .info-box p { font-size: 15px; color: #64748b; font-weight: 600; line-height: 1.6; }
+    .dash-banner { background: linear-gradient(120deg, #0b1f44 0%, #1e3a8a 68%, #2563eb 100%); justify-content: space-between; flex-wrap: wrap; padding: 30px 34px; gap: 24px; }
+    .dash-banner::before { background: radial-gradient(circle at 8% 18%, rgba(147,197,253,0.22) 0%, transparent 48%); }
+    .home-hero-main { display: flex; align-items: center; gap: 22px; flex: 1 1 540px; min-width: 0; position: relative; z-index: 1; }
+    .home-logo-wrap { width: 118px; min-width: 118px; height: 94px; padding: 8px; border-radius: 15px; background: rgba(255,255,255,0.96); display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 16px rgba(0,0,0,0.17); }
+    .home-logo-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .home-logo-fallback { display: none; font-size: 44px; }
+    .dash-banner-text h2 { font-size: 30px; }
+    .dash-banner-text p { color: #dbeafe; font-size: 16px; max-width: 700px; }
+    .home-contact-card { min-width: 260px; position: relative; z-index: 1; padding: 14px 20px; border: 1px solid rgba(255,255,255,0.22); border-radius: 14px; background: rgba(255,255,255,0.1); color: #eff6ff; line-height: 1.9; }
+    .home-contact-card a { color: #bfdbfe; text-decoration: none; font-weight: 800; }
+    .home-contact-card a:hover { color: white; text-decoration: underline; }
+    .home-contact-row[hidden] { display: none; }
+    .stat-card { border-radius: 18px; min-height: 128px; }
+    .quick-actions-box, .info-box { border-radius: 18px; }
+    @media (max-width: 900px) {
+      .dash-banner { padding: 24px; }
+      .home-contact-card { width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .dash-banner { padding: 20px; }
+      .home-hero-main { align-items: flex-start; gap: 14px; flex-basis: 100%; }
+      .home-logo-wrap { width: 68px; min-width: 68px; height: 62px; padding: 5px; }
+      .home-logo-fallback { font-size: 30px; }
+      .dash-banner-text h2 { font-size: 21px; }
+      .dash-banner-text p { font-size: 14px; }
+      .home-contact-card { min-width: 0; padding: 12px 14px; font-size: 13px; overflow-wrap: anywhere; }
+      .stat-card { min-height: 110px; }
+    }
 
     /* List View (Right Side) */
     .list-card { background: white; border-radius: 14px; border: 1.5px solid #cbd5e1; display: flex; flex-direction: column; overflow: hidden; height: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
@@ -84,6 +117,13 @@
     .list-sub-btn { background:transparent; border:none; padding:6px; font-size:13px; font-weight:800; color:#475569; cursor:pointer; border-radius:6px; text-align:center; transition: 0.2s;}
     .list-sub-btn.active { background:white; color:#1d4ed8; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
     .list-sub-btn:hover:not(.active) { background: rgba(255,255,255,0.5); }
+    .sur-filter-panel { display:none; flex-direction:column; gap:6px; }
+    .sur-filter-label { color:#64748b; font-size:12px; font-weight:900; }
+    .sur-project-filters { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px; background:#dbeafe; padding:4px; border-radius:8px; }
+    .sur-project-filters #surTypeAll { grid-column:1 / -1; }
+    .sur-project-filters .list-sub-btn { font-size:12px; line-height:1.35; }
+    .sur-project-filters .list-sub-btn.active { color:#065f46; }
+    .sur-filter-panel .list-sub-filters { display:grid; }
 
     .list-search { display: flex; gap: 8px;}
     .list-search input { width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 14.5px; outline: none; transition:0.2s;}
@@ -112,8 +152,8 @@
     .btn-drive { background: #1d4ed8; color: white; text-decoration: none; padding: 9px 18px; border-radius: 8px; font-weight: 800; display: flex; align-items: center; gap: 6px; font-size:14.5px; transition:0.2s;}
     .btn-drive:hover { background: #1e3a8a;}
     .btn-pdf { background: #cbd5e1; color: white; text-decoration: none; padding: 9px 18px; border-radius: 8px; font-weight: 800; display: flex; align-items: center; gap: 6px; font-size:14.5px; transition:0.2s;}
-    .btn-pdf.active-pdf { background: #64748b; }
-    .btn-pdf.active-pdf:hover { background: #475569; }
+    .btn-pdf.active-pdf { background: #dc2626; color: white; box-shadow: 0 3px 10px rgba(220,38,38,0.24); }
+    .btn-pdf.active-pdf:hover { background: #b91c1c; }
     .btn-save-card { background: #16a34a; color: white; border: none; padding: 9px 26px; border-radius: 8px; font-weight: 900; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition:0.2s;}
     .btn-save-card:hover { background: #15803d;}
     .disabled { background: #e2e8f0 !important; color: #94a3b8 !important; pointer-events: none; }
@@ -159,11 +199,23 @@
 
     /* Modals */
     .modal-overlay { position: fixed; inset: 0; background: rgba(15, 43, 92, 0.93); z-index: 99999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
-    .login-card { background: #ffffff; border-radius: 20px; width: 100%; max-width: 450px; padding: 40px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3);}
-    .login-input { width: 100%; padding: 14px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 16px; margin-bottom: 14px; outline: none; text-align:right;}
-    .login-input:focus { border-color:#2563eb; }
-    .btn-login { width: 100%; background: #0b1f44; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 900; cursor: pointer; font-size: 16px; transition:0.2s;}
-    .btn-login:hover { background: #1e3a8a;}
+    #loginOverlay { padding: 24px; background: radial-gradient(circle at 18% 14%, rgba(96,165,250,0.3), transparent 34%), linear-gradient(135deg, #071329 0%, #0b1f44 58%, #1e3a8a 100%); }
+    .login-card { position: relative; overflow: hidden; background: #ffffff; border: 1px solid rgba(255,255,255,0.75); border-radius: 24px; width: 100%; max-width: 440px; padding: 34px 38px 38px; text-align: center; box-shadow: 0 28px 75px rgba(2,8,23,0.38);}
+    .login-card::before { content: ''; position: absolute; inset: 0 0 auto; height: 6px; background: linear-gradient(90deg, #1d4ed8, #60a5fa, #bfdbfe); }
+    .login-logo { display: block; width: 132px; height: 132px; object-fit: contain; margin: 0 auto 14px; }
+    .login-title { color: #0b1f44; font-size: 28px; line-height: 1.15; font-weight: 900; }
+    .login-subtitle { color: #475569; font-size: 15px; font-weight: 800; margin: 7px 0 7px; }
+    .login-caption { color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
+    .login-input { width: 100%; padding: 14px 15px; border: 1.5px solid #cbd5e1; border-radius: 11px; font-size: 16px; margin-bottom: 13px; outline: none; text-align:right; background: #f8fafc; transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;}
+    .login-input:focus { border-color:#2563eb; background: #ffffff; box-shadow: 0 0 0 4px rgba(37,99,235,0.12); }
+    .btn-login { width: 100%; background: linear-gradient(135deg, #0b1f44, #1e40af); color: white; border: none; padding: 14px; border-radius: 11px; font-weight: 900; cursor: pointer; font-size: 16px; box-shadow: 0 7px 16px rgba(30,64,175,0.2); transition: transform 0.2s, box-shadow 0.2s, background 0.2s;}
+    .btn-login:hover { background: linear-gradient(135deg, #12316a, #2563eb); transform: translateY(-1px); box-shadow: 0 10px 20px rgba(30,64,175,0.28);}
+    .login-code-message { color: #475569; font-size: 14px; font-weight: 700; line-height: 1.6; margin-bottom: 14px; }
+    .login-code-input { direction: ltr; text-align: center; font-size: 24px; font-weight: 900; letter-spacing: 8px; }
+    .login-code-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 9px; }
+    .login-secondary { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 10px 12px; border-radius: 10px; font-weight: 800; cursor: pointer; }
+    .login-secondary:hover { background: #dbeafe; }
+    .login-local-notice { margin-top: 15px; color: #92400e; background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 9px 11px; font-size: 12px; font-weight: 700; line-height: 1.5; }
 
     .admin-card { background: white; border-radius: 16px; width: 900px; max-width: 95%; max-height: 85vh; display: flex; flex-direction: column; overflow:hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2);}
     .admin-card-header { background: #0b1f44; color: white; padding: 18px 24px; display: flex; justify-content: space-between; align-items:center;}
@@ -195,6 +247,71 @@
     .pb-tab { background:transparent; border:none; font-size:15.5px; font-weight:900; color:#64748b; cursor:pointer; padding:8px 16px; border-radius:8px; transition:0.2s;}
     .pb-tab:hover { background:#f1f5f9;}
     .pb-tab.active { background:#0f766e; color:white; }
+
+    .table-action-btn { padding: 5px 9px; border: 0; border-radius: 6px; cursor: pointer; font-weight: 800; }
+    .table-action-btn.restore { background: #10b981; color: white; }
+    .table-action-btn.danger { background: #e11d48; color: white; }
+    :focus-visible { outline: 3px solid #60a5fa; outline-offset: 2px; }
+    .audit-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+    .audit-metric { padding: 14px; border: 1px solid #e2e8f0; border-radius: 10px; background: #f8fafc; }
+    .audit-metric strong { display: block; color: #0b1f44; font-size: 24px; }
+    .audit-section { margin-top: 20px; }
+    .audit-section summary { cursor: pointer; font-weight: 900; color: #0b1f44; }
+    .audit-table-wrap { overflow-x: auto; margin-top: 10px; }
+
+    @media (max-width: 900px) {
+      body { height: auto; min-height: 100vh; overflow: auto; }
+      header { position: sticky; top: 0; }
+      .header-inner { flex-wrap: wrap; justify-content: center; }
+      .brand-wrap { margin-inline-end: auto; }
+      .nav-tabs { order: 3; width: 100%; justify-content: center; }
+      .header-user-bar { flex-wrap: wrap; justify-content: flex-end; }
+      .main-workspace { grid-template-columns: 1fr; gap: 16px; padding: 14px; overflow: visible; }
+      .dashboard-container { overflow: visible; padding: 0; }
+      .dash-banner { padding: 26px; }
+      .dash-stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .dash-bottom-row { grid-template-columns: 1fr; }
+      .list-card { min-height: 55vh; height: auto; }
+      .client-scroll-area { max-height: 50vh; }
+      .detail-container { min-height: 40vh; height: auto; padding: 0; }
+      .detail-top-bar { flex-wrap: wrap; gap: 12px; }
+      .detail-actions { flex-wrap: wrap; }
+      .f-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 10px 12px; }
+      .header-inner { gap: 10px; }
+      .brand-wrap { margin-inline-end: 0; }
+      .header-logo-frame { width: 42px; height: 42px; flex-basis: 42px; }
+      .brand-text h1 { font-size: 16px; }
+      .brand-text span { font-size: 10px; }
+      .header-user-bar { width: 100%; justify-content: center; }
+      .cloud-status { display: none; }
+      .nav-tabs { overflow-x: auto; justify-content: flex-start; }
+      .nav-tab-btn { flex: 0 0 auto; padding: 8px 12px; }
+      .main-workspace { padding: 10px; }
+      .dash-banner { padding: 20px; gap: 14px; }
+      .dash-banner-logo { width: 56px; height: 56px; font-size: 28px; }
+      .dash-banner-text h2 { font-size: 22px; }
+      .dash-banner-text p { font-size: 14px; }
+      .dash-stats-row, .actions-grid, .f-grid-2, .f-grid-3, .f-grid-4, .cp-grid { grid-template-columns: 1fr; }
+      .stat-card { padding: 18px; }
+      .rich-box-body, .admin-card-body { padding: 16px; }
+      .rich-box-header { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+      .detail-title-group { flex-wrap: wrap; }
+      .detail-client-name { font-size: 21px; }
+      .detail-actions > * { flex: 1 1 100%; justify-content: center; }
+      .action-btn-wrap { flex-wrap: wrap; }
+      .action-btn-wrap .action-btn { flex: 1 0 100%; }
+      #loginOverlay { padding: 12px; }
+      .login-card { width: 100%; max-width: 420px; padding: 28px 22px 24px; }
+      .login-logo { width: 112px; height: 112px; }
+      .login-title { font-size: 25px; }
+      .project-choice-box { grid-template-columns: 1fr; }
+      .user-table { min-width: 620px; }
+      .admin-card-body { overflow-x: auto; }
+    }
   </style>
 </head>
 <body>
@@ -202,12 +319,27 @@
   <!-- Login Modal -->
   <div id="loginOverlay" class="modal-overlay">
     <div class="login-card">
-      <h2 style="font-weight:900; color:#0b1f44; margin-bottom: 5px; font-size:28px;">טל החיים</h2>
-      <p style="font-weight:700; color:#64748b; margin-bottom: 24px; font-size:16px;">מערכת ניהול תיקים CRM</p>
-      <input type="email" id="loginUser" class="login-input ltr-input" placeholder="דוא''ל ארגוני" autocomplete="username">
-      <input type="password" id="loginPass" class="login-input ltr-input" placeholder="סיסמה" autocomplete="current-password" onkeypress="if(event.key === 'Enter') directLogin()">
-      <div id="loginError" style="color:#ef4444; font-weight:800; display:none; margin-bottom:12px;">פרטים שגויים.</div>
-      <button id="btnLoginBtn" class="btn-login" onclick="directLogin()">כניסה למערכת 🔒</button>
+      <img class="login-logo" src="./brand-logo.png" alt="לוגו טל החיים">
+      <h2 class="login-title">טל החיים</h2>
+      <p class="login-subtitle">שירותי פריון מתקדמים</p>
+      <p class="login-caption">מערכת ניהול תיקים לצוות</p>
+      <div id="loginPasswordStep">
+        <input type="text" id="loginUser" class="login-input ltr-input" placeholder="שם משתמש או דוא״ל ארגוני" aria-label="שם משתמש או דוא״ל ארגוני" autocomplete="username">
+        <input type="password" id="loginPass" class="login-input ltr-input" placeholder="סיסמה" aria-label="סיסמה" autocomplete="current-password" onkeydown="if(event.key === 'Enter') directLogin()">
+        <div id="loginError" role="alert" style="color:#ef4444; font-weight:800; display:none; margin-bottom:12px;"></div>
+        <button id="btnLoginBtn" class="btn-login" onclick="directLogin()">כניסה למערכת 🔒</button>
+      </div>
+      <div id="loginCodeStep" style="display:none;">
+        <p id="loginCodeMessage" class="login-code-message"></p>
+        <input type="text" id="loginCode" class="login-input login-code-input" placeholder="••••••" aria-label="קוד אימות בן שש ספרות" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" onkeydown="if(event.key === 'Enter') verifyLoginCode()">
+        <div id="loginCodeError" role="alert" style="color:#ef4444; font-weight:800; display:none; margin-bottom:12px;"></div>
+        <button id="btnVerifyCode" class="btn-login" onclick="verifyLoginCode()">אימות וכניסה</button>
+        <div class="login-code-actions">
+          <button id="btnResendCode" class="login-secondary" onclick="resendLoginCode()">שליחת קוד מחדש</button>
+          <button class="login-secondary" onclick="cancelLoginCode()">חזרה</button>
+        </div>
+      </div>
+      <p id="loginLocalNotice" class="login-local-notice" style="display:none;"></p>
     </div>
   </div>
 
@@ -215,7 +347,11 @@
   <header>
     <div class="header-inner">
       <div class="brand-wrap" onclick="showDashboard()">
-        <div class="brand-text"><h1>טל החיים | שרותי פריון</h1></div>
+        <div class="header-logo-frame"><img src="./brand-logo.png" alt=""></div>
+        <div class="brand-text">
+          <h1>טל החיים</h1>
+          <span>פונדקאות ותרומת ביצית</span>
+        </div>
       </div>
       <div class="nav-tabs" id="mainNavTabs">
         <button class="nav-tab-btn active" id="tabHome" onclick="showDashboard()">🏠 דף הבית</button>
@@ -244,15 +380,26 @@
         <span>🎉 מזל טוב! היום יום הולדת ל: </span><span id="birthdayNames"></span> 🎈
       </div>
 
-      <div class="dash-banner">
-        <div class="dash-banner-logo">🩺</div>
-        <div class="dash-banner-text">
-          <h2 id="welcomeText">טל החיים | שרותי פריון מתקדמים בע"מ</h2>
-          <p>מעל 15 שנות ניסיון בליווי וניהול תהליכי פונדקאות ותרומת ביצית. מעטפת רפואה ישראלית מלאה, דיוק, אחריות ללא פשרות וליווי אישי מכל הלב עד להגשמת חלום ההורות.</p>
+      <div class="dash-banner" id="homeHero">
+        <div class="home-hero-main">
+          <div class="home-logo-wrap">
+            <img id="homeLogoImage" src="./brand-logo.png" alt="לוגו טל החיים" onerror="this.style.display='none'; document.getElementById('homeLogoFallback').style.display='block';">
+            <span id="homeLogoFallback" class="home-logo-fallback">🩺</span>
+          </div>
+          <div class="dash-banner-text">
+            <h2 id="welcomeText">טל החיים | שרותי פריון מתקדמים בע"מ</h2>
+            <p id="welcomeDescription">מעל 15 שנות ניסיון בליווי וניהול תהליכי פונדקאות ותרומת ביצית. מעטפת רפואה ישראלית מלאה, דיוק, אחריות ללא פשרות וליווי אישי מכל הלב עד להגשמת חלום ההורות.</p>
+          </div>
+        </div>
+        <div class="home-contact-card" id="homeContactCard">
+          <div class="home-contact-row" id="homePhoneRow">📞 <strong>מוקד ראשי:</strong> <a id="homePhoneLink" href="tel:03-3817111">03-3817111</a></div>
+          <div class="home-contact-row" id="homeEmailRow">✉️ <strong>דוא"ל משרד:</strong> <a id="homeEmailLink" href="mailto:info@talthelife.com">info@talthelife.com</a></div>
+          <div class="home-contact-row" id="homeAddressRow">📍 <strong>כתובת:</strong> <span id="homeAddressText">הכישור 51, חולון</span></div>
+          <div class="home-contact-row" id="homeWebsiteRow">🌐 <strong>אתר רשמי:</strong> <a id="homeWebsiteLink" href="https://tal-life.co.il/" target="_blank" rel="noopener noreferrer">tal-life.co.il</a></div>
         </div>
       </div>
 
-      <div class="dash-stats-row">
+      <div class="dash-stats-row" id="homeStatsSection">
         <div class="stat-card add-btn" onclick="openModal('newClientModal')">
           <div style="font-size:36px; color:#2563eb;">➕</div>
           <div>
@@ -272,8 +419,8 @@
         </div>
       </div>
 
-      <div class="dash-bottom-row">
-        <div class="quick-actions-box">
+      <div class="dash-bottom-row" id="homeBottomSection">
+        <div class="quick-actions-box" id="homeQuickActions">
           <div class="box-title">⚡ פעולות מהירות למשרד</div>
           <div class="actions-grid">
             <div class="action-item" onclick="openModal('newClientModal')">
@@ -282,7 +429,7 @@
             <div class="action-item" onclick="openModal('phonebookModal')">
               <span style="font-size:26px;">📞</span> ספר טלפונים ארגוני
             </div>
-            <a href="https://drive.google.com/" target="_blank" class="action-item" style="text-decoration:none; background:#f0fdf4; border-color:#bbf7d0; color:#166534;">
+            <a id="homeDriveAction" href="https://drive.google.com/" target="_blank" rel="noopener noreferrer" class="action-item" style="text-decoration:none; background:#f0fdf4; border-color:#bbf7d0; color:#166534;">
               <span style="font-size:26px;">🌐</span> גישה לענן Google Drive
             </a>
             <div class="action-item" id="btnAdminModalDash" style="display:none; background:#fffbeb; border-color:#fde68a; color:#b45309;" onclick="openModal('controlPanelModal')">
@@ -291,10 +438,10 @@
           </div>
         </div>
 
-        <div class="info-box">
+        <div class="info-box" id="homeInfoCard">
           <div class="info-box-icon">✨</div>
-          <h3>יוצרים חיים, מלווים משפחות</h3>
-          <p>מרכז השליטה והבקרה הארגוני לניהול תהליכי פונדקאות ותרומת ביצית בינלאומיים. כל המידע, הלינקים והסטטוסים מרוכזים במקום אחד בצורה מאובטחת ומסונכרנת.</p>
+          <h3 id="homeInfoTitle">יוצרים חיים, מלווים משפחות</h3>
+          <p id="homeInfoText">מרכז השליטה והבקרה הארגוני לניהול תהליכי פונדקאות ותרומת ביצית בינלאומיים. כל המידע, הלינקים והסטטוסים מרוכזים במקום אחד בצורה מאובטחת ומסונכרנת.</p>
         </div>
       </div>
     </div>
@@ -307,11 +454,28 @@
           <button class="btn-add-client" onclick="openModal('newClientModal')">➕ חדש</button>
         </div>
         
-        <div class="list-sub-filters" id="surFilters">
-          <button class="list-sub-btn active" onclick="setSubFilter('sur', 'all', this)">הכל</button>
-          <button class="list-sub-btn" onclick="setSubFilter('sur', 'זוגות בתהליך (הריון)', this)">בתהליך</button>
-          <button class="list-sub-btn" onclick="setSubFilter('sur', 'זוגות שילדו 2026', this)">ילדו 2026</button>
-          <button class="list-sub-btn" onclick="setSubFilter('sur', 'זוגות שילדו 2025', this)">ילדו 2025</button>
+        <div class="sur-filter-panel" id="surFilters">
+          <div class="sur-filter-label">סוג תיק</div>
+          <div class="sur-project-filters" id="surProjectFilters">
+            <button type="button" class="list-sub-btn active" id="surTypeAll" onclick="setSurProjectType('all', this)">כל תיקי הפונדקאות (<span id="surCountAll">0</span>)</button>
+            <button type="button" class="list-sub-btn" id="surTypeGeorgia" onclick="setSurProjectType('surrogacy', this)">פונדקאות בגאורגיה (<span id="surCountGeorgia">0</span>)</button>
+            <button type="button" class="list-sub-btn" id="surTypeGeorgiaEgg" onclick="setSurProjectType('surrogacyEgg', this)">פונדקאות + תרומת ביצית (<span id="surCountGeorgiaEgg">0</span>)</button>
+          </div>
+          <div class="sur-filter-label">שלב בתהליך</div>
+          <div class="list-sub-filters" id="surStageFilters">
+            <button type="button" class="list-sub-btn active" onclick="setSubFilter('sur', 'all', this)">הכל</button>
+            <button type="button" class="list-sub-btn" onclick="setSubFilter('sur', 'זוגות בתהליך (הריון)', this)">בתהליך</button>
+            <button type="button" class="list-sub-btn" onclick="setSubFilter('sur', 'זוגות שילדו 2026', this)">ילדו 2026</button>
+            <button type="button" class="list-sub-btn" onclick="setSubFilter('sur', 'זוגות שילדו 2025', this)">ילדו 2025</button>
+          </div>
+        </div>
+
+        <div class="list-sort" style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+          <label for="sortSelect" style="font-weight:800; color:#475569; white-space:nowrap;">סידור:</label>
+          <select id="sortSelect" class="f-input" onchange="renderClients()" aria-label="סידור רשימת לקוחות">
+            <option value="az" selected>לפי א׳-ב׳</option>
+            <option value="newest">נוספו לאחרונה</option>
+          </select>
         </div>
 
         <div class="list-search" style="margin-top:4px;">
@@ -332,10 +496,17 @@
           <div class="detail-title-group">
             <div class="detail-client-name" id="detName">שם הלקוח</div>
             <div class="detail-project-tag" id="detProjectTag">תרומת ביצית - קפריסין</div>
+            <div id="adminSurProjectTypeWrap" class="f-group" style="display:none; min-width:230px; margin:0;">
+              <label for="detSurProjectType" class="f-label">סיווג תיק הפונדקאות</label>
+              <select id="detSurProjectType" class="f-input" aria-label="סיווג תיק הפונדקאות">
+                <option value="פונדקאות - גאורגיה">פונדקאות</option>
+                <option value="פונדקאות + תרומת ביצית - גאורגיה">פונדקאות + תרומת ביצית</option>
+              </select>
+            </div>
           </div>
           <div class="detail-actions">
-            <a id="btnDriveFolder" href="#" target="_blank" class="btn-drive disabled">📁 גישה לתיק ב-Drive</a>
-            <a id="btnAgreement" href="#" target="_blank" class="btn-pdf disabled">📄 הסכם חתום (PDF)</a>
+            <a id="btnDriveFolder" href="#" target="_blank" rel="noopener noreferrer" class="btn-drive disabled">📁 גישה לתיק ב-Drive</a>
+            <a id="btnAgreement" href="#" target="_blank" rel="noopener noreferrer" class="btn-pdf disabled">📄 הסכם חתום (PDF)</a>
             <button class="btn-save-card" onclick="updateClientDetails()" id="btnUpdateClient">💾 שמור שינויים</button>
           </div>
         </div>
@@ -516,8 +687,8 @@
 
         <!-- 6. מחיקה -->
         <div class="delete-zone">
-          <button class="btn-delete" onclick="moveToRecycleBin()">🗑️ מחק כרטיס לקוח זה - פעולה בלתי הפיכה (מנהל בלבד)</button>
-          <div style="color:#b91c1c; font-weight:800; margin-top:12px; font-size:14px;">⚠️ אזהרה: לחיצה על כפתור זה תסיר את הלקוח לחלוטין מהמערכת (הוא יועבר לסל מחזור).</div>
+          <button class="btn-delete" onclick="moveToRecycleBin()">🗑️ העבר את התיק לסל המחזור (מנהל בלבד)</button>
+          <div style="color:#b91c1c; font-weight:800; margin-top:12px; font-size:14px;">אפשר לשחזר תיקים מסל המחזור דרך לוח הבקרה.</div>
         </div>
 
       </div>
@@ -538,6 +709,7 @@
         <div class="project-choice-box" style="margin-top:10px;" id="newClientChoices">
           <div id="cardChoiceEgg" class="project-radio-card selected" onclick="selectProject('egg')">🥚 תרומת ביצית<br><span style="font-size:12px;">קפריסין</span></div>
           <div id="cardChoiceSur" class="project-radio-card" onclick="selectProject('sur')">👶 פונדקאות<br><span style="font-size:12px;">גאורגיה</span></div>
+          <div id="cardChoiceSurEgg" class="project-radio-card" onclick="selectProject('surEgg')">👶🥚 פונדקאות + תרומת ביצית<br><span style="font-size:12px;">גאורגיה</span></div>
           <input type="hidden" id="selectedNewClientProject" value="egg">
         </div>
         <button type="button" onclick="saveNewClient()" id="btnSaveNewClient" class="btn-save-card" style="margin-top:16px; justify-content:center; width:100%; padding:14px;">💾 צור תיק לקוח חדש במערכת</button>
@@ -568,15 +740,38 @@
             <button class="btn-save-card" style="width:100%; justify-content:center; background:#15803d; font-size:16px;" onclick="exportToJSON()">📥 הורד גיבוי מערכת עכשיו (JSON)</button>
           </div>
 
-          <!-- IMPORT BUTTON WITH PROGRESS -->
-          <div class="cp-box" style="border:1px solid #0284c7; background:#f0f9ff; margin-bottom:24px;">
-            <h4 style="color:#0369a1; border-bottom:none; margin-bottom:5px;">🔄 ייבוא מאגר נתונים ישן</h4>
-            <p style="font-size:13.5px; color:#0369a1; margin-bottom:14px; font-weight:600;">טעינה חיה של 136 הלקוחות וההסכמים מהמערכת הקודמת. שים לב! לחיצה תבצע ייבוא מהיר ובטוח.</p>
-            <button id="btnImport" class="btn-save-card" style="width:100%; justify-content:center; background:#0284c7; font-size:16px;" onclick="importLegacyDataSafely()">📥 ייבא לקוחות למסד הנתונים בענן (100+ לקוחות)</button>
+          <div class="cp-box" style="border:1px solid #7c3aed; background:#faf5ff; margin-bottom:24px;">
+            <h4 style="color:#6d28d9; border-bottom:none; margin-bottom:5px;">✏️ עריכת דף הבית</h4>
+            <p style="font-size:13.5px; color:#6d28d9; margin-bottom:14px; font-weight:600;">ערוך את הכותרות ופרטי הקשר, החלף לוגו והצג או הסתר אזורים בדף הבית.</p>
+            <div class="f-grid-2">
+              <div class="f-group"><label class="f-label">כותרת ראשית</label><input id="homeEditTitle" class="f-input" maxlength="120"></div>
+              <div class="f-group"><label class="f-label">תיאור קצר</label><input id="homeEditDescription" class="f-input" maxlength="500"></div>
+              <div class="f-group"><label class="f-label">טלפון ראשי</label><input id="homeEditPhone" class="f-input" maxlength="40"></div>
+              <div class="f-group"><label class="f-label">דוא"ל משרד</label><input id="homeEditEmail" class="f-input" type="email" maxlength="120"></div>
+              <div class="f-group"><label class="f-label">כתובת</label><input id="homeEditAddress" class="f-input" maxlength="180"></div>
+              <div class="f-group"><label class="f-label">כתובת אתר (HTTPS)</label><input id="homeEditWebsite" class="f-input ltr-input" maxlength="300" placeholder="https://..."></div>
+              <div class="f-group"><label class="f-label">כתובת לוגו (HTTPS או קובץ באתר)</label><input id="homeEditLogo" class="f-input ltr-input" maxlength="300" placeholder="./brand-logo.png"></div>
+              <div class="f-group"><label class="f-label">קישור Google Drive</label><input id="homeEditDrive" class="f-input ltr-input" maxlength="300" placeholder="https://drive.google.com/"></div>
+              <div class="f-group"><label class="f-label">כותרת כרטיס מידע</label><input id="homeEditInfoTitle" class="f-input" maxlength="120"></div>
+              <div class="f-group"><label class="f-label">טקסט כרטיס מידע</label><textarea id="homeEditInfoText" class="f-input" maxlength="500" rows="3"></textarea></div>
+            </div>
+            <div class="f-grid-3" style="margin-top:12px;">
+              <label><input id="homeShowHero" type="checkbox"> הצג אזור פתיחה</label>
+              <label><input id="homeShowStats" type="checkbox"> הצג כרטיסי נתונים</label>
+              <label><input id="homeShowQuickActions" type="checkbox"> הצג פעולות מהירות</label>
+              <label><input id="homeShowInfo" type="checkbox"> הצג כרטיס מידע</label>
+              <label><input id="homeShowDrive" type="checkbox"> הצג קישור Google Drive</label>
+            </div>
+            <button id="btnSaveHomepage" type="button" class="btn-save-card" style="background:#6d28d9; margin-top:14px;" onclick="saveHomepageSettings()">💾 שמור שינויים בדף הבית</button>
+            <div id="homepageSettingsStatus" role="status" aria-live="polite" style="margin-top:10px;"></div>
           </div>
 
           <div class="cp-box" style="border:1px solid #e11d48; background:#fff1f2;">
-            <h4 style="color:#be123c; border-bottom-color:#fecdd3;">🗑️ סל מחזור (תיקים שנמחקו)</h4>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+              <h4 style="color:#be123c; border-bottom-color:#fecdd3; margin:0;">🗑️ סל מחזור (תיקים שנמחקו)</h4>
+              <button id="btnEmptyRecycleBin" type="button" class="table-action-btn danger" onclick="emptyRecycleBin()">רוקן סל מחזור לצמיתות</button>
+            </div>
+            <p id="recycleBinStatus" role="status" aria-live="polite" style="font-size:13px; margin-bottom:12px;"></p>
             <table class="user-table">
               <thead style="background:#ffe4e6;"><tr><th>שם הלקוח / תיק</th><th>פרויקט</th><th>ת. מחיקה</th><th>פעולות</th></tr></thead>
               <tbody id="recycleBinTableBody" style="background:white;"></tbody>
@@ -650,6 +845,11 @@
             </div>
             <button class="btn-save-card" style="background:#0f766e; justify-content:center; font-size:15px;" onclick="addContact()">שמור איש קשר</button>
           </div>
+          <div style="margin-top:16px; padding-top:14px; border-top:1px solid #e2e8f0;">
+            <p style="font-size:13px; margin-bottom:10px;">ייבוא אנשי קשר מגיבוי JSON של המערכת הקודמת. הקובץ ייקרא בדפדפן; רק אנשי הקשר יועתקו למערכת הזו.</p>
+            <input id="legacyPhonebookFile" type="file" accept=".json,application/json" style="display:none;" onchange="importLegacyPhonebook(this)">
+            <button type="button" class="btn-save-card" style="background:#0369a1;" onclick="document.getElementById('legacyPhonebookFile').click()">📥 ייבוא אנשי קשר מהמערכת הקודמת</button>
+          </div>
         </div>
         
         <div class="list-search" style="margin-bottom: 14px;">
@@ -672,18 +872,21 @@
       </div>
       <div class="admin-card-body">
         <div style="background:#f8fafc; padding:20px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:16px;">
-          <h4 style="font-size:15px; margin-bottom:12px; color:#0b1f44; font-weight:900;">➕ הוספת משתמש חדש למערכת</h4>
-          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; margin-bottom:16px;">
+          <h4 style="font-size:15px; margin-bottom:8px; color:#0b1f44; font-weight:900;">➕ הוספת פרופיל משתמש למערכת</h4>
+          <p style="font-size:12px; color:#64748b; font-weight:700; line-height:1.6; margin-bottom:12px;">יש ליצור קודם חשבון ב-Firebase Authentication, ואז להעתיק לכאן את ה-UID של החשבון. הטופס הזה אינו יוצר סיסמה או חשבון כניסה.</p>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap:12px; margin-bottom:16px;">
             <input type="text" id="newUserName" class="f-input" placeholder="שם מלא">
             <input type="email" id="newUserEmail" class="f-input ltr-input" placeholder="user@talthelife.com" style="text-align:right;">
+            <input type="text" id="newUserUid" class="f-input ltr-input" placeholder="Firebase UID" aria-label="Firebase UID">
             <select id="newUserRole" class="f-input">
+              <option value="" selected disabled>בחר הרשאה</option>
               <option value="Admin">מנהל מערכת (Admin)</option>
-              <option value="Staff_All">צוות (גישה לכל הפרויקטים)</option>
-              <option value="Staff_Egg">צוות (תרומת ביצית בלבד)</option>
-              <option value="Staff_Sur">צוות (פונדקאות בלבד)</option>
+              <option value="Staff_All">צוות (כל התיקים הפעילים)</option>
+              <option value="Staff_Egg">צוות (תרומת ביצית, תיקים משויכים)</option>
+              <option value="Staff_Sur">צוות (פונדקאות, תיקים משויכים)</option>
             </select>
           </div>
-          <button class="btn-save-card" onclick="addNewUser()" id="btnAddUser">➕ שמור עובד ופתח הרשאה</button>
+          <button class="btn-save-card" onclick="addNewUser()" id="btnAddUser">➕ שמירת פרופיל משתמש</button>
         </div>
         <div>
           <table class="user-table">
@@ -695,6 +898,7 @@
     </div>
   </div>
 
+  <script src="./auth-config.js"></script>
   <script>
     // --- FIREBASE INIT ---
     const firebaseConfig = {
@@ -708,73 +912,636 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
+    const AUTH_API_BASE_URL = String(window.CRM_AUTH_CONFIG && window.CRM_AUTH_CONFIG.apiBaseUrl || '').trim().replace(/\/+$/, '');
+    const IS_LOCAL_AUTH_PREVIEW = !AUTH_API_BASE_URL && (
+      window.location.protocol === 'file:' ||
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1'
+    );
+    let passwordAuthInProgress = false;
+    let completingMfaLogin = false;
+    let pendingMfaChallengeId = '';
+    let pendingMfaIdToken = '';
+    let authStateRevision = 0;
+    if (IS_LOCAL_AUTH_PREVIEW) {
+      const localNotice = document.getElementById('loginLocalNotice');
+      localNotice.textContent = 'מצב תצוגה מקומי: קוד אימות במייל יופעל לאחר חיבור שירות האימות באתר.';
+      localNotice.style.display = 'block';
+    }
     
     let currentUser = null, currentUserRole = null;
     let allProjects = [], sysLists = [], contacts = [];
     let currentActiveFilter = 'all';
     let currentSubFilter = 'all';
+    let currentSurProjectType = 'all';
     let currentPbTab = 'staff';
     let transfersCount = 4;
+    let dataUnsubscribers = [];
+    const DEFAULT_HOMEPAGE_SETTINGS = {
+      title: 'טל החיים | שרותי פריון מתקדמים בע"מ',
+      description: 'מעל 15 שנות ניסיון בליווי וניהול תהליכי פונדקאות ותרומת ביצית. מעטפת רפואה ישראלית מלאה, דיוק, אחריות ללא פשרות וליווי אישי מכל הלב עד להגשמת חלום ההורות.',
+      phone: '03-3817111',
+      email: 'info@talthelife.com',
+      address: 'הכישור 51, חולון',
+      websiteUrl: 'https://tal-life.co.il/',
+      logoUrl: './brand-logo.png',
+      driveUrl: 'https://drive.google.com/',
+      infoTitle: 'יוצרים חיים, מלווים משפחות',
+      infoText: 'מרכז השליטה והבקרה הארגוני לניהול תהליכי פונדקאות ותרומת ביצית בינלאומיים. כל המידע, הלינקים והסטטוסים מרוכזים במקום אחד בצורה מאובטחת ומסונכרנת.',
+      showHero: true,
+      showStats: true,
+      showQuickActions: true,
+      showInfo: true,
+      showDrive: true
+    };
+    let homepageSettings = { ...DEFAULT_HOMEPAGE_SETTINGS };
+
+    function stopDataListeners() {
+      dataUnsubscribers.forEach(unsubscribe => unsubscribe());
+      dataUnsubscribers = [];
+    }
+
+    function createTextElement(tagName, text, className) {
+      const element = document.createElement(tagName);
+      element.textContent = text == null ? '' : String(text);
+      if (className) element.className = className;
+      return element;
+    }
+
+    function appendTextCell(row, text, className) {
+      const cell = createTextElement('td', text, className);
+      row.appendChild(cell);
+      return cell;
+    }
+
+    function createActionButton(label, className, onClick, accessibleLabel) {
+      const button = createTextElement('button', label, className);
+      button.type = 'button';
+      button.setAttribute('aria-label', accessibleLabel || label);
+      button.addEventListener('click', onClick);
+      return button;
+    }
+
+    function safeHttpsUrl(value) {
+      try {
+        const url = new URL(value);
+        return url.protocol === 'https:' ? url.href : '';
+      } catch (error) {
+        return '';
+      }
+    }
+
+    function safeHomepageLogoUrl(value) {
+      const url = String(value || '').trim();
+      if (/^https:\/\//i.test(url)) return safeHttpsUrl(url);
+      return /^(?:\.\/|\/)[A-Za-z0-9/_\-.]+\.(?:png|jpe?g|webp|svg)$/i.test(url) ? url : '';
+    }
+
+    function applyHomepageSettings(settings) {
+      homepageSettings = { ...DEFAULT_HOMEPAGE_SETTINGS, ...settings };
+      document.getElementById('welcomeText').textContent = homepageSettings.title;
+      document.getElementById('welcomeDescription').textContent = homepageSettings.description;
+      document.getElementById('homeInfoTitle').textContent = homepageSettings.infoTitle;
+      document.getElementById('homeInfoText').textContent = homepageSettings.infoText;
+      document.getElementById('homeAddressText').textContent = homepageSettings.address;
+
+      const phone = String(homepageSettings.phone || '').trim();
+      const phoneHref = phone.replace(/[^\d+]/g, '');
+      document.getElementById('homePhoneRow').hidden = !phone;
+      document.getElementById('homePhoneLink').textContent = phone;
+      document.getElementById('homePhoneLink').href = phoneHref ? `tel:${phoneHref}` : '#';
+
+      const email = safeEmailAddress(homepageSettings.email);
+      document.getElementById('homeEmailRow').hidden = !email;
+      document.getElementById('homeEmailLink').textContent = email;
+      document.getElementById('homeEmailLink').href = email ? `mailto:${email}` : '#';
+      document.getElementById('homeAddressRow').hidden = !homepageSettings.address;
+
+      const websiteUrl = safeHttpsUrl(homepageSettings.websiteUrl);
+      const websiteLink = document.getElementById('homeWebsiteLink');
+      document.getElementById('homeWebsiteRow').hidden = !websiteUrl;
+      websiteLink.href = websiteUrl || '#';
+      websiteLink.textContent = websiteUrl ? new URL(websiteUrl).hostname : '';
+
+      const logoUrl = safeHomepageLogoUrl(homepageSettings.logoUrl);
+      const logoImage = document.getElementById('homeLogoImage');
+      const logoFallback = document.getElementById('homeLogoFallback');
+      if (logoUrl) {
+        logoImage.style.display = '';
+        logoFallback.style.display = 'none';
+        logoImage.src = logoUrl;
+      } else {
+        logoImage.style.display = 'none';
+        logoFallback.style.display = 'block';
+      }
+
+      const driveUrl = safeHttpsUrl(homepageSettings.driveUrl);
+      const driveAction = document.getElementById('homeDriveAction');
+      driveAction.href = driveUrl || '#';
+      driveAction.style.display = homepageSettings.showDrive && driveUrl ? '' : 'none';
+
+      document.getElementById('homeHero').style.display = homepageSettings.showHero ? '' : 'none';
+      document.getElementById('homeStatsSection').style.display = homepageSettings.showStats ? '' : 'none';
+      document.getElementById('homeQuickActions').style.display = homepageSettings.showQuickActions ? '' : 'none';
+      document.getElementById('homeInfoCard').style.display = homepageSettings.showInfo ? '' : 'none';
+      const bottom = document.getElementById('homeBottomSection');
+      const showBottom = homepageSettings.showQuickActions || homepageSettings.showInfo;
+      bottom.style.display = showBottom ? '' : 'none';
+      bottom.style.gridTemplateColumns = homepageSettings.showQuickActions && homepageSettings.showInfo ? '' : '1fr';
+      document.getElementById('homeContactCard').style.display =
+        document.querySelectorAll('#homeContactCard .home-contact-row:not([hidden])').length ? '' : 'none';
+      renderHomepageSettingsEditor();
+    }
+
+    function renderHomepageSettingsEditor() {
+      const fieldMap = {
+        homeEditTitle: 'title',
+        homeEditDescription: 'description',
+        homeEditPhone: 'phone',
+        homeEditEmail: 'email',
+        homeEditAddress: 'address',
+        homeEditWebsite: 'websiteUrl',
+        homeEditLogo: 'logoUrl',
+        homeEditDrive: 'driveUrl',
+        homeEditInfoTitle: 'infoTitle',
+        homeEditInfoText: 'infoText'
+      };
+      Object.keys(fieldMap).forEach(id => {
+        const field = document.getElementById(id);
+        if (field) field.value = homepageSettings[fieldMap[id]] || '';
+      });
+      ['showHero', 'showStats', 'showQuickActions', 'showInfo', 'showDrive'].forEach(key => {
+        const field = document.getElementById('home' + key[0].toUpperCase() + key.slice(1));
+        if (field) field.checked = Boolean(homepageSettings[key]);
+      });
+    }
+
+    function loadHomepageSettings() {
+      return db.collection('system_settings').doc('homepage').onSnapshot(snapshot => {
+        applyHomepageSettings(snapshot.exists ? snapshot.data() : DEFAULT_HOMEPAGE_SETTINGS);
+      }, error => {
+        console.error('Unable to load homepage settings:', error);
+        const status = document.getElementById('homepageSettingsStatus');
+        if (status) status.textContent = 'לא ניתן לטעון את הגדרות דף הבית מהענן; מוצגות הגדרות ברירת המחדל.';
+      });
+    }
+
+    async function saveHomepageSettings() {
+      if (currentUserRole !== 'Admin') {
+        alert('עריכת דף הבית זמינה למנהל מערכת בלבד.');
+        return;
+      }
+      const read = id => document.getElementById(id).value.trim();
+      const websiteValue = read('homeEditWebsite');
+      const driveValue = read('homeEditDrive');
+      const logoValue = read('homeEditLogo');
+      const emailValue = read('homeEditEmail');
+      if (websiteValue && !safeHttpsUrl(websiteValue)) {
+        alert('כתובת האתר חייבת להתחיל ב־https://');
+        return;
+      }
+      if (driveValue && !safeHttpsUrl(driveValue)) {
+        alert('קישור Google Drive חייב להתחיל ב־https://');
+        return;
+      }
+      if (logoValue && !safeHomepageLogoUrl(logoValue)) {
+        alert('כתובת הלוגו חייבת להיות HTTPS או נתיב לקובץ תמונה באתר.');
+        return;
+      }
+      if (emailValue && !safeEmailAddress(emailValue)) {
+        alert('כתובת הדוא"ל אינה תקינה.');
+        return;
+      }
+
+      const settings = {
+        title: read('homeEditTitle'),
+        description: read('homeEditDescription'),
+        phone: read('homeEditPhone'),
+        email: emailValue,
+        address: read('homeEditAddress'),
+        websiteUrl: websiteValue,
+        logoUrl: logoValue,
+        driveUrl: driveValue,
+        infoTitle: read('homeEditInfoTitle'),
+        infoText: read('homeEditInfoText'),
+        showHero: document.getElementById('homeShowHero').checked,
+        showStats: document.getElementById('homeShowStats').checked,
+        showQuickActions: document.getElementById('homeShowQuickActions').checked,
+        showInfo: document.getElementById('homeShowInfo').checked,
+        showDrive: document.getElementById('homeShowDrive').checked,
+        updated_at: firebase.firestore.FieldValue.serverTimestamp(),
+        updated_by: currentUser.uid
+      };
+      const button = document.getElementById('btnSaveHomepage');
+      const status = document.getElementById('homepageSettingsStatus');
+      button.disabled = true;
+      status.textContent = 'שומר הגדרות...';
+      try {
+        await db.collection('system_settings').doc('homepage').set(settings);
+        status.textContent = 'השינויים נשמרו ויוצגו לכל המשתמשים.';
+      } catch (error) {
+        console.error('Unable to save homepage settings:', error);
+        status.textContent = 'שמירת ההגדרות נכשלה. בדוק חיבור והרשאות Firestore ונסה שוב.';
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    function safeEmailAddress(value) {
+      const email = String(value || '').trim();
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : '';
+    }
+
+    function normalizeClientName(value) {
+      return String(value || '')
+        .normalize('NFKC')
+        .toLowerCase()
+        .replace(/[\u0591-\u05C7]/g, '')
+        .replace(/[^\p{L}\p{N}]/gu, '');
+    }
+
+    function getProjectFamily(projectType) {
+      const type = getProjectKind(projectType);
+      if (type === 'surrogacy' || type === 'surrogacyEgg') return 'פונדקאות';
+      if (type === 'eggDonation') return 'תרומת ביצית';
+      return '';
+    }
+
+    function getProjectKind(projectType) {
+      const type = String(projectType || '');
+      if (type.includes('פונדקאות')) {
+        return type.includes('ביצית') ? 'surrogacyEgg' : 'surrogacy';
+      }
+      if (type.includes('ביצית')) return 'eggDonation';
+      return '';
+    }
+
+    function isSurrogacyProject(projectType) {
+      const kind = getProjectKind(projectType);
+      return kind === 'surrogacy' || kind === 'surrogacyEgg';
+    }
+
+    function isEggDonationProject(projectType) {
+      return getProjectKind(projectType) === 'eggDonation';
+    }
+
+    function setLink(link, href) {
+      if (href) {
+        link.href = href;
+        link.classList.remove('disabled');
+      } else {
+        link.href = '#';
+        link.classList.add('disabled');
+      }
+    }
+
+    function setWhatsAppLink(link, phone) {
+      let digits = String(phone || '').replace(/\D/g, '');
+      if (digits.startsWith('0')) digits = '972' + digits.substring(1);
+      setLink(link, /^\d{8,15}$/.test(digits) ? `https://wa.me/${digits}` : '');
+    }
+
+    function timestampToMillis(value) {
+      if (value && typeof value.toMillis === 'function') return value.toMillis();
+      if (value && Number.isFinite(value.seconds)) return value.seconds * 1000;
+      const parsed = value ? Date.parse(value) : NaN;
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
 
     // --- AUTH & ROLES ---
-    auth.onAuthStateChanged(async (user) => {
-      const loginOverlay = document.getElementById('loginOverlay');
-      if (user) {
-        currentUser = user;
-        try {
-          const userDoc = await db.collection('users').doc(user.uid).get();
-          if (userDoc.exists) {
-            const userData = userDoc.data();
-            if (userData.is_active === false) { auth.signOut(); alert("המשתמש נחסם."); return; }
-            
-            loginOverlay.style.display = 'none';
-            document.getElementById('userBadgeDisplay').style.display = 'flex';
-            document.getElementById('userNameDisplay').innerText = userData.full_name;
-            
-            currentUserRole = userData.role;
-            const roleTag = document.getElementById('userRoleTag');
-            
-            // Hide Tabs initially
-            document.getElementById('tabEgg').style.display = 'none';
-            document.getElementById('tabSur').style.display = 'none';
-            document.getElementById('dashCardEgg').style.display = 'none';
-            document.getElementById('dashCardSur').style.display = 'none';
+    function resetLoginChallengeUi() {
+      pendingMfaChallengeId = '';
+      pendingMfaIdToken = '';
+      document.getElementById('loginPasswordStep').style.display = 'block';
+      document.getElementById('loginCodeStep').style.display = 'none';
+      document.getElementById('loginCode').value = '';
+      document.getElementById('loginUser').disabled = false;
+      document.getElementById('loginCodeError').style.display = 'none';
+    }
 
-            if (currentUserRole === 'Admin') {
-              roleTag.innerText = 'מנהל'; roleTag.className = 'role-tag-admin';
-              document.querySelectorAll('.btn-admin-panel').forEach(b=>b.style.display='inline-block');
-              document.getElementById('btnAdminModalDash').style.display='flex';
-              document.getElementById('addContactPanel').style.display='block';
-              document.getElementById('pbActionTh').style.display='table-cell';
-              
-              document.getElementById('tabEgg').style.display = 'block'; document.getElementById('tabSur').style.display = 'block';
-              document.getElementById('dashCardEgg').style.display = 'flex'; document.getElementById('dashCardSur').style.display = 'flex';
-              loadUsersTable();
-            } else {
-              roleTag.innerText = 'צוות'; roleTag.className = 'role-tag-staff';
-              if (currentUserRole === 'Staff_All' || currentUserRole === 'Staff_Egg') { document.getElementById('tabEgg').style.display = 'block'; document.getElementById('dashCardEgg').style.display = 'flex'; }
-              if (currentUserRole === 'Staff_All' || currentUserRole === 'Staff_Sur') { document.getElementById('tabSur').style.display = 'block'; document.getElementById('dashCardSur').style.display = 'flex'; }
-            }
-            
-            if(currentUserRole === 'Staff_Egg') document.getElementById('cardChoiceSur').style.display = 'none';
-            if(currentUserRole === 'Staff_Sur') { document.getElementById('cardChoiceEgg').style.display = 'none'; selectProject('sur'); }
+    function resetSignedOutUi() {
+      document.getElementById('loginOverlay').style.display = 'flex';
+      document.getElementById('userBadgeDisplay').style.display = 'none';
+      document.getElementById('tabEgg').style.display = 'none';
+      document.getElementById('tabSur').style.display = 'none';
+      document.getElementById('dashCardEgg').style.display = 'none';
+      document.getElementById('dashCardSur').style.display = 'none';
+      document.getElementById('cardChoiceSurEgg').style.display = 'none';
+      document.querySelectorAll('.btn-admin-panel').forEach(button => button.style.display = 'none');
+      document.getElementById('btnAdminModalDash').style.display = 'none';
+      document.getElementById('addContactPanel').style.display = 'none';
+      document.getElementById('pbActionTh').style.display = 'none';
+      resetLoginChallengeUi();
+    }
 
-            loadSystemLists(); loadProjects(); loadPhonebook();
-          }
-        } catch(error) { console.error(error); }
-      } else {
-        loginOverlay.style.display = 'flex'; currentUser = null;
+    async function handleAuthStateChange(user) {
+      const revision = ++authStateRevision;
+      stopDataListeners();
+      currentUser = user || null;
+      currentUserRole = null;
+      if (!user) {
+        resetSignedOutUi();
+        return;
       }
+
+      try {
+        const tokenResult = await user.getIdTokenResult();
+        if (revision !== authStateRevision) return;
+        const localPreviewWithoutWorker = IS_LOCAL_AUTH_PREVIEW && !AUTH_API_BASE_URL;
+        if (!localPreviewWithoutWorker && tokenResult.claims.email_mfa_verified !== true) {
+          currentUser = null;
+          resetSignedOutUi();
+          document.getElementById('loginError').innerText = 'נדרשת כניסה מחדש עם קוד אימות למייל.';
+          document.getElementById('loginError').style.display = 'block';
+          passwordAuthInProgress = true;
+          try {
+            await auth.signOut();
+            await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+          } finally {
+            passwordAuthInProgress = false;
+          }
+          return;
+        }
+
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        if (revision !== authStateRevision) return;
+        const userData = userDoc.exists ? userDoc.data() : null;
+        const validRoles = ['Admin', 'Staff_All', 'Staff_Egg', 'Staff_Sur'];
+        if (!userData || userData.is_active === false || !validRoles.includes(userData.role)) {
+          currentUser = null;
+          resetSignedOutUi();
+          document.getElementById('loginError').innerText = 'המשתמש אינו מורשה או שהחשבון הושבת.';
+          document.getElementById('loginError').style.display = 'block';
+          passwordAuthInProgress = true;
+          try {
+            await auth.signOut();
+          } finally {
+            passwordAuthInProgress = false;
+          }
+          return;
+        }
+
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.getElementById('loginError').style.display = 'none';
+        document.getElementById('userBadgeDisplay').style.display = 'flex';
+        document.getElementById('userNameDisplay').innerText = userData.full_name || user.email || '';
+        currentUserRole = userData.role;
+        const roleTag = document.getElementById('userRoleTag');
+
+        document.getElementById('tabEgg').style.display = 'none';
+        document.getElementById('tabSur').style.display = 'none';
+        document.getElementById('dashCardEgg').style.display = 'none';
+        document.getElementById('dashCardSur').style.display = 'none';
+        document.getElementById('cardChoiceSurEgg').style.display = '';
+
+        if (currentUserRole === 'Admin') {
+          roleTag.innerText = 'מנהל'; roleTag.className = 'role-tag-admin';
+          document.querySelectorAll('.btn-admin-panel').forEach(button => button.style.display = 'inline-block');
+          document.getElementById('btnAdminModalDash').style.display = 'flex';
+          document.getElementById('addContactPanel').style.display = 'block';
+          document.getElementById('pbActionTh').style.display = 'table-cell';
+          document.getElementById('tabEgg').style.display = 'block';
+          document.getElementById('tabSur').style.display = 'block';
+          document.getElementById('dashCardEgg').style.display = 'flex';
+          document.getElementById('dashCardSur').style.display = 'flex';
+          renderHomepageSettingsEditor();
+          dataUnsubscribers.push(loadUsersTable());
+        } else {
+          roleTag.innerText = 'צוות'; roleTag.className = 'role-tag-staff';
+          if (currentUserRole === 'Staff_All' || currentUserRole === 'Staff_Egg') {
+            document.getElementById('tabEgg').style.display = 'block';
+            document.getElementById('dashCardEgg').style.display = 'flex';
+          }
+          if (currentUserRole === 'Staff_All' || currentUserRole === 'Staff_Sur') {
+            document.getElementById('tabSur').style.display = 'block';
+            document.getElementById('dashCardSur').style.display = 'flex';
+          }
+        }
+
+        document.getElementById('cardChoiceEgg').style.display = '';
+        document.getElementById('cardChoiceSur').style.display = '';
+        if (currentUserRole === 'Staff_Egg') document.getElementById('cardChoiceSur').style.display = 'none';
+        if (currentUserRole === 'Staff_Egg') document.getElementById('cardChoiceSurEgg').style.display = 'none';
+        if (currentUserRole === 'Staff_Sur') {
+          document.getElementById('cardChoiceEgg').style.display = 'none';
+          selectProject('sur');
+        }
+
+        dataUnsubscribers.push(loadSystemLists(), loadProjects(), loadPhonebook(), loadHomepageSettings());
+      } catch (error) {
+        console.error('Unable to verify the signed-in user.', error);
+        currentUser = null;
+        resetSignedOutUi();
+        document.getElementById('loginError').innerText = 'לא ניתן לאמת את הרשאות המשתמש. נסו שוב או פנו למנהל המערכת.';
+        document.getElementById('loginError').style.display = 'block';
+        passwordAuthInProgress = true;
+        try {
+          await auth.signOut();
+        } finally {
+          passwordAuthInProgress = false;
+        }
+      }
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (passwordAuthInProgress || completingMfaLogin) return;
+      handleAuthStateChange(user).catch(error => {
+        console.error('Authentication state processing failed.', error);
+        currentUser = null;
+        currentUserRole = null;
+        resetSignedOutUi();
+        document.getElementById('loginError').innerText = 'לא ניתן להשלים את הכניסה. נסו שוב או פנו למנהל המערכת.';
+        document.getElementById('loginError').style.display = 'block';
+      });
     });
 
-    function directLogin() {
-      const email = document.getElementById('loginUser').value, pass = document.getElementById('loginPass').value;
-      if(!email || !pass) return;
-      document.getElementById('btnLoginBtn').innerText = "מתחבר...";
-      auth.signInWithEmailAndPassword(email, pass).then(()=>{ document.getElementById('loginPass').value = ''; document.getElementById('btnLoginBtn').innerText = "כניסה למערכת 🔒"; })
-        .catch(e => { document.getElementById('loginError').style.display = 'block'; document.getElementById('btnLoginBtn').innerText = "כניסה למערכת 🔒"; });
+    async function authWorkerRequest(path, payload) {
+      const response = await fetch(`${AUTH_API_BASE_URL}${path}`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        cache: 'no-store',
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        const error = new Error(result.error || 'שירות האימות דחה את הבקשה.');
+        error.authWorkerError = true;
+        throw error;
+      }
+      return result;
     }
-    function logout() { auth.signOut(); }
+
+    async function clearPendingMfaSession() {
+      passwordAuthInProgress = true;
+      try {
+        await auth.signOut();
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+      } finally {
+        pendingMfaChallengeId = '';
+        pendingMfaIdToken = '';
+        passwordAuthInProgress = false;
+      }
+    }
+
+    async function directLogin() {
+      const loginIdentifier = document.getElementById('loginUser').value.trim();
+      const email = loginIdentifier.includes('@') ? loginIdentifier : `${loginIdentifier}@talthelife.com`;
+      const pass = document.getElementById('loginPass').value;
+      const button = document.getElementById('btnLoginBtn');
+      const errorMessage = document.getElementById('loginError');
+      if (!loginIdentifier || !pass || button.disabled) return;
+      errorMessage.style.display = 'none';
+      button.disabled = true;
+      button.innerText = 'מתחבר...';
+      try {
+        if (!AUTH_API_BASE_URL && !IS_LOCAL_AUTH_PREVIEW) {
+          throw new Error('שירות האימות עדיין לא הוגדר. לא ניתן להתחבר ללא קוד אימות.');
+        }
+
+        passwordAuthInProgress = true;
+        if (IS_LOCAL_AUTH_PREVIEW && !AUTH_API_BASE_URL) {
+          await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+          const localCredential = await auth.signInWithEmailAndPassword(email, pass);
+          document.getElementById('loginPass').value = '';
+          passwordAuthInProgress = false;
+          await handleAuthStateChange(localCredential.user);
+          return;
+        }
+
+        await auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+        const credential = await auth.signInWithEmailAndPassword(email, pass);
+        const idToken = await credential.user.getIdToken(true);
+        const challenge = await authWorkerRequest('/auth/start', { idToken });
+        if (!challenge.challengeId || typeof challenge.emailHint !== 'string') {
+          throw new Error('שירות האימות החזיר תשובה לא תקינה.');
+        }
+
+        pendingMfaChallengeId = challenge.challengeId;
+        pendingMfaIdToken = idToken;
+        document.getElementById('loginPass').value = '';
+        document.getElementById('loginUser').disabled = true;
+        document.getElementById('loginPasswordStep').style.display = 'none';
+        document.getElementById('loginCodeStep').style.display = 'block';
+        document.getElementById('loginCodeMessage').textContent = `שלחנו קוד חד-פעמי לכתובת ${challenge.emailHint}. הקוד תקף למשך 10 דקות.`;
+        document.getElementById('loginCode').focus();
+      } catch (error) {
+        console.error('Sign-in or email verification start failed.', error);
+        document.getElementById('loginPass').value = '';
+        try {
+          await clearPendingMfaSession();
+        } catch (cleanupError) {
+          console.error('Unable to clear the unverified Firebase session.', cleanupError);
+        }
+        resetLoginChallengeUi();
+        errorMessage.innerText = error && error.authWorkerError
+          ? error.message
+          : (error && error.message && error.message.startsWith('שירות האימות')
+            ? error.message
+            : 'הכניסה נכשלה. בדקו את פרטי ההתחברות ונסו שוב.');
+        errorMessage.style.display = 'block';
+      } finally {
+        button.disabled = false;
+        button.innerText = 'כניסה למערכת 🔒';
+      }
+    }
+
+    async function resendLoginCode() {
+      const button = document.getElementById('btnResendCode');
+      const errorMessage = document.getElementById('loginCodeError');
+      if (!pendingMfaChallengeId || !pendingMfaIdToken || button.disabled) return;
+      button.disabled = true;
+      errorMessage.style.display = 'none';
+      try {
+        const challenge = await authWorkerRequest('/auth/start', { idToken: pendingMfaIdToken });
+        if (!challenge.challengeId || typeof challenge.emailHint !== 'string') {
+          throw new Error('שירות האימות החזיר תשובה לא תקינה.');
+        }
+        pendingMfaChallengeId = challenge.challengeId;
+        document.getElementById('loginCodeMessage').textContent = `שלחנו קוד חדש לכתובת ${challenge.emailHint}. הקוד תקף למשך 10 דקות.`;
+        document.getElementById('loginCode').value = '';
+        document.getElementById('loginCode').focus();
+      } catch (error) {
+        console.error('Unable to resend the email verification code.', error);
+        errorMessage.innerText = error && error.authWorkerError ? error.message : 'שליחת הקוד נכשלה. בדקו את החיבור ונסו שוב.';
+        errorMessage.style.display = 'block';
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function verifyLoginCode() {
+      const code = document.getElementById('loginCode').value.trim();
+      const button = document.getElementById('btnVerifyCode');
+      const errorMessage = document.getElementById('loginCodeError');
+      if (!pendingMfaChallengeId || !pendingMfaIdToken || button.disabled) return;
+      errorMessage.style.display = 'none';
+      if (!/^[0-9]{6}$/.test(code)) {
+        errorMessage.innerText = 'יש להזין קוד בן שש ספרות.';
+        errorMessage.style.display = 'block';
+        return;
+      }
+
+      button.disabled = true;
+      button.innerText = 'בודק קוד...';
+      try {
+        const verification = await authWorkerRequest('/auth/verify', {
+          challengeId: pendingMfaChallengeId,
+          code,
+          idToken: pendingMfaIdToken
+        });
+        if (!verification.customToken) throw new Error('שירות האימות החזיר תשובה לא תקינה.');
+
+        completingMfaLogin = true;
+        passwordAuthInProgress = true;
+        await auth.signOut();
+        await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        pendingMfaChallengeId = '';
+        pendingMfaIdToken = '';
+        resetLoginChallengeUi();
+        passwordAuthInProgress = false;
+        completingMfaLogin = false;
+        await auth.signInWithCustomToken(verification.customToken);
+      } catch (error) {
+        console.error('Email verification or custom-token sign-in failed.', error);
+        if (error && error.authWorkerError) {
+          errorMessage.innerText = error.message;
+          errorMessage.style.display = 'block';
+        } else {
+          completingMfaLogin = false;
+          try {
+            await clearPendingMfaSession();
+          } catch (cleanupError) {
+            console.error('Unable to clear the failed verification session.', cleanupError);
+          }
+          resetLoginChallengeUi();
+          document.getElementById('loginError').innerText = 'האימות נכשל. התחברו מחדש ובקשו קוד חדש.';
+          document.getElementById('loginError').style.display = 'block';
+        }
+      } finally {
+        button.disabled = false;
+        button.innerText = 'אימות וכניסה';
+      }
+    }
+
+    async function cancelLoginCode() {
+      try {
+        await clearPendingMfaSession();
+        resetLoginChallengeUi();
+        document.getElementById('loginError').style.display = 'none';
+      } catch (error) {
+        console.error('Unable to cancel the pending email verification.', error);
+        document.getElementById('loginCodeError').innerText = 'לא ניתן לסיים את ניסיון הכניסה. נסו שוב.';
+        document.getElementById('loginCodeError').style.display = 'block';
+      }
+    }
+    async function logout() {
+      try {
+        await auth.signOut();
+      } catch (error) {
+        console.error('Sign-out failed.', error);
+        alert('לא ניתן לצאת מהמערכת כרגע. נסו שוב.');
+      }
+    }
 
     // --- NAVIGATION ---
     function hideAllViews() {
@@ -797,6 +1564,9 @@
       
       currentActiveFilter = filterType;
       currentSubFilter = 'all'; 
+      currentSurProjectType = 'all';
+      const sortSelect = document.getElementById('sortSelect');
+      if (sortSelect) sortSelect.value = 'az';
       
       hideAllViews();
       document.getElementById('mainWorkspace').classList.remove('full-dashboard');
@@ -809,30 +1579,65 @@
       let title = "כל התיקים";
       document.getElementById('surFilters').style.display = 'none';
       
-      if(filterType === 'all') document.getElementById('tabAll').classList.add('active');
+      if (filterType === 'all') {
+        const allTab = document.getElementById('tabAll');
+        if (allTab) allTab.classList.add('active');
+      }
       if(filterType === 'egg') { document.getElementById('tabEgg').classList.add('active'); title = "תרומת ביצית - קפריסין"; }
       if(filterType === 'sur') { 
           document.getElementById('tabSur').classList.add('active'); 
           title = "פונדקאות - גאורגיה"; 
-          document.getElementById('surFilters').style.display = 'grid'; 
-          document.querySelectorAll('.list-sub-btn').forEach(b => b.classList.remove('active'));
-          document.querySelector('.list-sub-btn').classList.add('active'); 
+          document.getElementById('surFilters').style.display = 'flex';
+          document.querySelectorAll('#surProjectFilters .list-sub-btn').forEach(b => b.classList.remove('active'));
+          document.getElementById('surTypeAll').classList.add('active');
+          document.querySelectorAll('#surStageFilters .list-sub-btn').forEach(b => b.classList.remove('active'));
+          document.querySelector('#surStageFilters .list-sub-btn').classList.add('active');
       }
       document.getElementById('listTitleDisplay').innerText = title;
       renderClients();
     }
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function requireAdminAccess() {
+      if (currentUserRole === 'Admin') return true;
+      alert('הגישה ללוח הבקרה ולניהול המערכת מותרת למנהל בלבד.');
+      return false;
+    }
+    function openModal(id) {
+      if ((id === 'controlPanelModal' || id === 'adminModal') && !requireAdminAccess()) return;
+      const modal = document.getElementById(id);
+      if (!modal) {
+        console.error('Requested modal does not exist:', id);
+        return;
+      }
+      modal.style.display = 'flex';
+    }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     function setSubFilter(type, value, btnElem) {
         currentSubFilter = value;
-        document.querySelectorAll('.list-sub-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#surStageFilters .list-sub-btn').forEach(b => b.classList.remove('active'));
         btnElem.classList.add('active');
         renderClients();
     }
 
+    function setSurProjectType(type, btnElem) {
+      currentSurProjectType = type;
+      currentSubFilter = 'all';
+      document.querySelectorAll('#surProjectFilters .list-sub-btn').forEach(button => button.classList.remove('active'));
+      btnElem.classList.add('active');
+      document.querySelectorAll('#surStageFilters .list-sub-btn').forEach(button => button.classList.remove('active'));
+      document.querySelector('#surStageFilters .list-sub-btn').classList.add('active');
+      const titles = {
+        all: 'פונדקאות - גאורגיה',
+        surrogacy: 'פונדקאות - גאורגיה',
+        surrogacyEgg: 'פונדקאות + תרומת ביצית - גאורגיה'
+      };
+      document.getElementById('listTitleDisplay').innerText = titles[type] || titles.all;
+      renderClients();
+    }
+
     // --- CONTROL PANEL TABS ---
     function switchCpTab(tabId) {
+      if (!requireAdminAccess()) return;
       document.querySelectorAll('.cp-tab').forEach(t=>t.classList.remove('active'));
       document.getElementById('cpTab' + tabId.charAt(0).toUpperCase() + tabId.slice(1)).classList.add('active');
       document.getElementById('cpViewGen').style.display = tabId === 'gen' ? 'block' : 'none';
@@ -842,49 +1647,78 @@
 
     // --- SYSTEM LISTS & CONTROL PANEL (ADMIN) ---
     function loadSystemLists() {
-      db.collection('system_lists').orderBy('sort_order').onSnapshot((snap) => {
+      return db.collection('system_lists').orderBy('sort_order').onSnapshot((snap) => {
         sysLists = []; snap.forEach(doc => { let d=doc.data(); d.id=doc.id; sysLists.push(d); });
         updateDropdowns(); if(currentUserRole==='Admin') renderControlPanel();
       });
     }
     function updateDropdowns() {
       const pDoc=document.getElementById('detDoctor'), pTrk=document.getElementById('detTrack'), pStE=document.getElementById('detStatusEgg'), pStS=document.getElementById('detStageSur');
-      pDoc.innerHTML='<option value="">-- בחר --</option>'; pTrk.innerHTML='<option value="">-- בחר --</option>'; pStE.innerHTML='<option value="">-- בחר --</option>'; pStS.innerHTML='<option value="">-- בחר --</option>';
+      [pDoc, pTrk, pStE, pStS].forEach(select => {
+        select.replaceChildren(createTextElement('option', '-- בחר --'));
+        select.firstElementChild.value = '';
+      });
       sysLists.forEach(item => {
         if(!item.is_active) return;
-        const opt = `<option value="${item.item_name}">${item.item_name}</option>`;
-        if(item.list_type==='Doctor') pDoc.innerHTML+=opt;
-        if(item.list_type==='Cyprus_Track') pTrk.innerHTML+=opt;
-        if(item.list_type==='Cyprus_Status') pStE.innerHTML+=opt;
-        if(item.list_type==='Georgia_Stage') pStS.innerHTML+=opt;
+        const select = {
+          Doctor: pDoc,
+          Cyprus_Track: pTrk,
+          Cyprus_Status: pStE,
+          Georgia_Stage: pStS
+        }[item.list_type];
+        if (select) {
+          const option = createTextElement('option', item.item_name);
+          option.value = item.item_name || '';
+          select.appendChild(option);
+        }
       });
     }
     function renderControlPanel() {
+      if (!requireAdminAccess()) return;
       const lDoc=document.getElementById('cpDoctorsList'), lTrk=document.getElementById('cpTracksList'), lStE=document.getElementById('cpStatusEggList'), lStS=document.getElementById('cpStageSurList');
-      lDoc.innerHTML=''; lTrk.innerHTML=''; lStE.innerHTML=''; lStS.innerHTML='';
+      [lDoc, lTrk, lStE, lStS].forEach(list => list.replaceChildren());
       sysLists.forEach(item => {
         if(!item.is_active) return;
-        const div = `<div class="cp-item"><span>${item.item_name}</span><div class="cp-actions"><button onclick="editSysList('${item.id}', '${item.item_name}')">✏️</button><button onclick="moveSysList('${item.id}',-1)">⬆️</button><button onclick="moveSysList('${item.id}',1)">⬇️</button><button onclick="deleteSysList('${item.id}')">❌</button></div></div>`;
-        if(item.list_type==='Doctor') lDoc.innerHTML+=div;
-        if(item.list_type==='Cyprus_Track') lTrk.innerHTML+=div;
-        if(item.list_type==='Cyprus_Status') lStE.innerHTML+=div;
-        if(item.list_type==='Georgia_Stage') lStS.innerHTML+=div;
+        const list = {
+          Doctor: lDoc,
+          Cyprus_Track: lTrk,
+          Cyprus_Status: lStE,
+          Georgia_Stage: lStS
+        }[item.list_type];
+        if (!list) return;
+        const row = document.createElement('div');
+        row.className = 'cp-item';
+        row.appendChild(createTextElement('span', item.item_name));
+        const actions = document.createElement('div');
+        actions.className = 'cp-actions';
+        actions.appendChild(createActionButton('✏️', '', () => editSysList(item.id, item.item_name), 'עריכת פריט'));
+        actions.appendChild(createActionButton('⬆️', '', () => moveSysList(item.id, -1), 'הזזת פריט למעלה'));
+        actions.appendChild(createActionButton('⬇️', '', () => moveSysList(item.id, 1), 'הזזת פריט למטה'));
+        actions.appendChild(createActionButton('❌', '', () => deleteSysList(item.id), 'מחיקת פריט'));
+        row.appendChild(actions);
+        list.appendChild(row);
       });
     }
     async function addSysList(type, inputId) {
+      if (!requireAdminAccess()) return;
       const val = document.getElementById(inputId).value; if(!val) return;
       const count = sysLists.filter(x=>x.list_type===type).length;
       await db.collection('system_lists').add({ list_type: type, item_name: val, sort_order: count, is_active: true });
       document.getElementById(inputId).value='';
     }
     async function editSysList(id, oldName) {
+      if (!requireAdminAccess()) return;
       const newName = prompt("ערוך את השם:", oldName);
       if(newName && newName.trim() !== "") {
         await db.collection('system_lists').doc(id).update({item_name: newName.trim()});
       }
     }
-    async function deleteSysList(id) { if(confirm('למחוק פריט זה מהרשימה?')) await db.collection('system_lists').doc(id).update({is_active: false}); }
+    async function deleteSysList(id) {
+      if (!requireAdminAccess()) return;
+      if(confirm('למחוק פריט זה מהרשימה?')) await db.collection('system_lists').doc(id).update({is_active: false});
+    }
     async function moveSysList(id, direction) {
+      if (!requireAdminAccess()) return;
       const item = sysLists.find(x=>x.id===id); if(!item) return;
       const siblings = sysLists.filter(x=>x.list_type===item.list_type && x.is_active).sort((a,b)=>a.sort_order - b.sort_order);
       const idx = siblings.findIndex(x=>x.id===id);
@@ -896,8 +1730,9 @@
     }
 
     async function exportToJSON() {
+      if (!requireAdminAccess()) return;
       try {
-        const collections = ['projects', 'users', 'system_lists', 'phonebook'];
+        const collections = ['projects', 'users', 'system_lists', 'phonebook', 'system_settings'];
         let backupData = {};
         for(let c of collections) {
            const snap = await db.collection(c).get();
@@ -922,31 +1757,155 @@
     }
 
     function loadPhonebook() {
-      db.collection('phonebook').orderBy('contact_name').onSnapshot((snap) => {
+      return db.collection('phonebook').orderBy('contact_name').onSnapshot((snap) => {
         contacts = []; snap.forEach(doc => { let d=doc.data(); d.id=doc.id; contacts.push(d); }); 
         renderPhonebook(); checkBirthdays();
       });
     }
     function renderPhonebook() {
       const q = document.getElementById('pbSearch').value.toLowerCase();
-      const tbody = document.getElementById('pbTableBody'); tbody.innerHTML='';
+      const tbody = document.getElementById('pbTableBody'); tbody.replaceChildren();
       
       let filtered = contacts.filter(c => (c.contact_type || 'staff') === currentPbTab);
-      filtered = filtered.filter(c => c.contact_name.toLowerCase().includes(q) || (c.notes_role||'').toLowerCase().includes(q));
-      filtered.sort((a,b) => a.contact_name.localeCompare(b.contact_name, 'he'));
+      filtered = filtered.filter(c =>
+        [c.contact_name, c.notes_role, c.phone_1, c.phone_2, c.email_1, c.email_2]
+          .some(value => String(value || '').toLowerCase().includes(q))
+      );
+      filtered.sort((a,b) => String(a.contact_name || '').localeCompare(String(b.contact_name || ''), 'he'));
 
       filtered.forEach(c => {
-        tbody.innerHTML += `<tr><td style="font-weight:bold;">${c.contact_name}</td><td class="ltr-input" style="text-align:right;">${c.phone_1||''}</td><td class="ltr-input" style="text-align:right;">${c.email_1||''}</td><td>${c.notes_role||''}</td>
-        ${currentPbTab === 'staff' ? `<td class="ltr-input" style="text-align:center;">${c.birthdate||''}</td>` : ''}
-        ${currentUserRole==='Admin' ? `<td><button class="btn-delete" style="padding:4px 10px; font-size:12px;" onclick="deleteContact('${c.id}')">מחק</button></td>` : ''}</tr>`;
+        const row = document.createElement('tr');
+        appendTextCell(row, c.contact_name, 'contact-name');
+        appendTextCell(row, [c.phone_1, c.phone_2].filter(Boolean).join(' | '), 'ltr-input');
+        appendTextCell(row, [c.email_1, c.email_2].filter(Boolean).join(' | '), 'ltr-input');
+        appendTextCell(row, c.notes_role);
+        if (currentPbTab === 'staff') appendTextCell(row, c.birthdate, 'ltr-input');
+        if (currentUserRole === 'Admin') {
+          const actionCell = document.createElement('td');
+          actionCell.appendChild(createActionButton('מחק', 'table-action-btn danger', () => deleteContact(c.id)));
+          row.appendChild(actionCell);
+        }
+        tbody.appendChild(row);
       });
     }
     async function addContact() {
+      if (!requireAdminAccess()) return;
       const n=document.getElementById('pbName').value, p=document.getElementById('pbPhone').value, e=document.getElementById('pbEmail').value, r=document.getElementById('pbRole').value, t=document.getElementById('pbType').value, b=document.getElementById('pbBirthdate').value;
       if(!n) return; await db.collection('phonebook').add({ contact_name:n, phone_1:p, email_1:e, notes_role:r, contact_type:t, birthdate: t==='staff'?b:'' });
       document.getElementById('pbName').value=''; document.getElementById('pbPhone').value=''; document.getElementById('pbEmail').value=''; document.getElementById('pbRole').value=''; document.getElementById('pbBirthdate').value='';
     }
-    async function deleteContact(id) { if(confirm('למחוק איש קשר זה?')) await db.collection('phonebook').doc(id).delete(); }
+    function normalizePhonebookValue(value) {
+      return String(value || '').normalize('NFKC').trim().toLocaleLowerCase();
+    }
+    function phonebookEntryKey(contact) {
+      const normalizePhone = value => String(value || '').replace(/[^\d+]/g, '');
+      return JSON.stringify([
+        normalizePhonebookValue(contact.contact_name),
+        normalizePhone(contact.phone_1),
+        normalizePhone(contact.phone_2),
+        normalizePhonebookValue(contact.email_1),
+        normalizePhonebookValue(contact.email_2),
+        normalizePhonebookValue(contact.birthdate),
+        normalizePhonebookValue(contact.notes_role),
+        normalizePhonebookValue(contact.contact_type)
+      ]);
+    }
+    function mapLegacyPhonebookEntry(entry) {
+      if (!entry || typeof entry !== 'object' || Array.isArray(entry)) return null;
+      const contactName = String(entry.name || entry.contact_name || '').trim();
+      if (!contactName) return null;
+      const oldType = String(entry.bookType || entry.contact_type || '').toLowerCase();
+      return {
+        contact_name: contactName,
+        phone_1: String(entry.phone || entry.phone_1 || '').trim(),
+        phone_2: String(entry.phone2 || entry.phone_2 || '').trim(),
+        email_1: String(entry.email || entry.email_1 || '').trim(),
+        email_2: String(entry.email2 || entry.email_2 || '').trim(),
+        notes_role: String(entry.notes || entry.notes_role || '').trim(),
+        contact_type: oldType === 'team' || oldType === 'staff' ? 'staff' : 'provider',
+        birthdate: String(entry.birthdate || '').trim()
+      };
+    }
+    async function importLegacyPhonebook(input) {
+      if (currentUserRole !== 'Admin') {
+        alert('ייבוא אנשי קשר זמין למנהל מערכת בלבד.');
+        input.value = '';
+        return;
+      }
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onerror = () => {
+        alert('לא ניתן לקרוא את הקובץ שנבחר.');
+        input.value = '';
+      };
+      reader.onload = async () => {
+        let importedCount = 0;
+        try {
+          const backup = JSON.parse(String(reader.result || ''));
+          if (!backup || !Array.isArray(backup.phonebook)) {
+            throw new Error('בקובץ לא נמצאה רשימת phonebook מתאימה. יש לבחור גיבוי JSON מהמערכת הקודמת.');
+          }
+
+          const mapped = backup.phonebook.map(mapLegacyPhonebookEntry).filter(Boolean);
+          const existingSnapshot = await db.collection('phonebook').get();
+          const existingKeys = new Set();
+          existingSnapshot.forEach(doc => existingKeys.add(phonebookEntryKey(doc.data())));
+
+          const uniqueEntries = [];
+          let duplicateCount = 0;
+          mapped.forEach(contact => {
+            const key = phonebookEntryKey(contact);
+            if (existingKeys.has(key)) {
+              duplicateCount++;
+              return;
+            }
+            existingKeys.add(key);
+            uniqueEntries.push(contact);
+          });
+
+          const invalidCount = backup.phonebook.length - mapped.length;
+          if (uniqueEntries.length === 0) {
+            alert(`לא נמצאו אנשי קשר חדשים לייבוא. כפילויות שדולגו: ${duplicateCount}; רשומות ללא שם שדולגו: ${invalidCount}.`);
+            return;
+          }
+
+          const confirmed = confirm(
+            `נמצאו ${mapped.length} אנשי קשר תקינים.\n` +
+            `חדשים לייבוא: ${uniqueEntries.length}\n` +
+            `כפילויות זהות שידולגו: ${duplicateCount}\n` +
+            `רשומות ללא שם שידולגו: ${invalidCount}\n\n` +
+            `רק אנשי הקשר יועתקו; לקוחות ומשתמשים שבקובץ לא ייובאו. להמשיך?`
+          );
+          if (!confirmed) return;
+
+          for (let offset = 0; offset < uniqueEntries.length; offset += 400) {
+            const batch = db.batch();
+            uniqueEntries.slice(offset, offset + 400).forEach(contact => {
+              batch.set(db.collection('phonebook').doc(), contact);
+            });
+            await batch.commit();
+            importedCount += Math.min(400, uniqueEntries.length - offset);
+          }
+          alert(`הייבוא הסתיים. נוספו ${importedCount} אנשי קשר; ${duplicateCount} כפילויות ו-${invalidCount} רשומות ללא שם דולגו.`);
+        } catch (error) {
+          console.error('Legacy phonebook import failed:', error);
+          alert(importedCount > 0
+            ? `הייבוא נעצר לאחר הוספת ${importedCount} אנשי קשר. בדוק את החיבור והרשאות המערכת לפני ניסיון נוסף.`
+            : (error instanceof SyntaxError
+              ? 'הקובץ אינו JSON תקין.'
+              : (error.message || 'ייבוא אנשי הקשר נכשל.')));
+        } finally {
+          input.value = '';
+        }
+      };
+      reader.readAsText(file, 'UTF-8');
+    }
+    async function deleteContact(id) {
+      if (!requireAdminAccess()) return;
+      if(confirm('למחוק איש קשר זה?')) await db.collection('phonebook').doc(id).delete();
+    }
 
     function checkBirthdays() {
       const today = new Date();
@@ -960,73 +1919,226 @@
 
     // --- CLIENTS & PROJECTS ---
     function selectProject(type) {
-      document.getElementById('cardChoiceEgg').classList.remove('selected'); document.getElementById('cardChoiceSur').classList.remove('selected');
-      if(type === 'egg') document.getElementById('cardChoiceEgg').classList.add('selected');
-      if(type === 'sur') document.getElementById('cardChoiceSur').classList.add('selected');
+      const choiceIds = {
+        egg: 'cardChoiceEgg',
+        sur: 'cardChoiceSur',
+        surEgg: 'cardChoiceSurEgg'
+      };
+      Object.values(choiceIds).forEach(id => document.getElementById(id).classList.remove('selected'));
+      const selectedChoice = document.getElementById(choiceIds[type]);
+      if (!selectedChoice) {
+        console.error('Unknown project type selected:', type);
+        return;
+      }
+      selectedChoice.classList.add('selected');
       document.getElementById('selectedNewClientProject').value = type;
     }
     async function saveNewClient() {
       const name = document.getElementById('newClientName').value, pType = document.getElementById('selectedNewClientProject').value;
-      if(!name) return; const fullType = pType === 'egg' ? 'תרומת ביצית - קפריסין' : 'פונדקאות - גאורגיה';
+      if (!currentUser || !['Admin', 'Staff_All', 'Staff_Egg', 'Staff_Sur'].includes(currentUserRole)) {
+        alert('יש להתחבר למערכת עם משתמש מורשה כדי לפתוח תיק חדש.');
+        return;
+      }
+      if (!name.trim()) return;
+      if (currentUserRole === 'Staff_Egg' && pType !== 'egg') {
+        alert('לצוות תרומת ביצית אין הרשאה לפתוח תיקי פונדקאות.');
+        return;
+      }
+      if (currentUserRole === 'Staff_Sur' && pType === 'egg') {
+        alert('לצוות פונדקאות אין הרשאה לפתוח תיקי תרומת ביצית בקפריסין.');
+        return;
+      }
+      const projectTypes = {
+        egg: 'תרומת ביצית - קפריסין',
+        sur: 'פונדקאות - גאורגיה',
+        surEgg: 'פונדקאות + תרומת ביצית - גאורגיה'
+      };
+      const fullType = projectTypes[pType];
+      if (!fullType) {
+        alert('יש לבחור סוג פרויקט תקין.');
+        return;
+      }
       await db.collection('projects').add({ client_name: name, project_type: fullType, assigned_to: currentUser.uid, is_deleted: false, created_at: firebase.firestore.FieldValue.serverTimestamp() });
       closeModal('newClientModal'); document.getElementById('newClientName').value = '';
     }
 
     function loadProjects() {
-      db.collection('projects').onSnapshot((snapshot) => {
-          allProjects = []; let countEgg = 0, countSur = 0, countAll = 0;
-          let recycleHTML = '';
+      let projectsQuery = db.collection('projects');
+      if (currentUserRole !== 'Admin') {
+        projectsQuery = projectsQuery.where('is_deleted', '==', false);
+        if (currentUserRole !== 'Staff_All') {
+          projectsQuery = projectsQuery.where('assigned_to', '==', currentUser.uid);
+          if (currentUserRole === 'Staff_Egg') {
+            projectsQuery = projectsQuery.where('project_type', '==', 'תרומת ביצית - קפריסין');
+          } else if (currentUserRole === 'Staff_Sur') {
+            projectsQuery = projectsQuery.where('project_type', 'in', [
+              'פונדקאות - גאורגיה',
+              'פונדקאות + תרומת ביצית - גאורגיה'
+            ]);
+          }
+        }
+      }
+
+      return projectsQuery.onSnapshot((snapshot) => {
+          allProjects = [];
+          let countEgg = 0, countSur = 0, countSurGeorgia = 0, countSurGeorgiaEgg = 0, recycledCount = 0;
+          const recycleTable = document.getElementById('recycleBinTableBody');
+          if (currentUserRole === 'Admin') recycleTable.replaceChildren();
           
           snapshot.forEach((doc) => {
             const data = doc.data(); data.id = doc.id; 
             const pType = data.project_type || '';
+            const projectKind = getProjectKind(pType);
             
-            if(!pType.includes('ביצית') && !pType.includes('פונדקאות')) return; // Ignore corrupted records
+            if (!projectKind) return;
             
             if(data.is_deleted !== true) {
-              if (currentUserRole === 'Staff_Egg' && pType.includes('פונדקאות')) return;
-              if (currentUserRole === 'Staff_Sur' && pType.includes('ביצית')) return;
-              allProjects.push(data); countAll++;
-              if(pType.includes('ביצית')) countEgg++; if(pType.includes('פונדקאות')) countSur++;
+              if (currentUserRole === 'Staff_Egg' && projectKind !== 'eggDonation') return;
+              if (currentUserRole === 'Staff_Sur' && !isSurrogacyProject(pType)) return;
+              allProjects.push(data);
+              if (projectKind === 'eggDonation') countEgg++;
+              if (isSurrogacyProject(pType)) countSur++;
+              if (projectKind === 'surrogacy') countSurGeorgia++;
+              if (projectKind === 'surrogacyEgg') countSurGeorgiaEgg++;
             } else if (currentUserRole === 'Admin') {
-              // בולם זעזועים לתאריכים חסרים
+              recycledCount++;
               let dDate = '-';
-              if(data.deleted_at && typeof data.deleted_at.toMillis === 'function') {
-                  dDate = new Date(data.deleted_at.toMillis()).toLocaleDateString('he-IL');
-              }
-              recycleHTML += `<tr><td style="font-weight:bold;">${data.client_name || 'ללא שם'}</td><td>${pType}</td><td>${dDate}</td>
-                <td><button style="background:#10b981; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;" onclick="restoreProject('${data.id}')">שחזר</button> 
-                <button style="background:#e11d48; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;" onclick="hardDeleteProject('${data.id}')">מחק סופית</button></td></tr>`;
+              const deletedAtMillis = timestampToMillis(data.deleted_at);
+              if (deletedAtMillis) dDate = new Date(deletedAtMillis).toLocaleDateString('he-IL');
+              const row = document.createElement('tr');
+              appendTextCell(row, data.client_name || 'ללא שם');
+              appendTextCell(row, pType);
+              appendTextCell(row, dDate);
+              const actionCell = document.createElement('td');
+              actionCell.appendChild(createActionButton('שחזר', 'table-action-btn restore', () => restoreProject(data.id)));
+              actionCell.appendChild(createActionButton('מחק סופית', 'table-action-btn danger', () => hardDeleteProject(data.id)));
+              row.appendChild(actionCell);
+              recycleTable.appendChild(row);
             }
           });
           
-          // העדכון בשורת הלשוניות
-          document.getElementById('countAll').innerText = countAll; document.getElementById('mCountAll').innerText = countAll;
-          document.getElementById('countEgg').innerText = countEgg; document.getElementById('mCountEgg').innerText = countEgg;
-          document.getElementById('countSur').innerText = countSur; document.getElementById('mCountSur').innerText = countSur;
+          const eggCountText = String(countEgg);
+          const surrogacyCountText = String(countSur);
+          document.getElementById('tCountEgg').textContent = eggCountText;
+          document.getElementById('mCountEgg').textContent = eggCountText;
+          document.getElementById('tCountSur').textContent = surrogacyCountText;
+          document.getElementById('mCountSur').textContent = surrogacyCountText;
+          document.getElementById('surCountAll').textContent = surrogacyCountText;
+          document.getElementById('surCountGeorgia').textContent = String(countSurGeorgia);
+          document.getElementById('surCountGeorgiaEgg').textContent = String(countSurGeorgiaEgg);
+          if (currentUserRole === 'Admin') {
+            document.getElementById('recycleBinStatus').textContent =
+              recycledCount ? `${recycledCount} תיקים בסל המחזור. אפשר לשחזר תיק בודד או לרוקן את הסל לצמיתות.` : 'סל המחזור ריק.';
+            document.getElementById('btnEmptyRecycleBin').disabled = recycledCount === 0;
+          }
           
-          // העדכון גם למעלה בטקסט עצמו של הלשונית
-          document.getElementById('tCountEgg').innerText = countEgg;
-          document.getElementById('tCountSur').innerText = countSur;
-          
-          if(currentUserRole === 'Admin') document.getElementById('recycleBinTableBody').innerHTML = recycleHTML;
           if(document.getElementById('clientsListView').style.display !== 'none') renderClients();
       }, (error) => {
           alert("שגיאת תקשורת למסד הנתונים: " + error.message);
       });
     }
 
-    async function restoreProject(id) { await db.collection('projects').doc(id).update({is_deleted: false}); }
-    async function hardDeleteProject(id) { if(confirm("אזהרה: מחיקה מוחלטת ממסד הנתונים! להמשיך?")) await db.collection('projects').doc(id).delete(); }
+    async function restoreProject(id) {
+      if (currentUserRole !== 'Admin') {
+        alert('שחזור תיקים זמין למנהל מערכת בלבד.');
+        return;
+      }
+      if (!confirm('לשחזר את התיק לסביבת העבודה הפעילה?')) return;
+      try {
+        await db.collection('projects').doc(id).update({
+          is_deleted: false,
+          restored_at: firebase.firestore.FieldValue.serverTimestamp(),
+          restored_by: currentUser.uid
+        });
+      } catch (error) {
+        console.error('Unable to restore project:', error);
+        alert('שחזור התיק נכשל. בדוק חיבור והרשאות ונסה שוב.');
+      }
+    }
+    async function hardDeleteProject(id) {
+      if (currentUserRole !== 'Admin') {
+        alert('מחיקה לצמיתות זמינה למנהל מערכת בלבד.');
+        return;
+      }
+      if (!confirm('אזהרה: מחיקה מוחלטת של התיק ומידעו, ללא אפשרות שחזור. להמשיך?')) return;
+      try {
+        await db.collection('projects').doc(id).delete();
+      } catch (error) {
+        console.error('Unable to permanently delete project:', error);
+        alert('מחיקת התיק נכשלה. בדוק חיבור והרשאות ונסה שוב.');
+      }
+    }
+
+    async function emptyRecycleBin() {
+      if (currentUserRole !== 'Admin') {
+        alert('ריקון סל המחזור זמין למנהל מערכת בלבד.');
+        return;
+      }
+      const button = document.getElementById('btnEmptyRecycleBin');
+      const status = document.getElementById('recycleBinStatus');
+      button.disabled = true;
+      let deletedCount = 0;
+      let recycleBinCount = null;
+      try {
+        const snapshot = await db.collection('projects').where('is_deleted', '==', true).get();
+        recycleBinCount = snapshot.size;
+        if (snapshot.empty) {
+          status.textContent = 'סל המחזור כבר ריק.';
+          return;
+        }
+        const phrase = prompt(`נמצאו ${snapshot.size} תיקים בסל המחזור.\nפעולה זו מוחקת אותם לצמיתות ואינה ניתנת לשחזור.\nלהמשך, הקלד: מחיקה לצמיתות`);
+        if (phrase !== 'מחיקה לצמיתות') {
+          status.textContent = 'לא בוצעה מחיקה.';
+          return;
+        }
+        if (!confirm(`אישור אחרון: למחוק לצמיתות ${snapshot.size} תיקים מסל המחזור?`)) {
+          status.textContent = 'לא בוצעה מחיקה.';
+          return;
+        }
+        for (let offset = 0; offset < snapshot.docs.length; offset += 400) {
+          const batch = db.batch();
+          const chunk = snapshot.docs.slice(offset, offset + 400);
+          const currentDocs = await Promise.all(chunk.map(doc => doc.ref.get()));
+          let deletedInBatch = 0;
+          currentDocs.forEach(doc => {
+            if (doc.exists && doc.data().is_deleted === true) {
+              batch.delete(doc.ref);
+              deletedInBatch++;
+            }
+          });
+          if (deletedInBatch > 0) {
+            await batch.commit();
+            deletedCount += deletedInBatch;
+          }
+          status.textContent = `נמחקו לצמיתות ${deletedCount} תיקים; הסל נבדק מול ${snapshot.size} רשומות...`;
+        }
+        status.textContent = `סל המחזור נוקה. ${deletedCount} תיקים נמחקו לצמיתות.`;
+      } catch (error) {
+        console.error('Unable to empty recycle bin:', error);
+        status.textContent = deletedCount
+          ? `הפעולה נעצרה לאחר מחיקת ${deletedCount} תיקים. התיקים שנותרו עדיין בסל.`
+          : 'ריקון סל המחזור נכשל. לא ניתן להשלים את הפעולה.';
+      } finally {
+        button.disabled = recycleBinCount === 0;
+      }
+    }
 
     function renderClients() {
-      const area = document.getElementById('clientsListArea'); area.innerHTML = '';
+      const area = document.getElementById('clientsListArea'); area.replaceChildren();
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const sortType = document.getElementById('sortSelect').value;
+      const sortSelect = document.getElementById('sortSelect');
+      const sortType = sortSelect ? sortSelect.value : 'az';
       
       let filtered = allProjects.filter(p => {
         const pType = p.project_type || '';
-        const matchType = (currentActiveFilter === 'all') || (currentActiveFilter === 'egg' && pType.includes('ביצית')) || (currentActiveFilter === 'sur' && pType.includes('פונדקאות'));
+        const projectKind = getProjectKind(pType);
+        const matchType = (currentActiveFilter === 'all') ||
+          (currentActiveFilter === 'egg' && projectKind === 'eggDonation') ||
+          (currentActiveFilter === 'sur' && isSurrogacyProject(pType));
+        const matchSurProject = currentActiveFilter !== 'sur' ||
+          currentSurProjectType === 'all' ||
+          (currentSurProjectType === 'surrogacy' && projectKind === 'surrogacy') ||
+          (currentSurProjectType === 'surrogacyEgg' && projectKind === 'surrogacyEgg');
         const matchSearch = ((p.client_name || '').toLowerCase().includes(searchTerm)) || ((p.phone_wife || '').includes(searchTerm));
         
         let matchSub = true;
@@ -1034,30 +2146,36 @@
              matchSub = (p.stage_sur === currentSubFilter);
         }
 
-        return matchType && matchSearch && matchSub;
+        return matchType && matchSurProject && matchSearch && matchSub;
       });
       
       if (sortType === 'az') {
          filtered.sort((a,b) => (a.client_name || '').localeCompare(b.client_name || '', 'he'));
       } else {
-         // בולם זעזועים לתאריכים שטרם סונכרנו מהשרת
          filtered.sort((a,b) => {
-            const timeA = (a.created_at && typeof a.created_at.toMillis === 'function') ? a.created_at.toMillis() : Date.now();
-            const timeB = (b.created_at && typeof b.created_at.toMillis === 'function') ? b.created_at.toMillis() : Date.now();
-            return timeB - timeA;
+            const timeDifference = timestampToMillis(b.created_at) - timestampToMillis(a.created_at);
+            return timeDifference || String(b.id).localeCompare(String(a.id));
          });
       }
       
       if(filtered.length === 0) {
-        area.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b; font-weight:bold;">אין תיקים להצגה.</div>';
+        const emptyState = createTextElement('div', 'אין תיקים להצגה.');
+        emptyState.style.cssText = 'text-align:center; padding:20px; color:#64748b; font-weight:bold;';
+        area.appendChild(emptyState);
       }
 
       filtered.forEach(p => {
-        const badgeClass = (p.project_type || '').includes('ביצית') ? 'badge-egg' : 'badge-sur';
-        area.innerHTML += `<div class="client-row" id="client_row_${p.id}" onclick="openClientCard('${p.id}')">
-            <div class="client-row-name">${p.client_name || 'ללא שם'}</div>
-            <div class="client-row-info"><span class="badge ${badgeClass}">${p.project_type || ''}</span></div>
-          </div>`;
+        const badgeClass = getProjectFamily(p.project_type) === 'תרומת ביצית' ? 'badge-egg' : 'badge-sur';
+        const row = document.createElement('div');
+        row.className = 'client-row';
+        row.id = 'client_row_' + p.id;
+        row.addEventListener('click', () => openClientCard(p.id));
+        row.appendChild(createTextElement('div', p.client_name || 'ללא שם', 'client-row-name'));
+        const info = document.createElement('div');
+        info.className = 'client-row-info';
+        info.appendChild(createTextElement('span', p.project_type, 'badge ' + badgeClass));
+        row.appendChild(info);
+        area.appendChild(row);
       });
     }
 
@@ -1066,7 +2184,14 @@
        const grid = document.getElementById('transfersGrid');
        const newBox = document.createElement('div');
        newBox.className = 'transfer-box';
-       newBox.innerHTML = `<div class="transfer-box-title">החזרה ${transfersCount}</div><input type="text" id="detTransfer${transfersCount}" class="transfer-input ltr-input" placeholder="תאריך/סטטוס" style="text-align:center;">`;
+       newBox.appendChild(createTextElement('div', `החזרה ${transfersCount}`, 'transfer-box-title'));
+       const input = document.createElement('input');
+       input.type = 'text';
+       input.id = `detTransfer${transfersCount}`;
+       input.className = 'transfer-input ltr-input';
+       input.placeholder = 'תאריך/סטטוס';
+       input.style.textAlign = 'center';
+       newBox.appendChild(input);
        grid.appendChild(newBox);
     }
 
@@ -1077,15 +2202,27 @@
       
       document.getElementById('clientPlaceholder').style.display = 'none';
       document.getElementById('clientDetailCard').style.display = 'flex';
+      document.getElementById('detProjectId').value = project.id;
       
       document.getElementById('detName').innerText = project.client_name || 'ללא שם';
       document.getElementById('detProjectTag').innerText = project.project_type || '';
-      const pType = project.project_type || ''; const isEgg = pType.includes('ביצית');
+      const pType = project.project_type || ''; const isEgg = isEggDonationProject(pType);
       document.getElementById('detProjectTag').style.background = isEgg ? '#2563eb' : '#10b981';
+      const surProjectTypeWrap = document.getElementById('adminSurProjectTypeWrap');
+      const surProjectTypeSelect = document.getElementById('detSurProjectType');
+      const canChangeSurProjectType = currentUserRole === 'Admin' && isSurrogacyProject(pType);
+      surProjectTypeWrap.style.display = canChangeSurProjectType ? 'block' : 'none';
+      if (canChangeSurProjectType) {
+        surProjectTypeSelect.value = getProjectKind(pType) === 'surrogacyEgg'
+          ? 'פונדקאות + תרומת ביצית - גאורגיה'
+          : 'פונדקאות - גאורגיה';
+      }
 
       // Load static fields
-      const staticFields = ['detProjectId','detFullName','detPhoneWife','detPhoneHusband','detEmailWife','detEmailHusband','detAddress','detEmbryos','detExpectedBirth','detStatusSur','detSurrogateName','detDriveUrl','detAgreementUrl','detNotes'];
+      const staticFields = ['detFullName','detPhoneWife','detPhoneHusband','detEmailWife','detEmailHusband','detAddress','detEmbryos','detExpectedBirth','detStatusSur','detSurrogateName','detDriveUrl','detAgreementUrl','detNotes'];
       staticFields.forEach(f => { if(document.getElementById(f)) document.getElementById(f).value = project[f.replace('det','').replace(/([A-Z])/g, "_$1").toLowerCase().substring(1)] || ''; });
+      document.getElementById('detFullName').value = project.client_name || '';
+      document.getElementById('detDriveUrl').value = project.drive_folder || '';
       
       document.getElementById('detDoctor').value = project.doctor || '';
       document.getElementById('detTrack').value = project.track || '';
@@ -1096,16 +2233,31 @@
 
       // Load Dynamic Transfers
       const grid = document.getElementById('transfersGrid');
-      grid.innerHTML = '';
+      grid.replaceChildren();
       transfersCount = 0;
       
-      let tKeys = Object.keys(project).filter(k => k.startsWith('transfer_')).map(k => parseInt(k.split('_')[1])).sort((a,b)=>a-b);
+      let tKeys = Object.keys(project).map(key => {
+        const match = /^transfer_(\d+)$/.exec(key);
+        return match ? Number(match[1]) : NaN;
+      }).filter(num => Number.isSafeInteger(num) && num > 0 && num < Number.MAX_SAFE_INTEGER).sort((a,b)=>a-b);
       if (tKeys.length === 0) tKeys = [1, 2, 3, 4]; 
-      else tKeys.sort((a,b)=>a-b); 
 
       tKeys.forEach(num => {
           transfersCount = Math.max(transfersCount, num);
-          grid.innerHTML += `<div class="transfer-box"><div class="transfer-box-title" ${num===1?'style="color:#3b82f6;"':''}>החזרה ${num}</div><input type="text" id="detTransfer${num}" class="transfer-input ltr-input" placeholder="תאריך/סטטוס" style="text-align:center;" value="${project['transfer_'+num] || ''}"></div>`;
+          const box = document.createElement('div');
+          box.className = 'transfer-box';
+          const title = createTextElement('div', `החזרה ${num}`, 'transfer-box-title');
+          if (num === 1) title.style.color = '#3b82f6';
+          box.appendChild(title);
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.id = `detTransfer${num}`;
+          input.className = 'transfer-input ltr-input';
+          input.placeholder = 'תאריך/סטטוס';
+          input.style.textAlign = 'center';
+          input.value = project['transfer_' + num] || '';
+          box.appendChild(input);
+          grid.appendChild(box);
       });
       if(transfersCount === 0) { addTransferField(); }
 
@@ -1115,31 +2267,22 @@
       document.getElementById('transfersBox').style.display = isEgg ? 'block' : 'none';
 
       const btnDrive = document.getElementById('btnDriveFolder');
-      if(project.drive_folder) { btnDrive.href = project.drive_folder; btnDrive.classList.remove('disabled'); }
-      else { btnDrive.href = "#"; btnDrive.classList.add('disabled'); }
+      setLink(btnDrive, safeHttpsUrl(project.drive_folder));
       
       const btnContract = document.getElementById('btnAgreement');
-      if(project.agreement_url) { 
-          btnContract.href = project.agreement_url; 
-          btnContract.classList.remove('disabled');
-          btnContract.classList.add('active-pdf');
-      }
-      else { 
-          btnContract.href = "#"; 
-          btnContract.classList.add('disabled');
-          btnContract.classList.remove('active-pdf');
-      }
+      setLink(btnContract, safeHttpsUrl(project.agreement_url));
+      btnContract.classList.toggle('active-pdf', !btnContract.classList.contains('disabled'));
 
       // Email links
       const btnEmailW = document.getElementById('btnEmailWife');
-      if(project.email_wife) { btnEmailW.href = `mailto:${project.email_wife}`; btnEmailW.classList.remove('disabled'); } else btnEmailW.classList.add('disabled');
+      const emailWife = safeEmailAddress(project.email_wife);
+      setLink(btnEmailW, emailWife ? `mailto:${emailWife}` : '');
       const btnEmailH = document.getElementById('btnEmailHusband');
-      if(project.email_husband) { btnEmailH.href = `mailto:${project.email_husband}`; btnEmailH.classList.remove('disabled'); } else btnEmailH.classList.add('disabled');
+      const emailHusband = safeEmailAddress(project.email_husband);
+      setLink(btnEmailH, emailHusband ? `mailto:${emailHusband}` : '');
 
-      const btnWaW = document.getElementById('btnWaWife');
-      if(project.phone_wife) { let cl = project.phone_wife.replace(/\D/g,''); if(cl.startsWith('0')) cl = '972'+cl.substring(1); btnWaW.href = `https://wa.me/${cl}`; btnWaW.classList.remove('disabled'); } else btnWaW.classList.add('disabled');
-      const btnWaH = document.getElementById('btnWaHusband');
-      if(project.phone_husband) { let cl = project.phone_husband.replace(/\D/g,''); if(cl.startsWith('0')) cl = '972'+cl.substring(1); btnWaH.href = `https://wa.me/${cl}`; btnWaH.classList.remove('disabled'); } else btnWaH.classList.add('disabled');
+      setWhatsAppLink(document.getElementById('btnWaWife'), project.phone_wife);
+      setWhatsAppLink(document.getElementById('btnWaHusband'), project.phone_husband);
     }
 
     async function updateClientDetails() {
@@ -1148,6 +2291,10 @@
       const updateData = {};
       const fields = ['detFullName','detPhoneWife','detPhoneHusband','detEmailWife','detEmailHusband','detAddress','detEmbryos','detExpectedBirth','detStatusSur','detSurrogateName','detDriveUrl','detAgreementUrl','detNotes'];
       fields.forEach(f => { if(document.getElementById(f)) updateData[f.replace('det','').replace(/([A-Z])/g, "_$1").toLowerCase().substring(1)] = document.getElementById(f).value; });
+      updateData.client_name = document.getElementById('detFullName').value.trim();
+      updateData.drive_folder = document.getElementById('detDriveUrl').value.trim();
+      delete updateData.full_name;
+      delete updateData.drive_url;
       
       updateData.doctor = document.getElementById('detDoctor').value; 
       updateData.track = document.getElementById('detTrack').value;
@@ -1155,12 +2302,24 @@
       updateData.status_egg = document.getElementById('detStatusEgg').value; 
       updateData.stage_sur = document.getElementById('detStageSur').value;
       updateData.agreement_status = document.getElementById('detAgreementStatus').value;
+      const currentProject = allProjects.find(project => project.id === projectId);
+      if (currentUserRole === 'Admin' && currentProject && isSurrogacyProject(currentProject.project_type)) {
+        const selectedProjectType = document.getElementById('detSurProjectType').value;
+        if (!['פונדקאות - גאורגיה', 'פונדקאות + תרומת ביצית - גאורגיה'].includes(selectedProjectType)) {
+          btn.innerText = "💾 שמור שינויים";
+          alert('יש לבחור סיווג פונדקאות תקין.');
+          return;
+        }
+        updateData.project_type = selectedProjectType;
+      }
 
       // Save Dynamic Transfers
-      for(let i=1; i<=transfersCount; i++) {
-          const tInput = document.getElementById('detTransfer'+i);
-          if(tInput) updateData['transfer_'+i] = tInput.value;
-      }
+      document.querySelectorAll('#transfersGrid .transfer-input').forEach(input => {
+        const transferNumber = Number(input.id.replace('detTransfer', ''));
+        if (Number.isSafeInteger(transferNumber) && transferNumber > 0) {
+          updateData['transfer_' + transferNumber] = input.value;
+        }
+      });
 
       try {
         await db.collection('projects').doc(projectId).update(updateData);
@@ -1177,109 +2336,106 @@
 
     function sendUnifiedEmail() {
       const eWife = document.getElementById('detEmailWife').value, eHusband = document.getElementById('detEmailHusband').value;
-      let emails = []; if(eWife) emails.push(eWife); if(eHusband) emails.push(eHusband);
+      let emails = [safeEmailAddress(eWife), safeEmailAddress(eHusband)].filter(Boolean);
       if(emails.length === 0) { alert("לא הוזנו כתובות דוא''ל בכרטיס."); return; }
       window.open(`mailto:${emails.join(',')}`);
     }
 
     function loadUsersTable() {
-      db.collection('users').onSnapshot((snap) => {
-        const tbody = document.getElementById('userTableBody'); tbody.innerHTML = '';
+      if (!requireAdminAccess()) return null;
+      return db.collection('users').onSnapshot((snap) => {
+        const tbody = document.getElementById('userTableBody'); tbody.replaceChildren();
         snap.forEach((doc) => {
           const user = doc.data();
-          let rDisplay = user.role;
-          if(user.role === 'Staff_All') rDisplay = 'צוות (הכל)'; if(user.role === 'Staff_Egg') rDisplay = 'צוות (ביצית)'; if(user.role === 'Staff_Sur') rDisplay = 'צוות (פונדקאות)';
-          tbody.innerHTML += `<tr><td style="font-weight:bold;">${user.full_name}</td><td class="ltr-input" style="text-align:right;">${user.email}</td><td><span class="${user.role === 'Admin' ? 'role-tag-admin' : 'role-tag-staff'}">${rDisplay}</span></td>
-          <td><button style="background:#e11d48; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;" onclick="deleteUser('${doc.id}')">הסר</button></td></tr>`;
+          const row = document.createElement('tr');
+          appendTextCell(row, user.full_name);
+          appendTextCell(row, user.email, 'ltr-input');
+          const roleCell = document.createElement('td');
+          const roleSelect = document.createElement('select');
+          roleSelect.className = 'f-input';
+          roleSelect.setAttribute('aria-label', `הרשאה עבור ${user.full_name || user.email || 'משתמש'}`);
+          const validRoles = ['Admin', 'Staff_All', 'Staff_Egg', 'Staff_Sur'];
+          if (!validRoles.includes(user.role)) {
+            const invalidOption = createTextElement('option', `תפקיד לא תקין: ${user.role || 'לא הוגדר'}`);
+            invalidOption.value = '';
+            roleSelect.appendChild(invalidOption);
+          }
+          [
+            ['Admin', 'מנהל מערכת'],
+            ['Staff_All', 'כל התיקים הפעילים'],
+            ['Staff_Egg', 'תרומת ביצית — תיקים משויכים'],
+            ['Staff_Sur', 'פונדקאות — תיקים משויכים']
+          ].forEach(([value, label]) => {
+            const option = createTextElement('option', label);
+            option.value = value;
+            roleSelect.appendChild(option);
+          });
+          if (validRoles.includes(user.role)) roleSelect.value = user.role;
+          roleCell.appendChild(roleSelect);
+          row.appendChild(roleCell);
+          const actionCell = document.createElement('td');
+          actionCell.appendChild(createActionButton(
+            'שמור הרשאה',
+            'table-action-btn restore',
+            () => updateUserRole(doc.id, roleSelect.value)
+          ));
+          actionCell.appendChild(createActionButton('הסר', 'table-action-btn danger', () => deleteUser(doc.id)));
+          row.appendChild(actionCell);
+          tbody.appendChild(row);
         });
       });
     }
+    async function updateUserRole(uid, role) {
+      if (!requireAdminAccess()) return;
+      if (!['Admin', 'Staff_All', 'Staff_Egg', 'Staff_Sur'].includes(role)) {
+        alert('יש לבחור הרשאה תקינה לפני השמירה.');
+        return;
+      }
+      if (uid === currentUser.uid && role !== 'Admin') {
+        alert('לא ניתן להסיר מעצמך הרשאת מנהל.');
+        return;
+      }
+      try {
+        await db.collection('users').doc(uid).update({ role });
+      } catch (error) {
+        console.error('Unable to update user role:', error);
+        alert('עדכון ההרשאה נכשל. בדוק חיבור והרשאות ונסה שוב.');
+      }
+    }
     async function addNewUser() {
-      const name = document.getElementById('newUserName').value, email = document.getElementById('newUserEmail').value, role = document.getElementById('newUserRole').value;
-      if(!name || !email) return; const tempId = 'user_' + Math.random().toString(36).substr(2, 9);
-      await db.collection('users').doc(tempId).set({ full_name: name, email: email, role: role, is_active: true });
-      document.getElementById('newUserName').value = ''; document.getElementById('newUserEmail').value = '';
+      if (!requireAdminAccess()) return;
+      const name = document.getElementById('newUserName').value.trim();
+      const email = safeEmailAddress(document.getElementById('newUserEmail').value).toLowerCase();
+      const uid = document.getElementById('newUserUid').value.trim();
+      const role = document.getElementById('newUserRole').value;
+      if (!name || !email || !uid) {
+        alert('יש למלא שם, דוא״ל ו-Firebase UID של חשבון קיים.');
+        return;
+      }
+      if (!/^[A-Za-z0-9_-]{1,128}$/.test(uid) || !['Admin', 'Staff_All', 'Staff_Egg', 'Staff_Sur'].includes(role)) {
+        alert('ה-UID או התפקיד אינם תקינים.');
+        return;
+      }
+      const userRef = db.collection('users').doc(uid);
+      if ((await userRef.get()).exists) {
+        alert('כבר קיים פרופיל משתמש עבור UID זה.');
+        return;
+      }
+      await userRef.set({ full_name: name, email, role, is_active: true });
+      document.getElementById('newUserName').value = '';
+      document.getElementById('newUserEmail').value = '';
+      document.getElementById('newUserUid').value = '';
     }
     async function deleteUser(id) {
-       if(confirm('האם אתה בטוח שברצונך להסיר עובד זה ממסד הנתונים?')) await db.collection('users').doc(id).delete();
+       if (!requireAdminAccess()) return;
+       if (id === currentUser.uid) {
+         alert('לא ניתן להסיר את פרופיל המשתמש של עצמך.');
+         return;
+       }
+       if(confirm('האם להסיר את הרשאת המשתמש במערכת? חשבון Firebase עצמו לא יימחק.')) await db.collection('users').doc(id).delete();
     }
 
-    // --- MIGRATION BATCH SCRIPT ---
-    async function importLegacyDataSafely() {
-       const btn = document.getElementById('btnImport');
-       
-       // Verify no double import
-       try {
-           const snap = await db.collection('projects').limit(1).get();
-           if (!snap.empty) {
-               if (!confirm("שים לב! כבר יש נתונים קיימים במערכת. ייבוא נוסף ייצור כפילויות. האם אתה בטוח שברצונך לייבא שוב?")) {
-                    return;
-               }
-           } else {
-               if(!confirm("האם להתחיל בייבוא 136 הלקוחות למסד הנתונים בענן?")) return;
-           }
-       } catch (e) {
-           console.log("No previous data found or error checking.", e);
-       }
 
-       btn.disabled = true;
-       btn.innerText = "מייבא נתונים למסד... אנא המתן עד להודעת הצלחה";
-       
-       try {
-           const legacyJSON = [{"name":"אבו שקארה סוהיל וואיל","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1IKAh_DDd9E9zUDA4pVmQeZ2C4iRj9HP0","contractUrl":"https://drive.google.com/file/d/1SPLCd7brqXzdRE7dPNqbTlBRA88PKp5G/view?usp=drivesdk","ret1":"27/05/2025","ret2":"24/09/2025","ret3":"21/01/2026","ret4":"13/05/2026","notes":"הסכם עוברים / מותאם זרע; תאריך יעד: 04/11/2026","track":"הסכם עוברים / מותאם זרע","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אודליה סנואני וטל בן אור","project":"תרומת ביצית - קפריסין","phoneWife":"050-4032333","phoneHusband":"058-6543400","emailWife":"odeliasn1@gmail.com","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"מותאם זרע","driveUrl":"https://drive.google.com/drive/folders/1IjohJsOT7YBqs-aFAUPx85rUmGR7sdxC","contractUrl":"https://drive.google.com/file/d/12sp3ZsxA2d3bACh5xERIaEV1TDRrww6P/view?usp=drivesdk","ret1":"21/01/2026","ret2":"22/07/2026","ret3":"27/08/2026","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אורלי זיילר ונדב דגן","project":"תרומת ביצית - קפריסין","phoneWife":"052-8559588","phoneHusband":"052-3550892","emailWife":"orly.zailer@gmail.com","emailHusband":"nadav.dag5@gmx.com","address":"מעוז חיים, עמק המעיינות, 1084500","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1CQOmlFXKxPTniGCzZQ1EvR_CgBXzi4uD","contractUrl":"https://drive.google.com/file/d/1ebQzYLKaHX3m5o4PHMh4OlkDfvknE4sj/view?usp=drivesdk","ret1":"26/08/2026 - הפלה","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אחלם וסאן יונס","project":"תרומת ביצית - קפריסין","phoneWife":"052-5921455","phoneHusband":"050-7081750","emailWife":"Ahlamabuslota@gmil.com","emailHusband":"Sadenyounis@gmail.com","address":"","processStatus":"הפלה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"2 עוברים (הוחזר 1, נותר 1)","driveUrl":"https://drive.google.com/drive/folders/1MXpG0oWJjqKFabgYoPgXrhjpdWia0u9y","contractUrl":"https://drive.google.com/file/d/1mtRfRpBpqIeCC433-WI7mjw4V4qTXi0b/view?usp=drivesdk","ret1":"29/10/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אילור בר ורועי מרקון","project":"תרומת ביצית - קפריסין","phoneWife":"054-6626159","phoneHusband":"","emailWife":"Eilorb8@gmail.com","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר מרים ספראי","embryoStatus":"2 עוברים (הוחזר 1, נותר 1)","driveUrl":"https://drive.google.com/drive/folders/1OxIO7oPEr9kjCFS1ejI6DwhCLMjeikFY","contractUrl":"https://drive.google.com/file/d/1weQMCScZaF1gwQE0bosrnoxzOJDhD3Vj/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אילנית ושי מימוני","project":"תרומת ביצית - קפריסין","phoneWife":"052-6665574","phoneHusband":"052-3605634","emailWife":"ilanit633@gmail.com","emailHusband":"","address":"הזית 53, מושב זוהר","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1xfegUn880uTVqW4s4kI452IXg1LLvPGd","contractUrl":"https://drive.google.com/file/d/1HVLIwTme6mAg8gyzpZ_21irA2dh7vTUA/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אירה ואורן דולפין","project":"תרומת ביצית - קפריסין","phoneWife":"052-5613630","phoneHusband":"","emailWife":"","emailHusband":"","address":"משה דיין 150, ת\"א","processStatus":"פרוטוקול רפואי","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1OPNDgG-B5F1oZzAJMOde8xaKauEzftgO","contractUrl":"https://drive.google.com/file/d/1JdapZ41NulMPHZyiQGeBy0vsgfVvwmY2/view?usp=drivesdk","ret1":"18/02/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אירית גונן","project":"תרומת ביצית - קפריסין","phoneWife":"054-9169909","phoneHusband":"","emailWife":"iritg1909@gmail.com","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/12LG6uW3lhjVfZi7GAr31V5X1ZcZ54n0N","contractUrl":"https://drive.google.com/file/d/1YbzyM_T3R21qI2wa0jK2ZZQGFIYmc-ym/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אלה דורון ומעין פוגל","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"ביל\"ו 43/8, ת\"א","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1xAUrHwpDDeSGZPizMJfP52OcTJwFbRy8","contractUrl":"https://drive.google.com/file/d/1fPs4mz5WHFkaDVQ4TlhhV-DPbVn9qG-u/view?usp=drivesdk","ret1":"16/07/2025 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אלינור בן חנן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1RMNjjL6mgBS-XSudhS1p-4RNmvfMZM7P","contractUrl":"https://drive.google.com/file/d/1yooAZvKSH5RsT3THCAhP9XX_GPzltW-u/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אלינור ואורן בוסקילה","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1fZmvHeocAsN2r5xbuupWoPaD5bM2z-bB","contractUrl":"https://drive.google.com/file/d/181yZIrBKS2Ob4B_BqskIv5l_NcxsnP9r/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אלמז טגניה ומקוננט סנדקה","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1SbgeFnSbSqe_Enn-d8P2ZkenqtbdoFNt","contractUrl":"https://drive.google.com/file/d/1MJK7n3uYhWKFy5Y9-L-IUPFq7LKqUfWk/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"גזית קולטון ושלומי הראל","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1JBJOTk1pv3LG7yjuohBPVTlbZpWyoQ3r","contractUrl":"https://drive.google.com/file/d/1D_J24mSFDxvaaTV7-07VaLn1mUP8mRA9/view?usp=drivesdk","ret1":"13/03/2026","ret2":"15/04/2026","ret3":"26/08/2026","ret4":"","notes":"","track":"מסלול מורחב (5 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"גלינה ואלכסנדר ציטמן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"","embryoStatus":"5 עוברים במסלול","driveUrl":"https://drive.google.com/drive/folders/1qo5cWoTv7-20jW1DFbRByA8Xccf_IwTB","contractUrl":"https://drive.google.com/file/d/1vh-JJKgE_OdGygxZULfMtTJ_wGasoSxk/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"דונה שוויצר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר דן לוין","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1ejcfgCyAvRgBWKHsthtJfJZe9z61zBRT","contractUrl":"https://drive.google.com/file/d/1QpXbzSE1ZxokIyXi4gKwB78_6Cce99Q4/view?usp=drivesdk","ret1":"04/02/2026","ret2":"20/05/2026","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"דורין ואליעז בלץ","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1SyuqGflHsmmVMha4xRsUGI_D2xBWoAac","contractUrl":"https://drive.google.com/file/d/1UcdH2y3bYVGXmmzzC-wmf8UYF_VOA1QH/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"דנה ונדב שושן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1_jiIJc3J3XYjXgzzXSQ4qC5z1B6jSwQh","contractUrl":"","ret1":"04/02/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"דנה ושרון מילר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1RleF7RjLLMIQ1pCyWdzxkR3wxgKaQO5r","contractUrl":"https://drive.google.com/file/d/1TaZIJpuwciC_FT9A7qZdKmi29dp78n6j/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"דנה כהן וניצן ויזל","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1yP7L29IUMxSNG8r5Nz7b2p4h2kUf5ISo","contractUrl":"https://drive.google.com/file/d/1h2hSC8HlhDOlZJ6CJRdPw8wahxYNixee/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"הדס הוד וסופי כהן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1PBQ_3vBCevSj7YTQDblXv_i5Wk406Jth","contractUrl":"https://drive.google.com/file/d/1W0ldIzg-usfKFR-NGLEZvdUCHjeKvKys/view?usp=drivesdk","ret1":"04/02/2026","ret2":"29/04/2026 - נקלט הריון","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"הדס שמחי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"2 עוברים (הוחזרו 2)","driveUrl":"https://drive.google.com/drive/folders/1989KfIOWz8Wo3HHk_QwiugUo6jhIuEW2","contractUrl":"https://drive.google.com/file/d/1SsYSDFk0Ugljzjsk-TP6AK4JL5r8e0Ve/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"הדר ומשאל מחבר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1wKIGe1RDaH_IBoD74PyK71GSROjiKL70","contractUrl":"https://drive.google.com/file/d/1_32IxxC4pOCVZBtJv17ZR6SkZDzxM54c/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"הודיה ודניאל משילקר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1o7lNB4Dcck7uCtajNhXIZNZU7lAv_sto","contractUrl":"https://drive.google.com/file/d/1BQvgXnQQd8IgscXZSFQhzL-4rTC3eYef/view?usp=drivesdk","ret1":"16/11/2025","ret2":"14/01/2026 - הפלה","ret3":"09/09/2026","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"הילה בת שבע יעקב","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"2 עוברים","driveUrl":"https://drive.google.com/drive/folders/1GAkrLD6oK83xJZtkxLr6kE623sEYUOgh","contractUrl":"https://drive.google.com/file/d/12lM4H5Y3IMuGqq9zTsIkncoF-nNKHbj8/view?usp=drivesdk","ret1":"06/08/2025 - הפלה","ret2":"12/11/2025","ret3":"17/12/2025","ret4":"13/05/2026 - נקלט הריון","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"הילה ואביר אזולאי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"3 עוברים","driveUrl":"https://drive.google.com/drive/folders/1-H0wGKAr2kPK-ko194fQxwwq3nb4TlLl","contractUrl":"https://drive.google.com/file/d/1EAbIT7aTV6ewwS6Grdrm1zewCoLe13fE/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"מסלול מורחב (5 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"הילה רומנו ויעקב אושה","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1bI09X1skq6-HVKP0MnZtqvm_pOdptpHD","contractUrl":"https://drive.google.com/file/d/1M77nW089FIP1F0Dvu7bjkDuwUwc8bsvh/view?usp=drivesdk","ret1":"25/02/2026","ret2":"17/06/2026","ret3":"16/09/2026 - נקלט הריון ללא דופק","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ורד גני ויריב יפת","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הפלה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1mYXCR3T2XmiERPrF9DIp3ESCuN5PCC6k","contractUrl":"https://drive.google.com/file/d/141K1dSt1yBZefpwU2J8vKmBf9xvVRqeA/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"חגית חי ורון ישי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1Fkj5D4Ng8o4afGw4brfRsJAwXfoR7Iy1","contractUrl":"https://drive.google.com/file/d/1GXfVKYzK-iR8Zt4UVhmjFlHpfXUzMeJm/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"חגית מנשירוב","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1MXNLrCZJUvjv__Xw6vvxlM4_T_ik7w58","contractUrl":"https://drive.google.com/file/d/1Pwz-honBxuAGdK-lmyfMnPQLNEo3Iw66/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"חן מליונר ורון יודפת מליונר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1Uym2KmgRRGsrcAI-r8DUH4sYurmF-PNL","contractUrl":"https://drive.google.com/file/d/1Ne8-aUOOaN_EZyxEXB2pb7NZ36PRWdzz/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"טטיאנה פרוקדיון ומשה נוטקוביץ","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1ca_aKLVz2hjkr0N-kjR1mSKdu5uQ8y3j","contractUrl":"https://drive.google.com/file/d/1XvU9782T7-ql5IGIuARR2ioxJDcVOC-G/view?usp=drivesdk","ret1":"08/07/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"טל אונגר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1a-D4ainjKVXOv3GqjzCadA8Qg5B4oxvy","contractUrl":"https://drive.google.com/file/d/11ZgLjoNUvwVpJKieancCqHq5gqb5pu_v/view?usp=drivesdk","ret1":"26/08/2026 - הפלה","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"טל בירו ודור בוכריץ","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הפלה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"7 עוברים (הוחזר 1, נותרו 6)","driveUrl":"https://drive.google.com/drive/folders/1ScAMu3LBANOGD45uUy_mFJmTxjGmDfMu","contractUrl":"https://drive.google.com/file/d/1t5674i_0Jlzc0EEufp65WjJhUQkGPyrx/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ידידה פרץ","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1-csuZSG-74ZNTCTawFo2hdFGh50Sev5p","contractUrl":"https://drive.google.com/file/d/1Nzar5nR4V5Rhn07tkI7JqtsnqL60BDtX/view?usp=drivesdk","ret1":"22/10/2025","ret2":"26/11/2025","ret3":"06/05/2026 - נקלט הריון","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"יהב ואסף וילדר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1dI6EjNLPRTlG-alF54ba-DFcBMf3c6w0","contractUrl":"https://drive.google.com/file/d/10QcqLqWAm4L8Isntb0qhLNlMB8khNoWZ/view?usp=drivesdk","ret1":"16/07/2025","ret2":"22/10/2025 - נקלט הריון","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"יעלי זיידמן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"5 עוברים (הוחזרו 2, נותרו 3)","driveUrl":"https://drive.google.com/drive/folders/1Nx2G_zHuM5mMho2eanKvsIyqxYw2vB3N","contractUrl":"https://drive.google.com/file/d/12m38N7s4a1Eqd5y6H7TE_WbFkEQt4q6i/view?usp=drivesdk","ret1":"05/11/2025 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"יפעת ביז'אוי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/18WRXn0aqTTfjAnou78_pzap6EcOcYTWu","contractUrl":"https://drive.google.com/file/d/1nVHRrkAU_J39a4-zKVMGz0B4u0fM71MG/view?usp=drivesdk","ret1":"20/05/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"יפעת ואבירן עזריאל","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1v9PTSQ_7S2lkXtXdvU01natVKfj4BSY7","contractUrl":"https://drive.google.com/file/d/1GWXo90KY46srS8EBRGD_dfD6HC_ChOe8/view?usp=drivesdk","ret1":"21/01/2026","ret2":"25/02/2026","ret3":"29/04/2026","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"לורן ואוהד רבינוביץ","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/12UqhYovumWutJG3MKr_m48Wu9UgWivOJ","contractUrl":"https://drive.google.com/file/d/1cI7E3XmcQ5H7Y-26TgUFcUIN3_YBt-Eu/view?usp=drivesdk","ret1":"10/06/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ליאת ויצחק מרדן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1899HbyZaEOGQr_z3zDE9JVPHAWIVgUNe","contractUrl":"https://drive.google.com/file/d/1UG5RfiegOrMi60xmTsWVhTTFeKbueUNB/view?usp=drivesdk","ret1":"29/10/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ליאת להב ותמיר גזית","project":"תרומת ביצית - קפריסין","phoneWife":"054-7776565","phoneHusband":"","emailWife":"Liatlahav@gmail.com","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/16JkC2ioOg3h3teeD_0EnrR4hhD4h95RR","contractUrl":"https://drive.google.com/file/d/1ucWt46XMNSKOoXBeXgeJrQLnZBVZ9DYC/view?usp=drivesdk","ret1":"16/09/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ליאת מנסור","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1qTapHg5Mr9uKmScAh2mgt5FKUebHr_W1","contractUrl":"https://drive.google.com/file/d/1iFd3XnxSCXyUqaBsEXvyy0hyv4fW65To/view?usp=drivesdk","ret1":"29/07/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"לידיה גוליק","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1axEYDjFMBdYeySqrhjnzTf1rUQkmZSVH","contractUrl":"https://drive.google.com/file/d/1gI9sbC2cqGdB8H6lK9YyS9YKSh7B-jhx/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ליטל מליחי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1hoIS8S3E0FRGFhCLRp3Ps8W7UfoNIqAG","contractUrl":"https://drive.google.com/file/d/10_Tz32Ds-hPDY_FbFG2n1AESwzhGsUEp/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"לימור אלקלעי- ת.ב בגיאורגיה","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1mSod6MQk_KOkaF9ROxkpWWsnm24HAJ88","contractUrl":"https://drive.google.com/file/d/1mcW-k_p1utJByFAatUwUBJW-VP7q0I1Y/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"לימור נועה רוסטמיאן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1JgMQ_T0u_H-a1BRxGTfdoVzYUgYx7tmF","contractUrl":"https://drive.google.com/file/d/1TuHVHRQMgVVoZvhUD1w02-MXQt2TvpEI/view?usp=drivesdk","ret1":"16/09/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"לירון ודניאל ארמוני","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"3 עוברים (הוחזר 1, נותרו 2)","driveUrl":"https://drive.google.com/drive/folders/1OuJM-HDnCyRA-dTLeF3DDiNOPN55NP8S","contractUrl":"https://drive.google.com/file/d/15N1cy5_FrLN8Oyo6ZD0oe3JxwruCY4lF/view?usp=drivesdk","ret1":"26/10/2025","ret2":"09/12/2025","ret3":"16/03/2026 - נקלט הריון","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מאיה (נגה) ויניצקי","project":"תרומת ביצית - קפריסין","phoneWife":"052-2632441","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1LeRYluK-TiKAbla6kagFBMqR1v6NYFkr","contractUrl":"https://drive.google.com/file/d/1LqlIzeFbFNq-5rVRg7r2Ke32psQGM2O9/view?usp=drivesdk","ret1":"05/08/2026","ret2":"04/11/2026","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מאיה סנו ואברהם נחמיאס","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר גיא ביבי","embryoStatus":"5 עוברים (הוחזרו 2, נותרו 3)","driveUrl":"https://drive.google.com/drive/folders/1EQKBYg4b-ZeERjcxF8zr_YzFRcpnPcQF","contractUrl":"https://drive.google.com/file/d/1UghsYF7Ro82YBGcen06ML8um-2_iqApm/view?usp=drivesdk","ret1":"14/10/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מונה וסמיר עבדה","project":"תרומת ביצית - קפריסין","phoneWife":"054-7354471","phoneHusband":"","emailWife":"Jonnsmeer@gmail.com","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"4 עוברים (הוחזר 1, נותרו 3)","driveUrl":"https://drive.google.com/drive/folders/14UU64FYY7FP5kpHm3arGcc_ei1svX2VP","contractUrl":"https://drive.google.com/file/d/1fjqlelwfliqyyQizw9mrCi5gOyNhdL5X/view?usp=drivesdk","ret1":"17/06/2026","ret2":"22/07/2026 - נקלט הריון","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מורן הורדה","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1kRVLJtcUPfhu0jfb76Yls1ThNKy6L3Dv","contractUrl":"https://drive.google.com/file/d/1v6hmXc8Aq2EBtJoIEaO7I-NcJf-Cglyg/view?usp=drivesdk","ret1":"29/04/2026","ret2":"02/09/2026","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מורן וליאור גונן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"3 עוברים (הוחזרו 2, נותר 1)","driveUrl":"https://drive.google.com/drive/folders/1U-Vv05cBJk-Dax5IWLI7PdzC_FH2VeOD","contractUrl":"https://drive.google.com/file/d/1kN6Rk7EvMfzpfSwYJIAG2J6Lcnnd7kt0/view?usp=drivesdk","ret1":"17/06/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מיטל ודניאל נחושתן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1c8vesg_dEeh32bNgm-6v-ijvCIFVIwTe","contractUrl":"https://drive.google.com/file/d/1mTQdzAJdcI5zyYy6ERN1CswvAQJG1nM7/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מיכל שפירא ואיתי ויסמן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1EGqCoyPLPI-GpoJ5eB44s8GbRHakN5rN","contractUrl":"https://drive.google.com/file/d/1c1QVSxzgPbs18IViUiFR6iLXaVHZNziR/view?usp=drivesdk","ret1":"09/12/2025","ret2":"21/01/2026","ret3":"13/05/2026 - נקלט הריון","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מיקי וניב לוי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1pXkguEXR3472ft1S1bcO-LYPB7LrHMHf","contractUrl":"https://drive.google.com/file/d/16FCQ-fNZ6RQyx5pdJBZXZzC60eH4cUt6/view?usp=drivesdk","ret1":"30/09/2026","ret2":"04/11/2026","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מירב איש שלום","project":"תרומת ביצית - קפריסין","phoneWife":"054-2343133","phoneHusband":"","emailWife":"is_merav@yahoo.com","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"5 עוברים (הוחזרו 2, נותרו 3)","driveUrl":"https://drive.google.com/drive/folders/166CFf_My2LCH0uDjLByEuqEw6pSUxNuS","contractUrl":"https://drive.google.com/file/d/1UDyf_bG7S39jzAkDnYaY_Svj6c86xCiG/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מירב ואביגדור מור יוסף","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1H8qXi1y_VJhh9TuiG2VOGLj0EpgxWwyg","contractUrl":"https://drive.google.com/file/d/1kRHQIMFx6lNrEpI7pxVza47JC0ZxNAb2/view?usp=drivesdk","ret1":"09/12/2025","ret2":"14/01/2026","ret3":"18/02/2026","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מירי ויבגני שליאכובר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1xP7xM34RINwCRsHt5qkkvlAhXfAi9FY4","contractUrl":"https://drive.google.com/file/d/1NIu4qyr1rtfTuEHFiLq69Va2KF-6nwzq/view?usp=drivesdk","ret1":"16/07/2025","ret2":"12/11/2025","ret3":"14/01/2026 - נקלט הריון","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מרגנית צורף","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1_hrEwPtlX9BNfHkr_9NRI7eOd6WWsR1I","contractUrl":"https://drive.google.com/file/d/1TNrxizdzsCbD-CbCK4xL9EQchv6itcPd/view?usp=drivesdk","ret1":"14/10/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"מרינה יעקובזון","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"5 עוברים (הוחזר 1, נותרו 4)","driveUrl":"https://drive.google.com/drive/folders/1o2bCC0jx_45NdlVNiC9N_3Vc_ktjVKEh","contractUrl":"https://drive.google.com/file/d/159vovuptaOwOAXhqqjU5HRvvpULk3jTO/view?usp=drivesdk","ret1":"04/11/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"נועה ואופיר פרידמן","project":"תרומת ביצית - קפריסין","phoneWife":"052-6566158","phoneHusband":"","emailWife":"NOA1981@GMAIL.COM","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"3 עוברים (הוחזר 1, נותרו 2)","driveUrl":"https://drive.google.com/drive/folders/1TH4SoxUIEyqcl2ehUCdcwJaWUe84FYWT","contractUrl":"https://drive.google.com/file/d/1NkrkB-GNQOaA3tKHC_AtaOHYocvhMGeh/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"נטלי ישראלי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1TugdTxxDczswtqBziGUdN1MHJhlexxGw","contractUrl":"https://drive.google.com/file/d/1BS6HPzuH4x8tWdpPPhYOxa-vtsyZ5xUG/view?usp=drivesdk","ret1":"29/04/2026","ret2":"03/06/2026","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"נטע ואלברט שוייחט","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1muLoenghtbVU6bqeJVpB-r5B2MWJ9egd","contractUrl":"https://drive.google.com/file/d/1lh38BP_aSg6aLFANunwOxf0XJtyC22d6/view?usp=drivesdk","ret1":"26/08/2026 - הפלה","ret2":"29/10/2026","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"סוהא סח ועבדל בראזי","project":"תרומת ביצית - קפריסין","phoneWife":"054-9485017","phoneHusband":"","emailWife":"Suha.k.seh@hotmail.com","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"5 עוברים (הוחזרו 2, נותרו 3)","driveUrl":"https://drive.google.com/drive/folders/1HQqTjbYXouFGxHsf8mT51O3TOgIfBOpF","contractUrl":"https://drive.google.com/file/d/1IFmBaMNTYsT9yN7PNepW76EbvdGC2vFb/view?usp=drivesdk","ret1":"12/06/2025","ret2":"16/07/2025 - נקלט הריון","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"סיגל וגרי גניאל","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1eootMjm9HlU6AqgvKgzwAfZ3ifJEJv3S","contractUrl":"https://drive.google.com/file/d/1_Q0uBJeUazG22zypw8pf78Rdz55Nd_zq/view?usp=drivesdk","ret1":"06/08/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"בבירור מסלול (?)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"סיון בצרי ורועי בכר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"3 עוברים (הוחזר 1, נותרו 2)","driveUrl":"https://drive.google.com/drive/folders/1MINxAxUUCK-M0TfnrJOh1KknZM-wZJaE","contractUrl":"https://drive.google.com/file/d/1NMcFUp2voDUKb_3uqnwkJcJR_3E0GVhd/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"סיון מרסל אברג'יל ואמיל קליין","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1JMlJG5hJivJfy0YCp3KaxMXpMAjRWDGw","contractUrl":"https://drive.google.com/file/d/1_Z7oxhL1LKllRNE5JO1eUyDLCRSLoL1f/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"הסכם בוטל","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"סימי ודוניל דוידוב","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר גיא ביבי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1d5RHCk8wKoEz009nKaXf5He4CliW0shV","contractUrl":"https://drive.google.com/file/d/1-zh77UdFaRMz1tjQ_xaaux3QozHjZGPc/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"סמדר המי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"3 עוברים","driveUrl":"https://drive.google.com/drive/folders/1Cjj9QmRNbbw2RMAZp5Y21YLChiDCuIEr","contractUrl":"https://drive.google.com/file/d/1_eGaQsZz1BPuucAmNsrCbQHBTj4pfjDn/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"סמהאר וסלימאן אל שאפעי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1NMOm-iCenjaewIaMOuBSyaPJHCPGuS6t","contractUrl":"https://drive.google.com/file/d/1y615CQ9LLRi5-c6GksAEwC6QbfsWK-_C/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"עדי שינמל","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1Y4uI8-hdC_sK-zgmsW7wl31HWxNU-NkI","contractUrl":"https://drive.google.com/file/d/1b6-WQR3PtebH-2y0sxu__GXJaXrEbJlu/view?usp=drivesdk","ret1":"02/09/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"עדית בן שחר וגיא בן זקן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"8 עוברים (הוחזר 1, נותרו 7)","driveUrl":"https://drive.google.com/drive/folders/1X4V6TojoikMKElfLTKb3RAiRs6UAr-M_","contractUrl":"https://drive.google.com/file/d/168jSqexZS46ReCoH0ZRevIi0XT9YvCfO/view?usp=drivesdk","ret1":"16/09/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ענבר ואדיר לוי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"5 עוברים (הוחזר 1, נותרו 4)","driveUrl":"https://drive.google.com/drive/folders/1dE1GbZQXy2Dva2Y22jG6h0TazND3BVRh","contractUrl":"https://drive.google.com/file/d/1I-V53NF148kwYKA33Lvkx2SaT56TUvVj/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ענת חיימוב","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1_Cqk6nL6LlDegfDY9yY7NaOUsDO1SvyD","contractUrl":"https://drive.google.com/file/d/1-yUgOP7NgdtKl_lC_hz9jrOHMsYdIND_/view?usp=drivesdk","ret1":"06/08/2025","ret2":"09/09/2025 - הפלה","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ענתי רפאל וסער לב","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הפלה","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1IQugdmbeFmUUpzOeyjSQq34zaV1_ariv","contractUrl":"https://drive.google.com/file/d/1jY2hZQFBW4BcXfmgaKMpPbg0DPMLKCNO/view?usp=drivesdk","ret1":"21/01/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"עתלי וגיא שייטלבוים","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1XHpNj5zlYBxsd2Pl-Z3prGf21yxCBhlU","contractUrl":"https://drive.google.com/file/d/163aByvp62RIJv2t8GO4n6FZ6uN3Ap_Ti/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"מסלול מותאם זרע","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ציפי ואוהד נויבך","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1GCacRstF0Zh5MJKWmGVQiA8FZMlh2Orm","contractUrl":"https://drive.google.com/file/d/1C44mjcyzuhj2-2vE_fMPWIw_RNVgNHIB/view?usp=drivesdk","ret1":"05/11/2025","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"ציפי ולירן דוד","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/17iufhADTVXi6-4SEfGYDdSFFs6T2wLWB","contractUrl":"https://drive.google.com/file/d/1i4PwF3VaCGeBsposk07RQ4Qwiq_06G_Q/view?usp=drivesdk","ret1":"08/07/2026","ret2":"09/10/2026 - נקלט הריון","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"קארין ודביר בראון","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"7 עוברים (הוחזרו 2, נותרו 5)","driveUrl":"https://drive.google.com/drive/folders/12zWgKcYxYaC0S5qix4UhF4KQQCHeeCX2","contractUrl":"https://drive.google.com/file/d/1TkgdYIrXoge6S3ZnLf06fMyTRllABo5u/view?usp=drivesdk","ret1":"22/10/2025 - הפלה","ret2":"24/06/2026","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"קארין ויעקב כהן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"","embryoStatus":"5 עוברים (הוחזרו 2, נותרו 3)","driveUrl":"https://drive.google.com/drive/folders/1ZmGKB5T3kkS9VWi74xmgdmWDLwe-q4hw","contractUrl":"https://drive.google.com/file/d/1Na9Zh2BIQLUkH6vuvhb69ECRAqLVhwUB/view?usp=drivesdk","ret1":"26/11/2025","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"קסניה דונחיאו ורומן מסטר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר גיא ביבי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1SrwVw3-gUREeb9oVmWlRLXllyIH1e1R4","contractUrl":"https://drive.google.com/file/d/1uiemyKPvY-ZqjYXRJua5VS5pH7vplS47/view?usp=drivesdk","ret1":"09/09/2026","ret2":"14/10/2026","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"קרן בורדה ומאור הרוש","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"6 עוברים (הוחזרו 2, נותרו 4)","driveUrl":"https://drive.google.com/drive/folders/1294pSI3bd4vl7Ksnh-PPxMmfJGQYiCYY","contractUrl":"https://drive.google.com/file/d/1wwdcBM5RtoemwchiUHPLNeQmxj8UNA12/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"קרן מלסה ואפטה וונדמנך","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1vOTwVyB1Nk3hvhRyMS0En_ULkliyT9Rr","contractUrl":"https://drive.google.com/file/d/1xHM4b1SLwHdPgptZVMrCZUPeKT9fNule/view?usp=drivesdk","ret1":"04/06/2026","ret2":"04/09/2026","ret3":"08/10/2026","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"רבקה ליפמן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"4 עוברים (הוחזרו 3, נותר 1)","driveUrl":"https://drive.google.com/drive/folders/16FC6WM1kcxvIB3SPGddLNH-xQdR85peZ","contractUrl":"https://drive.google.com/file/d/1OXixpI_D4oWjWcXtQLl_aJNy5dt8DABq/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"רוני ססלוב ויערה גולדמן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1FMRHACWIvOYFvVyXHwN42dpfmteIRK6v","contractUrl":"https://drive.google.com/file/d/1MK8u6UDa_wefQkxRbR3A45morxKXnZmq/view?usp=drivesdk","ret1":"06/08/2025 - הפלה","ret2":"12/11/2025","ret3":"08/10/2026","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"רונית לדר ואפי פורטנוי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"נוצרו 2 + 3 נוספים (הוחזרו 3, נותרו 2)","driveUrl":"https://drive.google.com/drive/folders/1lkcNMJGyuXmSBR9iMvbLBIfY2hyDJJaA","contractUrl":"https://drive.google.com/file/d/1KH7KtohpbD_HC_hQiIzb9jNiFPl8_KIK/view?usp=drivesdk","ret1":"26/10/2025 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"רחל פרהדיאן ועומר תלמי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1E8RYtyX5FM8AeBKrEHe3joVAqj6O-t3q","contractUrl":"https://drive.google.com/file/d/17HsQGSZZzpwM7WYx-KEp3NZfFw2Xe1Tp/view?usp=drivesdk","ret1":"02/09/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שיר אסטרוק ועידו טויבר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"7 עוברים (הוחזר 1, נותרו 6)","driveUrl":"https://drive.google.com/drive/folders/1cWEImrPl96w5WH6zuBP4_4y0SWJc-3NY","contractUrl":"https://drive.google.com/file/d/1GSzfDhzw72ZheI_31q1eJNzs5M0DpMeT/view?usp=drivesdk","ret1":"29/04/2026","ret2":"03/06/2026","ret3":"21/10/2026","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שיר ואדיר ביטון","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/16eZtDYV4TxRYYJTjkdLUk87dJC9YsPng","contractUrl":"https://drive.google.com/file/d/1P63NdAXY977l-WTrcvmBZ_2semJEeWfO/view?usp=drivesdk","ret1":"14/10/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שירה ושחר נהיר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"5 עוברים (הוחזר 1, נותרו 4)","driveUrl":"https://drive.google.com/drive/folders/108ElWAFDkzhOSbRKPvzvqe0SaLGl_izg","contractUrl":"https://drive.google.com/file/d/17lCMKWkkoJEKStluT7W8MBRKRtoZ315J/view?usp=drivesdk","ret1":"22/10/2025","ret2":"26/08/2026","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שירן וליאל כהן","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/14p9eqI3BraRk2VvKx0TNKAxAq_TSm_1N","contractUrl":"https://drive.google.com/file/d/1qMMrO13v6zi0Az1TEOeJO3sV7CWd3D8l/view?usp=drivesdk","ret1":"08/07/2026","ret2":"16/09/2026","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שירן קנטור","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"3 עוברים (הוחזרו 2, נותר 1)","driveUrl":"https://drive.google.com/drive/folders/1SKU5IhRdh-1DmPp9x7k5J3Sn4eYwBJTm","contractUrl":"https://drive.google.com/file/d/13ltVTqrWT0Z8QCDxvUWBKEmEskQMXj-Z/view?usp=drivesdk","ret1":"13/08/2025 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שלהבת אקפילו","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/100nVeRXsE1xCCF7oE3jRHVhYXwokxnwC","contractUrl":"https://drive.google.com/file/d/1rna45Q5KAYNvRhI3A6PAcPggffVesw3P/view?usp=drivesdk","ret1":"06/11/2025 - הפלה","ret2":"06/05/2026","ret3":"10/06/2026 - נקלט הריון","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שלי ואייל זגורי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"6 עוברים (הוחזרו 3, נותרו 3)","driveUrl":"https://drive.google.com/drive/folders/1lFG1hWeAz4EGBcv3IZmMTm-U8Vkke7do","contractUrl":"https://drive.google.com/file/d/1qvspgMuG23qR82g0nB_Kr-w2aZALB3Ic/view?usp=drivesdk","ret1":"14/01/2026 - נקלט הריון","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שלי פריצקר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1dGO8CwfRkrxtLXso39GE1uQP3waXAd9i","contractUrl":"https://drive.google.com/file/d/1sK0d-a0A-k1GVmi_YiTVf1ExLh0ocxDH/view?usp=drivesdk","ret1":"29/10/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שמרית לחיאני","project":"תרומת ביצית - קפריסין","phoneWife":"054-8314747","phoneHusband":"","emailWife":"shimritlala@gmail.com","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1ub5Gmyv5C9-CvRUG7DYtSB4LtJjjT7x6","contractUrl":"https://drive.google.com/file/d/1JF-TI0yo_LregopfXVbuRyMV6DRpo_hy/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - מסלול מורחב (4 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שרון ופז לונדון","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1gChIx0fyLzZPSeanV7ZJJbuZ3eMHOO13","contractUrl":"https://drive.google.com/file/d/1OzMc2gYWQ-mcj4Rdgv82d2yadwgCvd32/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 2 - פרמיום עד הריון ודופק","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שרונה שיינפלד","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1hYAvaFeVIOBM8fCT4rstKBH2lodPcPDg","contractUrl":"https://drive.google.com/file/d/1R5LwJGzyCXNxSoXazqvTepgbKuvqKBYw/view?usp=drivesdk","ret1":"29/10/2026","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"שרית לויזדה","project":"תרומת ביצית - קפריסין","phoneWife":"054-8305454","phoneHusband":"","emailWife":"Sarit.levizada1@Gmail.com","emailHusband":"","address":"","processStatus":"התחלת הכנה","doctor":"פרופ' מאירוב","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1e2PKxM2OB85ERUtQbgADTOBCD47ZfIU8","contractUrl":"https://drive.google.com/file/d/1ykMP1Ti-SAlnAX1vwvQNJ2KrPfSvPM95/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"תמר אהרונוף","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/15IoS90TB8Wgl-gZgKWzvZGTB5saP0RoG","contractUrl":"https://drive.google.com/file/d/1Xh6HPyFMSXDqkbh9lSxBlBx3LUIjfnCA/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"מסלול 24 ביציות","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"תמר ויהונתן סומפולינסקי","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"פרוטוקול רפואי","doctor":"ד\"ר מרים ספראי","embryoStatus":"","driveUrl":"https://drive.google.com/drive/folders/1rxIwmmY1ovWO7B8x-hhkIHL7xoYCuT1u","contractUrl":"https://drive.google.com/file/d/1SKYCG4XCCRwAqopNSg9Y5ffJ5LfjHA9G/view?usp=drivesdk","ret1":"26/10/2025 - הפלה","ret2":"09/09/2026 - נקלט הריון","ret3":"","ret4":"","notes":"","track":"תכנית 1 - מסלול סטנדרטי (2 עוברים)","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"תמר קציר","project":"תרומת ביצית - קפריסין","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","processStatus":"הריון","doctor":"ד\"ר תמר סוקל-ארנון","embryoStatus":"3 עוברים (הוחזרו 2, נותר 1)","driveUrl":"https://drive.google.com/drive/folders/1bgFDtOFTfGPzZodoUHQJ33lNaOlJqHUG","contractUrl":"https://drive.google.com/file/d/13ILgmzGWXdTBX2yJnkcYTLJe3fzQMN98/view?usp=drivesdk","ret1":"","ret2":"","ret3":"","ret4":"","notes":"","track":"","subCategory":"","surrogateName":"","dueDate":"","agreementStatus":""},{"name":"אורי ואור עפרה שמיח","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2025","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2025","notes":"צריך אנטי די","driveUrl":"https://drive.google.com/drive/folders/1kpxI8C-lSmR7LRolOfhpfWRAps0LsevJ","contractUrl":"https://drive.google.com/file/d/1MKm7FXJryD_jJxsd7Q2V5AbX5_FlRBMT/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"נועם ומור סלם","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2025","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2025","notes":"צריך אנטי די","driveUrl":"https://drive.google.com/drive/folders/15Gx4MJIRqnlap3guX058bLNcXXWAgF9f","contractUrl":"https://drive.google.com/file/d/1BvFEtfNAgEhY2h1L3S7vXPGmBGyDhUkn/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"אוחיון מאיה ואבורזק חטיב יוסי","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2025","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2025","notes":"","driveUrl":"https://drive.google.com/drive/folders/1ZkXm2Q3_BgpaPvbMJL3UZJatNTUiqwF-","contractUrl":"https://drive.google.com/file/d/1DvtIq_j-AR2pfCkVpffEXB2M9vKJPLuB/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"לי אור וניב ינאי","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2025","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2025","notes":"","driveUrl":"https://drive.google.com/drive/folders/1WNqo9VdnH1Chw79cb33lMr9JihE-Pgvt","contractUrl":"https://drive.google.com/file/d/1CR0wWttZlNVZv_m0Xe65reYYAaZRgC2r/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"שיר צמח ועידו צמח","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2025","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2025","notes":"","driveUrl":"https://drive.google.com/drive/folders/1AZADD8u-7Gue-e0kn-JT7iu0ljEmIUU6","contractUrl":"https://drive.google.com/file/d/1cl1gv8nzdVfeTDNa9IhNtYnN1ydRYP2O/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"משעלי אילנית רחלי וסמי","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2025","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2025","notes":"","driveUrl":"https://drive.google.com/drive/folders/1JnKUhNllkxVEE9die3jLhJSxxUYZ6eAM","contractUrl":"https://drive.google.com/file/d/1f7AbbwCSZN7Yoa75dZ0KHoMgnMPJeI9i/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"רותם ואלעד אוירא","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2026","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2026","notes":"","driveUrl":"https://drive.google.com/drive/folders/18qQhKtfZ7o0FPmCra_jgx8q1sXC_FiWq","contractUrl":"https://drive.google.com/file/d/105U81_OxQps4S8H9DqtUAM3ONbSX050v/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"עדי בנארי וניר יעקב","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2026","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2026","notes":"","driveUrl":"https://drive.google.com/drive/folders/1YvInXSxebcc7THUos9JFgw21pGaLudBn","contractUrl":"https://drive.google.com/file/d/1i7M9kRw5nRXXFNhkcH0IAD6IT14_6ZPh/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"ענבל ואדם קלדר","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2026","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2026","notes":"","driveUrl":"https://drive.google.com/drive/folders/18bZFfdKzX_rDWubiesjT6DjaSnMD_pcS","contractUrl":"https://drive.google.com/file/d/1PuUs73hU79WzgjTZUgKvOA6IR-4Tdfk5/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"גוברין אביטל ורועי","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2026","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2026","notes":"","driveUrl":"https://drive.google.com/drive/folders/1faxm6lcXuKK6lWQmBngy4c6Y5UGbkfk-","contractUrl":"https://drive.google.com/file/d/1hh_sCUx12dPyQJiXU7qoouZwTth9Gk7C/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"ליאת כהן ויניב שאול","project":"פונדקאות - גאורגיה","subCategory":"זוגות שילדו 2026","processStatus":"לידה וסיום","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"2026","notes":"","driveUrl":"https://drive.google.com/drive/folders/11y8rSLh5Hw53JAVDI8U_m3HCd1ZJAVw9","contractUrl":"https://drive.google.com/file/d/1f44hYlwiWJ1D17BdtdR6gL2WuoJA_q8O/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"טל גולדברג ויובל שוורץ","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1quAKrxV1fsI6trzyCYdi1V4gH4-Mahrt","contractUrl":"https://drive.google.com/file/d/1_aWkKT1380137Sul9DNKXEBpRA33a5KE/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"נטע וישי ברקוביץ","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1k-cYygOnOAuU7_-NzH1KX9g-iwe_a2ym","contractUrl":"https://drive.google.com/file/d/132miJ_mgOKnbMWJHxEC0O4uuCYQ2ss0R/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"חגית ואשר פרנקו","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1PCZTzQij6GXmRe640aXl-Ie-6QIazkWS","contractUrl":"https://drive.google.com/file/d/1xos6ZKjTmwBzqagZ55E1Q9k3leUXVhkC/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"אביטל ורועי אראל","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"הפסקת הריון ב31.8","driveUrl":"https://drive.google.com/drive/folders/1OyJiIWfdEIv5FZ6qYdn7MVBb9WDvP9Q8","contractUrl":"https://drive.google.com/file/d/1DoMD2fJh2x0XDOtEJGXtBDEBxMlp2Rtd/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"הדס ממן ועודד בן שטרית","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1Dhx0BTncwiYQhBV9cbGbZ_HZGfng1f7V","contractUrl":"https://drive.google.com/file/d/19RWC68jj7pAzIN5ViFRSzPsQpzLI-ZxE/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"גליה ורותם דארבי","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"הריון שפסק ב14.8","driveUrl":"https://drive.google.com/drive/folders/15iQl-Cr3QTn_tdAPUzZXPuE9dOjasfSZ","contractUrl":"https://drive.google.com/file/d/1Dvwuuxs7xt_k9rmiW0ATD_cm8q0UIQOa/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"סוקולוב אסתר ויורי","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1LIBPrK37XIHwqmru0v6FApmuwBtpOkoL","contractUrl":"https://drive.google.com/file/d/1VPT_HqsJ4n3knCbu3MbVtsOwd34PDUoW/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"קנרש מיכל וסהר","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1XKMYpg18ZkOdXT4XHbpV6Yn4LDgOTP4o","contractUrl":"https://drive.google.com/file/d/1K1Tc2DlnnlzEkHw6b9S-O-K0kSJU67xM/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"אורית ואסף דניאל","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1o9WetuVNluYiB-sLTnj5tFbVptE7N4KF","contractUrl":"https://drive.google.com/file/d/18OfJOdIsmSdLxfqT7BinVq-VvrFHhSEk/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"לירון ואמיר שרון","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1Ci9PUkWbQGMA9ojY_BmDxk-zGoV3NNTg","contractUrl":"https://drive.google.com/file/d/1wxlnCgPlDE4qC7dI25HdbLQa2zA7MqtA/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"קמינסקי קרן ויהודה","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1driBmzx9Btk2L19XvsyM938-PG2t96-T","contractUrl":"https://drive.google.com/file/d/1tpy4E2ihXYJweqvGPzCOZLnZPJ5Mf622/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"כרמית ושון נוי","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/19CgZDXuGarI3_Ycoc3pFNx1iIukFYy3f","contractUrl":"https://drive.google.com/file/d/1Ylb-icGNio8vX1Ez2LtwjNcBxENO5k2m/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"נופר יבלונוביץ כהן ומיכאל כהן","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"תורמת 2696","driveUrl":"https://drive.google.com/drive/folders/19dyGk2n17qg_UcKntgb5o0KwsdVHdT91","contractUrl":"https://drive.google.com/file/d/1qbPHPvpZFfa0-xedk1-3XFu4CUQFeKz9/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"הדר ונועם רפאל בן יהודה","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1Hm3zaqr9NqmlbgmqZoHRnQn6bZ8IqrOz","contractUrl":"https://drive.google.com/file/d/1GVOdliQ-Hs4vkqfuZxtJT3B3e_VXVeQF/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"נועם עדי ואסף","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1k8MTm6AsGPSXPwIBxzCPWs4wfwbvcxq9","contractUrl":"https://drive.google.com/file/d/1GGqm9pRRfSWWGKUHq-k-Te60fGFhUu9f/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"ליבנת אלישע ביטון ורונן ביטון","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1aNHlNZio6K5RlImu8naQSar8iwfXL4Gw","contractUrl":"https://drive.google.com/file/d/1s2yT83qXBusHPOeM5gglSHO2GxDPvxgU/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""},{"name":"חזות סוזן ודוד","project":"פונדקאות - גאורגיה","subCategory":"זוגות בתהליך (הריון)","processStatus":"הריון","agreementStatus":"חתום ומאושר","surrogateName":"","dueDate":"","notes":"","driveUrl":"https://drive.google.com/drive/folders/1eV10TjnbtYd0ut0dpeR2JjAlBVTwP_UA","contractUrl":"https://drive.google.com/file/d/1xOSOKWCBy_zEItU3dEcW_OFWvzZbyW52/view?usp=drivesdk","phoneWife":"","phoneHusband":"","emailWife":"","emailHusband":"","address":"","doctor":"","embryoStatus":"","ret1":"","ret2":"","ret3":"","ret4":"","track":""}];
-           
-           const batches = [];
-           let currentBatch = db.batch();
-           let count = 0;
-           
-           for(let c of legacyJSON) {
-               const docRef = db.collection('projects').doc();
-               const pType = c.project || '';
-               const isEgg = pType.includes('ביצית');
-               const isSur = pType.includes('פונדקאות');
-               
-               currentBatch.set(docRef, {
-                   client_name: c.name || '',
-                   project_type: pType,
-                   status_egg: isEgg ? (c.processStatus || '') : '',
-                   stage_sur: isSur ? (c.subCategory || c.processStatus || '') : '',
-                   phone_wife: c.phoneWife || '',
-                   phone_husband: c.phoneHusband || '',
-                   email_wife: c.emailWife || '',
-                   email_husband: c.emailHusband || '',
-                   address: c.address || '',
-                   doctor: c.doctor || '',
-                   embryos: c.embryoStatus || '',
-                   track: c.track || '',
-                   transfer_1: c.ret1 || '',
-                   transfer_2: c.ret2 || '',
-                   transfer_3: c.ret3 || '',
-                   transfer_4: c.ret4 || '',
-                   drive_folder: c.driveUrl || '',
-                   agreement_url: c.contractUrl || '',
-                   notes: c.notes || '',
-                   assigned_to: currentUser.uid,
-                   is_deleted: false,
-                   created_at: firebase.firestore.FieldValue.serverTimestamp()
-               });
-               count++;
-               if (count === 400) { batches.push(currentBatch.commit()); currentBatch = db.batch(); count = 0; }
-           }
-           if (count > 0) batches.push(currentBatch.commit());
-           
-           await Promise.all(batches);
-           btn.innerText = "הייבוא הושלם בהצלחה!";
-           btn.style.background = "#16a34a";
-           alert("מעולה! הנתונים יובאו. המסך יתרענן כעת.");
-           location.reload();
-           
-       } catch (e) {
-           alert("שגיאה בייבוא הנתונים: " + e.message);
-           console.error(e);
-           btn.innerText = "📥 ייבא לקוחות למסד הנתונים בענן";
-           btn.disabled = false;
-       }
-    }
   </script>
 </body>
 </html>
