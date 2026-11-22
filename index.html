@@ -42,7 +42,7 @@
     .btn-logout { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-weight: 800; cursor: pointer; }
 
     /* Workspace */
-    .main-workspace { display: grid; grid-template-columns: 380px 1fr; gap: 24px; padding: 18px 32px; flex: 1; overflow: hidden; max-width: 1920px; margin: 0 auto; width: 100%; }
+    .main-workspace { display: grid; grid-template-columns: clamp(380px, 27vw, 480px) minmax(0, 1fr); gap: 24px; padding: 18px 32px; flex: 1; overflow: hidden; max-width: 1920px; margin: 0 auto; width: 100%; }
     .main-workspace.full-dashboard { grid-template-columns: 1fr; }
     
     /* Dashboard New Design */
@@ -140,7 +140,7 @@
     .badge-sur { background: #dcfce7; color: #166534; border:1px solid #bbf7d0; }
 
     /* Client Detail View - PERFECT ALIGNMENT & SPACING */
-    .detail-container { display: flex; flex-direction: column; height: 100%; overflow-y: auto; padding-left: 8px; }
+    .detail-container { display: flex; flex-direction: column; min-width: 0; height: 100%; overflow-y: auto; padding-left: 8px; }
     .placeholder-card { background: white; border-radius: 16px; border: 2px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; height: 100%; color: #94a3b8; font-size: 20px; font-weight: 800; box-shadow: 0 4px 12px rgba(0,0,0,0.02);}
     
     .detail-top-bar { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1.5px solid #cbd5e1; margin-bottom: 24px; }
@@ -161,13 +161,14 @@
     /* Rich Boxes (Forms) */
     .rich-box { background: white; border: 1px solid #cbd5e1; border-radius: 16px; margin-bottom: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);}
     .rich-box-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 1px solid #cbd5e1; font-weight: 900; color: #1e40af; font-size: 16px; background: #f8fafc; border-radius: 16px 16px 0 0; }
+    .medical-title { white-space: nowrap; }
     .rich-box-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
     
     .f-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .f-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
-    .f-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .f-grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
     
-    .f-group { display: flex; flex-direction: column; gap: 8px; }
+    .f-group { display: flex; flex-direction: column; min-width: 0; gap: 8px; }
     .f-label { font-size: 14.5px; font-weight: 800; color: #475569; }
     .action-btn-wrap { display: flex; gap: 8px; align-items:center;}
     .f-input { flex:1; width: 100%; padding: 12px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 15px; color: #0f172a; outline: none; font-weight:600; background: #ffffff; transition: 0.2s;}
@@ -187,6 +188,8 @@
     .btn-add-small { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; padding: 6px 14px; border-radius: 6px; font-weight: 800; font-size: 13.5px; cursor: pointer; transition:0.2s; display:inline-flex; align-items:center;}
     .btn-add-small:hover { background: #bfdbfe; }
 
+    .medical-transfers { border-top: 1px solid #e2e8f0; padding-top: 20px; }
+    .medical-transfers-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; color: #1e40af; font-weight: 900; }
     .transfers-grid { display: flex; flex-wrap: wrap; gap: 16px; }
     .transfer-box { border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 16px; text-align: center; width: 180px; background:#f8fafc;}
     .transfer-box-title { font-weight: 900; color: #1e40af; margin-bottom: 10px; font-size: 14.5px; }
@@ -247,6 +250,13 @@
     .pb-tab { background:transparent; border:none; font-size:15.5px; font-weight:900; color:#64748b; cursor:pointer; padding:8px 16px; border-radius:8px; transition:0.2s;}
     .pb-tab:hover { background:#f1f5f9;}
     .pb-tab.active { background:#0f766e; color:white; }
+    .phonebook-table-wrap { overflow-x: auto; border: 1px solid #99f6e4; border-radius: 12px; }
+    .phonebook-table th { background: #ccfbf1; color: #115e59; }
+    .phonebook-table tbody tr:nth-child(even) { background: #f0fdfa; }
+    .phonebook-table tbody tr:hover { background: #ecfdf5; }
+    .phonebook-table .contact-name { color: #0f766e; font-weight: 900; }
+    .phonebook-email { color: #1d4ed8; overflow-wrap: anywhere; }
+    .phonebook-email:hover { color: #1e3a8a; }
 
     .table-action-btn { padding: 5px 9px; border: 0; border-radius: 6px; cursor: pointer; font-weight: 800; }
     .table-action-btn.restore { background: #10b981; color: white; }
@@ -258,6 +268,11 @@
     .audit-section { margin-top: 20px; }
     .audit-section summary { cursor: pointer; font-weight: 900; color: #0b1f44; }
     .audit-table-wrap { overflow-x: auto; margin-top: 10px; }
+
+    @media (max-width: 1250px) {
+      .f-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .detail-top-bar { flex-wrap: wrap; gap: 12px; }
+    }
 
     @media (max-width: 900px) {
       body { height: auto; min-height: 100vh; overflow: auto; }
@@ -299,6 +314,7 @@
       .stat-card { padding: 18px; }
       .rich-box-body, .admin-card-body { padding: 16px; }
       .rich-box-header { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+      .medical-title { font-size: clamp(10px, 3.2vw, 16px); }
       .detail-title-group { flex-wrap: wrap; }
       .detail-client-name { font-size: 21px; }
       .detail-actions > * { flex: 1 1 100%; justify-content: center; }
@@ -310,6 +326,12 @@
       .login-title { font-size: 25px; }
       .project-choice-box { grid-template-columns: 1fr; }
       .user-table { min-width: 620px; }
+      .phonebook-table { min-width: 0; }
+      .phonebook-table thead { display: none; }
+      .phonebook-table, .phonebook-table tbody, .phonebook-table tr, .phonebook-table td { display: block; width: 100%; }
+      .phonebook-table tr { padding: 8px 12px; border-bottom: 1px solid #99f6e4; }
+      .phonebook-table td { border: 0; padding: 5px 0; text-align: right; }
+      .phonebook-table td::before { content: attr(data-label) ": "; color: #115e59; font-weight: 900; }
       .admin-card-body { overflow-x: auto; }
     }
   </style>
@@ -497,13 +519,6 @@
             <div class="detail-client-name" id="detName">שם הלקוח</div>
             <div class="detail-project-tag" id="detProjectTag">תרומת ביצית - קפריסין</div>
             <div id="clientReadOnlyNotice" style="display:none; color:#92400e; font-size:12px; font-weight:800;">צפייה בלבד — רק מנהל או עובד בעל הרשאת עריכה לתיק זה יכול לערוך.</div>
-            <div id="adminSurProjectTypeWrap" class="f-group" style="display:none; min-width:230px; margin:0;">
-              <label for="detSurProjectType" class="f-label">סיווג תיק הפונדקאות</label>
-              <select id="detSurProjectType" class="f-input" aria-label="סיווג תיק הפונדקאות">
-                <option value="פונדקאות - גאורגיה">פונדקאות</option>
-                <option value="פונדקאות + תרומת ביצית - גאורגיה">פונדקאות + תרומת ביצית</option>
-              </select>
-            </div>
           </div>
           <div class="detail-actions">
             <a id="btnDriveFolder" href="#" target="_blank" rel="noopener noreferrer" class="btn-drive disabled">📁 גישה לתיק ב-Drive</a>
@@ -570,8 +585,7 @@
         <!-- 2. ניהול רפואי ומסלול - תרומת ביצית -->
         <div class="rich-box" id="cyprusFields" style="display:none;">
           <div class="rich-box-header">
-            <span>🩺 ניהול רפואי ומסלול תרומת ביצית</span>
-            <div></div>
+            <span class="medical-title">🩺 ניהול רפואי ומסלול תרומת ביצית</span>
           </div>
           <div class="rich-box-body">
             <div class="f-grid-4">
@@ -590,6 +604,15 @@
               <div class="f-group">
                 <label class="f-label">סטטוס עוברים (נוצרו/נותרו)</label>
                 <input type="text" id="detEmbryos" class="f-input" placeholder="5 עוברים (הוחזרו 2, נותרו 3)">
+              </div>
+            </div>
+            <div class="medical-transfers">
+              <div class="medical-transfers-header">
+                <span>📅 מעקב החזרות עוברים (קפריסין)</span>
+                <button class="btn-add-small" onclick="addTransferField()">➕ הוסף החזרה נוספת</button>
+              </div>
+              <div class="transfers-grid" id="transfersGrid">
+                <!-- JS ימלא פה את התיבות דינמית -->
               </div>
             </div>
           </div>
@@ -624,12 +647,12 @@
 
             <div class="f-grid-3">
               <div class="f-group">
-                <label class="f-label">מסלול פונדקאות</label>
-                <select id="detTrackSur" class="f-input" style="color:#1d4ed8; font-weight:800;">
-                  <option value="">-- בחר מסלול --</option>
-                  <option value="מסלול VIP">מסלול VIP</option>
-                  <option value="מסלול רגיל">מסלול רגיל</option>
+                <label for="detSurProjectType" class="f-label">מסלול פונדקאות</label>
+                <select id="detSurProjectType" class="f-input" style="color:#1d4ed8; font-weight:800;" aria-describedby="surProjectTypeNotice">
+                  <option value="פונדקאות - גאורגיה">פונדקאות</option>
+                  <option value="פונדקאות + תרומת ביצית - גאורגיה">פונדקאות + תרומת ביצית</option>
                 </select>
+                <small id="surProjectTypeNotice">שינוי המסלול מתבצע על ידי מנהל המערכת.</small>
               </div>
               <div class="f-group">
                 <label class="f-label">תאריך לידה משוער / תאריך לידה</label>
@@ -641,19 +664,6 @@
               </div>
             </div>
 
-          </div>
-        </div>
-
-        <!-- 3. מעקב החזרות (קפריסין) -->
-        <div class="rich-box" id="transfersBox">
-          <div class="rich-box-header">
-            <span>📅 מעקב החזרות עוברים (קפריסין)</span>
-            <button class="btn-add-small" onclick="addTransferField()">➕ הוסף החזרה נוספת</button>
-          </div>
-          <div class="rich-box-body">
-            <div class="transfers-grid" id="transfersGrid">
-              <!-- JS ימלא פה את התיבות דינמית -->
-            </div>
           </div>
         </div>
 
@@ -708,10 +718,15 @@
           <input type="text" id="newClientName" class="f-input">
         </div>
         <div class="project-choice-box" style="margin-top:10px;" id="newClientChoices">
-          <div id="cardChoiceEgg" class="project-radio-card selected" onclick="selectProject('egg')">🥚 תרומת ביצית<br><span style="font-size:12px;">קפריסין</span></div>
-          <div id="cardChoiceSur" class="project-radio-card" onclick="selectProject('sur')">👶 פונדקאות<br><span style="font-size:12px;">גאורגיה</span></div>
-          <div id="cardChoiceSurEgg" class="project-radio-card" onclick="selectProject('surEgg')">👶🥚 פונדקאות + תרומת ביצית<br><span style="font-size:12px;">גאורגיה</span></div>
+          <button type="button" id="cardChoiceEgg" class="project-radio-card selected" onclick="selectProject('egg')" aria-pressed="true">🥚 תרומת ביצית<br><span style="font-size:12px;">קפריסין</span></button>
+          <button type="button" id="cardChoiceSur" class="project-radio-card" onclick="selectProject('sur')" aria-pressed="false">👶 פונדקאות<br><span style="font-size:12px;">גאורגיה</span></button>
           <input type="hidden" id="selectedNewClientProject" value="egg">
+        </div>
+        <div id="newSurEggWrap" class="f-group" style="display:none; margin-top:14px;">
+          <label for="newSurEgg">
+            <input type="checkbox" id="newSurEgg" onchange="selectProject(this.checked ? 'surEgg' : 'sur')">
+            הוסף תרומת ביצית למסלול הפונדקאות
+          </label>
         </div>
         <button type="button" onclick="saveNewClient()" id="btnSaveNewClient" class="btn-save-card" style="margin-top:16px; justify-content:center; width:100%; padding:14px;">💾 צור תיק לקוח חדש במערכת</button>
       </div>
@@ -737,7 +752,7 @@
         <div id="cpViewGen" style="display:block;">
           <div class="cp-box" style="border:1px solid #15803d; background:#f0fdf4; margin-bottom:20px;">
             <h4 style="color:#15803d; border-bottom:none; margin-bottom:5px;">💾 גיבוי וייצוא נתונים</h4>
-            <p style="font-size:13.5px; color:#166534; margin-bottom:14px; font-weight:600;">ייצוא מלא של כל נתוני המערכת (לקוחות, עובדים, הגדרות, טלפונים) לקובץ JSON מאובטח למחשב.</p>
+            <p style="font-size:13.5px; color:#166534; margin-bottom:14px; font-weight:600;">ייצוא ידני של תיקי לקוחות, קישורי הסכמים, פרופילי עובדים, הגדרות וטלפונים לקובץ JSON. הקובץ מכיל מידע רגיש ואינו מוצפן; יש לשמור אותו במקום מאובטח. הייצוא אינו כולל את קובצי ההסכמים ב-Drive או חשבונות וסיסמאות Firebase, ואינו מחליף גיבוי אוטומטי.</p>
             <button class="btn-save-card" style="width:100%; justify-content:center; background:#15803d; font-size:16px;" onclick="exportToJSON()">📥 הורד גיבוי מערכת עכשיו (JSON)</button>
           </div>
 
@@ -795,6 +810,7 @@
             </div>
             <div class="cp-box" style="border-top: 3px solid #f59e0b; grid-column: 1 / -1;">
               <h4>🔄 סטטוס תהליך (ביצית)</h4>
+              <p style="font-size:13px; margin-bottom:8px;">שינוי או הסרת סטטוס מהרשימה אינם משנים את הסטטוס שכבר נשמר בתיקי לקוחות.</p>
               <div class="cp-list" id="cpStatusEggList" style="max-height:150px;"></div>
               <div class="cp-add-wrap"><input type="text" id="newStatusEgg" class="f-input" placeholder="סטטוס"><button class="btn-save-card" style="background:#f59e0b;" onclick="addSysList('Cyprus_Status', 'newStatusEgg')">➕</button></div>
             </div>
@@ -856,10 +872,12 @@
         <div class="list-search" style="margin-bottom: 14px;">
           <input type="text" id="pbSearch" placeholder="חיפוש לפי שם או תפקיד..." oninput="renderPhonebook()" style="padding:10px; font-size:15px;">
         </div>
-        <table class="user-table">
-          <thead><tr><th>שם ומשפחה</th><th>טלפון נייד</th><th>כתובת אימייל</th><th>תפקיד</th><th id="thBday">תאריך לידה</th><th id="pbActionTh" style="display:none;">פעולות</th></tr></thead>
-          <tbody id="pbTableBody"></tbody>
-        </table>
+        <div class="phonebook-table-wrap">
+          <table class="user-table phonebook-table">
+            <thead><tr><th>שם ומשפחה</th><th>טלפון נייד</th><th>כתובת אימייל</th><th>תפקיד</th><th id="thBday">תאריך לידה</th><th id="pbActionTh" style="display:none;">פעולות</th></tr></thead>
+            <tbody id="pbTableBody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -873,12 +891,11 @@
       </div>
       <div class="admin-card-body">
         <div style="background:#f8fafc; padding:20px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:16px;">
-          <h4 style="font-size:15px; margin-bottom:8px; color:#0b1f44; font-weight:900;">➕ הוספת פרופיל משתמש למערכת</h4>
-          <p style="font-size:12px; color:#64748b; font-weight:700; line-height:1.6; margin-bottom:12px;">יש ליצור קודם חשבון ב-Firebase Authentication, ואז להעתיק לכאן את ה-UID של החשבון. הטופס הזה אינו יוצר סיסמה או חשבון כניסה.</p>
+          <h4 style="font-size:15px; margin-bottom:8px; color:#0b1f44; font-weight:900;">➕ הוספת עובד למערכת</h4>
+          <p style="font-size:12px; color:#64748b; font-weight:700; line-height:1.6; margin-bottom:12px;">המערכת תיצור חשבון כניסה, תגדיר את ההרשאות ותשלח לעובד קישור מאובטח להגדרת סיסמה. העובד לא צריך גישה ל-Firebase Console.</p>
           <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap:12px; margin-bottom:16px;">
             <input type="text" id="newUserName" class="f-input" placeholder="שם מלא">
             <input type="email" id="newUserEmail" class="f-input ltr-input" placeholder="user@talthelife.com" style="text-align:right;">
-            <input type="text" id="newUserUid" class="f-input ltr-input" placeholder="Firebase UID" aria-label="Firebase UID">
             <select id="newUserRole" class="f-input">
               <option value="" selected disabled>בחר הרשאה</option>
               <option value="Admin">מנהל מערכת (Admin)</option>
@@ -887,7 +904,7 @@
               <option value="Staff_Sur">צוות (כל תיקי פונדקאות)</option>
             </select>
           </div>
-          <button class="btn-save-card" onclick="addNewUser()" id="btnAddUser">➕ שמירת פרופיל משתמש</button>
+          <button class="btn-save-card" onclick="addNewUser()" id="btnAddUser">➕ יצירת משתמש ושליחת הזמנה</button>
         </div>
         <div style="background:#eff6ff; padding:16px; border-radius:12px; border:1px solid #bfdbfe; margin-bottom:16px;">
           <strong>העברת קישורי הסכמים לאחסון מוגן</strong>
@@ -1244,7 +1261,7 @@
       document.getElementById('tabSur').style.display = 'none';
       document.getElementById('dashCardEgg').style.display = 'none';
       document.getElementById('dashCardSur').style.display = 'none';
-      document.getElementById('cardChoiceSurEgg').style.display = 'none';
+      document.getElementById('newSurEggWrap').style.display = 'none';
       document.querySelectorAll('.btn-admin-panel').forEach(button => button.style.display = 'none');
       document.getElementById('btnAdminModalDash').style.display = 'none';
       document.getElementById('addContactPanel').style.display = 'none';
@@ -1330,7 +1347,6 @@
         document.getElementById('tabSur').style.display = 'none';
         document.getElementById('dashCardEgg').style.display = 'none';
         document.getElementById('dashCardSur').style.display = 'none';
-        document.getElementById('cardChoiceSurEgg').style.display = '';
 
         if (currentUserRole === 'Admin') {
           roleTag.innerText = 'מנהל'; roleTag.className = 'role-tag-admin';
@@ -1359,11 +1375,10 @@
         document.getElementById('cardChoiceEgg').style.display = '';
         document.getElementById('cardChoiceSur').style.display = '';
         if (currentUserRole === 'Staff_Egg') document.getElementById('cardChoiceSur').style.display = 'none';
-        if (currentUserRole === 'Staff_Egg') document.getElementById('cardChoiceSurEgg').style.display = 'none';
         if (currentUserRole === 'Staff_Sur') {
           document.getElementById('cardChoiceEgg').style.display = 'none';
-          selectProject('sur');
         }
+        selectProject(currentUserRole === 'Staff_Sur' ? 'sur' : 'egg');
 
         dataUnsubscribers.push(loadSystemLists(), loadProjects(), loadPhonebook(), loadHomepageSettings());
       } catch (error) {
@@ -1692,7 +1707,9 @@
     }
     function updateDropdowns() {
       const pDoc=document.getElementById('detDoctor'), pTrk=document.getElementById('detTrack'), pStE=document.getElementById('detStatusEgg'), pStS=document.getElementById('detStageSur');
-      [pDoc, pTrk, pStE, pStS].forEach(select => {
+      const selects = [pDoc, pTrk, pStE, pStS];
+      const selectedValues = selects.map(select => select.value);
+      selects.forEach(select => {
         select.replaceChildren(createTextElement('option', '-- בחר --'));
         select.firstElementChild.value = '';
       });
@@ -1710,6 +1727,19 @@
           select.appendChild(option);
         }
       });
+      selects.forEach((select, index) => setListSelectValue(select, selectedValues[index]));
+    }
+    function setListSelectValue(select, value) {
+      Array.from(select.options)
+        .filter(option => option.dataset.retainedValue === 'true' && option.value !== value)
+        .forEach(option => option.remove());
+      if (value && !Array.from(select.options).some(option => option.value === value)) {
+        const option = createTextElement('option', `${value} (לא ברשימה)`);
+        option.value = value;
+        option.dataset.retainedValue = 'true';
+        select.appendChild(option);
+      }
+      select.value = value || '';
     }
     function renderControlPanel() {
       if (!requireAdminAccess()) return;
@@ -1770,7 +1800,7 @@
     async function exportToJSON() {
       if (!requireAdminAccess()) return;
       try {
-        const collections = ['projects', 'users', 'system_lists', 'phonebook', 'system_settings'];
+        const collections = ['projects', 'project_agreements', 'users', 'system_lists', 'phonebook', 'system_settings'];
         let backupData = {};
         for(let c of collections) {
            const snap = await db.collection(c).get();
@@ -1813,13 +1843,29 @@
 
       filtered.forEach(c => {
         const row = document.createElement('tr');
-        appendTextCell(row, c.contact_name, 'contact-name');
-        appendTextCell(row, [c.phone_1, c.phone_2].filter(Boolean).join(' | '), 'ltr-input');
-        appendTextCell(row, [c.email_1, c.email_2].filter(Boolean).join(' | '), 'ltr-input');
-        appendTextCell(row, c.notes_role);
-        if (currentPbTab === 'staff') appendTextCell(row, c.birthdate, 'ltr-input');
+        appendTextCell(row, c.contact_name, 'contact-name').setAttribute('data-label', 'שם');
+        appendTextCell(row, [c.phone_1, c.phone_2].filter(Boolean).join(' | '), 'ltr-input').setAttribute('data-label', 'טלפון');
+        const emailCell = document.createElement('td');
+        emailCell.className = 'ltr-input';
+        emailCell.setAttribute('data-label', 'אימייל');
+        [c.email_1, c.email_2].filter(Boolean).forEach((value, index) => {
+          if (index) emailCell.appendChild(document.createTextNode(' | '));
+          const email = safeEmailAddress(value);
+          if (!email) {
+            emailCell.appendChild(document.createTextNode(String(value)));
+            return;
+          }
+          const link = createTextElement('a', email, 'phonebook-email');
+          link.dir = 'ltr';
+          link.href = `mailto:${encodeURIComponent(email).replace(/%40/g, '@')}`;
+          emailCell.appendChild(link);
+        });
+        row.appendChild(emailCell);
+        appendTextCell(row, c.notes_role).setAttribute('data-label', 'תפקיד');
+        if (currentPbTab === 'staff') appendTextCell(row, c.birthdate, 'ltr-input').setAttribute('data-label', 'תאריך לידה');
         if (currentUserRole === 'Admin') {
           const actionCell = document.createElement('td');
+          actionCell.setAttribute('data-label', 'פעולות');
           actionCell.appendChild(createActionButton('מחק', 'table-action-btn danger', () => deleteContact(c.id)));
           row.appendChild(actionCell);
         }
@@ -1960,15 +2006,21 @@
       const choiceIds = {
         egg: 'cardChoiceEgg',
         sur: 'cardChoiceSur',
-        surEgg: 'cardChoiceSurEgg'
+        surEgg: 'cardChoiceSur'
       };
-      Object.values(choiceIds).forEach(id => document.getElementById(id).classList.remove('selected'));
       const selectedChoice = document.getElementById(choiceIds[type]);
       if (!selectedChoice) {
         console.error('Unknown project type selected:', type);
         return;
       }
-      selectedChoice.classList.add('selected');
+      ['cardChoiceEgg', 'cardChoiceSur'].forEach(id => {
+        const choice = document.getElementById(id);
+        const selected = choice === selectedChoice;
+        choice.classList.toggle('selected', selected);
+        choice.setAttribute('aria-pressed', String(selected));
+      });
+      document.getElementById('newSurEggWrap').style.display = type === 'egg' ? 'none' : 'block';
+      document.getElementById('newSurEgg').checked = type === 'surEgg';
       document.getElementById('selectedNewClientProject').value = type;
     }
     async function saveNewClient() {
@@ -2005,6 +2057,7 @@
         created_at: firebase.firestore.FieldValue.serverTimestamp()
       });
       closeModal('newClientModal'); document.getElementById('newClientName').value = '';
+      selectProject(pType === 'egg' ? 'egg' : 'sur');
     }
 
     function loadProjects() {
@@ -2377,15 +2430,10 @@
       document.getElementById('detProjectTag').innerText = project.project_type || '';
       const pType = project.project_type || ''; const isEgg = isEggDonationProject(pType);
       document.getElementById('detProjectTag').style.background = isEgg ? '#2563eb' : '#10b981';
-      const surProjectTypeWrap = document.getElementById('adminSurProjectTypeWrap');
       const surProjectTypeSelect = document.getElementById('detSurProjectType');
-      const canChangeSurProjectType = currentUserRole === 'Admin' && isSurrogacyProject(pType);
-      surProjectTypeWrap.style.display = canChangeSurProjectType ? 'block' : 'none';
       document.getElementById('agreementEditorWrap').style.display = currentUserRole === 'Admin' ? 'block' : 'none';
-      if (canChangeSurProjectType) {
-        surProjectTypeSelect.value = getProjectKind(pType) === 'surrogacyEgg'
-          ? 'פונדקאות + תרומת ביצית - גאורגיה'
-          : 'פונדקאות - גאורגיה';
+      if (isSurrogacyProject(pType)) {
+        setListSelectValue(surProjectTypeSelect, pType);
       }
 
       // Load static fields
@@ -2395,11 +2443,10 @@
       document.getElementById('detDriveUrl').value = project.drive_folder || '';
       document.getElementById('detAgreementUrl').value = '';
       
-      document.getElementById('detDoctor').value = project.doctor || '';
-      document.getElementById('detTrack').value = project.track || '';
-      document.getElementById('detTrackSur').value = project.track_sur || '';
-      document.getElementById('detStatusEgg').value = project.status_egg || '';
-      document.getElementById('detStageSur').value = project.stage_sur || '';
+      setListSelectValue(document.getElementById('detDoctor'), project.doctor || '');
+      setListSelectValue(document.getElementById('detTrack'), project.track || '');
+      setListSelectValue(document.getElementById('detStatusEgg'), project.status_egg || '');
+      setListSelectValue(document.getElementById('detStageSur'), project.stage_sur || '');
       document.getElementById('detAgreementStatus').value = project.agreement_status || '';
 
       // Load Dynamic Transfers
@@ -2433,9 +2480,8 @@
       if(transfersCount === 0) { addTransferField(); }
 
       document.getElementById('box1Title').innerText = isEgg ? '👤 פרטי לקוחות והתקשרות (תרומת ביצית)' : '👤 פרטי לקוחות והתקשרות (פונדקאות)';
-      document.getElementById('cyprusFields').style.display = isEgg ? 'flex' : 'none';
-      document.getElementById('georgiaFields').style.display = isEgg ? 'none' : 'flex';
-      document.getElementById('transfersBox').style.display = isEgg ? 'block' : 'none';
+      document.getElementById('cyprusFields').style.display = isEgg ? 'block' : 'none';
+      document.getElementById('georgiaFields').style.display = isEgg ? 'none' : 'block';
 
       const btnDrive = document.getElementById('btnDriveFolder');
       setLink(btnDrive, safeHttpsUrl(project.drive_folder));
@@ -2446,6 +2492,7 @@
       document.querySelectorAll('#clientDetailCard input, #clientDetailCard select, #clientDetailCard textarea').forEach((field) => {
         if (field.id !== 'detProjectId') field.disabled = !editable;
       });
+      surProjectTypeSelect.disabled = !editable || currentUserRole !== 'Admin';
       document.getElementById('detAgreementUrl').disabled = currentUserRole !== 'Admin';
       document.getElementById('btnUpdateClient').style.display = editable ? '' : 'none';
       document.querySelectorAll('#clientDetailCard .btn-add-small').forEach((button) => {
@@ -2488,18 +2535,18 @@
       
       updateData.doctor = document.getElementById('detDoctor').value; 
       updateData.track = document.getElementById('detTrack').value;
-      updateData.track_sur = document.getElementById('detTrackSur').value;
       updateData.status_egg = document.getElementById('detStatusEgg').value; 
       updateData.stage_sur = document.getElementById('detStageSur').value;
       updateData.agreement_status = document.getElementById('detAgreementStatus').value;
       if (currentUserRole === 'Admin' && currentProject && isSurrogacyProject(currentProject.project_type)) {
         const selectedProjectType = document.getElementById('detSurProjectType').value;
-        if (!['פונדקאות - גאורגיה', 'פונדקאות + תרומת ביצית - גאורגיה'].includes(selectedProjectType)) {
+        if (selectedProjectType !== currentProject.project_type
+          && !['פונדקאות - גאורגיה', 'פונדקאות + תרומת ביצית - גאורגיה'].includes(selectedProjectType)) {
           btn.innerText = "💾 שמור שינויים";
           alert('יש לבחור סיווג פונדקאות תקין.');
           return;
         }
-        updateData.project_type = selectedProjectType;
+        if (selectedProjectType !== currentProject.project_type) updateData.project_type = selectedProjectType;
       }
 
       // Save Dynamic Transfers
@@ -2612,6 +2659,12 @@
               user.role
             )
           ));
+          actionCell.appendChild(createActionButton(
+            'שלח קישור סיסמה',
+            'table-action-btn restore',
+            () => resendPasswordSetupLink(doc.id),
+            `שליחת קישור להגדרת סיסמה עבור ${user.full_name || user.email || 'משתמש'}`
+          ));
           actionCell.appendChild(createActionButton('הסר', 'table-action-btn danger', () => deleteUser(doc.id)));
           row.appendChild(actionCell);
           tbody.appendChild(row);
@@ -2645,25 +2698,45 @@
       if (!requireAdminAccess()) return;
       const name = document.getElementById('newUserName').value.trim();
       const email = safeEmailAddress(document.getElementById('newUserEmail').value).toLowerCase();
-      const uid = document.getElementById('newUserUid').value.trim();
       const role = document.getElementById('newUserRole').value;
-      if (!name || !email || !uid) {
-        alert('יש למלא שם, דוא״ל ו-Firebase UID של חשבון קיים.');
+      if (!name || !email) {
+        alert('יש למלא שם מלא ודוא״ל.');
         return;
       }
-      if (!/^[A-Za-z0-9_-]{1,128}$/.test(uid) || !['Admin', 'Staff_All', 'Staff_Egg', 'Staff_Sur'].includes(role)) {
-        alert('ה-UID או התפקיד אינם תקינים.');
+      if (!/^[^@\s]+@talthelife\.com$/i.test(email) || !['Admin', 'Staff_All', 'Staff_Egg', 'Staff_Sur'].includes(role)) {
+        alert('יש להזין דוא״ל talthelife.com ולבחור תפקיד תקין.');
         return;
       }
-      const userRef = db.collection('users').doc(uid);
-      if ((await userRef.get()).exists) {
-        alert('כבר קיים פרופיל משתמש עבור UID זה.');
-        return;
+      const button = document.getElementById('btnAddUser');
+      button.disabled = true;
+      try {
+        const idToken = await currentUser.getIdToken();
+        const result = await authWorkerRequest('/admin/users/create', { idToken, name, email, role });
+        document.getElementById('newUserName').value = '';
+        document.getElementById('newUserEmail').value = '';
+        document.getElementById('newUserRole').value = '';
+        alert(result.invitationSent
+          ? 'המשתמש נוצר ונשלח אליו קישור מאובטח להגדרת סיסמה.'
+          : 'המשתמש נוצר, אך שליחת קישור הסיסמה נכשלה. אפשר לנסות שוב דרך כפתור "שלח קישור סיסמה" בטבלת המשתמשים.');
+      } catch (error) {
+        console.error('Unable to create CRM user:', error);
+        alert(error.authWorkerError
+          ? error.message
+          : 'יצירת המשתמש לא הושלמה. בדוק חיבור והרשאות ונסה שוב.');
+      } finally {
+        button.disabled = false;
       }
-      await userRef.set({ full_name: name, email, role, is_active: true, can_view_agreements: false });
-      document.getElementById('newUserName').value = '';
-      document.getElementById('newUserEmail').value = '';
-      document.getElementById('newUserUid').value = '';
+    }
+    async function resendPasswordSetupLink(uid) {
+      if (!requireAdminAccess()) return;
+      try {
+        const idToken = await currentUser.getIdToken();
+        await authWorkerRequest('/admin/users/invite', { idToken, uid });
+        alert('נשלח קישור מאובטח להגדרת סיסמה לכתובת העובד.');
+      } catch (error) {
+        console.error('Unable to resend password setup link:', error);
+        alert(error.authWorkerError ? error.message : 'שליחת הקישור נכשלה. נסה שוב מאוחר יותר.');
+      }
     }
     async function deleteUser(id) {
        if (!requireAdminAccess()) return;

@@ -251,6 +251,188 @@ async function getActiveProfile(env, uid, email, idToken) {
   return profile;
 }
 
+async function getAdminRequestContext(env, idToken) {
+  const identity = await lookupFirebaseUser(env, idToken);
+  if (!identity) return null;
+  const profile = await getActiveProfile(env, identity.uid, identity.email, idToken);
+  if (!profile || profile.role !== 'Admin') return null;
+  return { identity, profile };
+}
+
+function isCompanyEmail(email) {
+  return /^[^@\s]+@talthelife\.com$/i.test(email);
+}
+
+function firestoreField(value) {
+  if (typeof value === 'boolean') return { booleanValue: value };
+  return { stringValue: value };
+}
+
+async function writeUserProfile(env, uid, idToken, profile) {
+  const documentUrl = `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(env.FIREBASE_PROJECT_ID)}/databases/(default)/documents/users?documentId=${encodeURIComponent(uid)}`;
+  const response = await fetch(documentUrl, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${idToken}`,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      fields: {
+        full_name: firestoreField(profile.fullName),
+        email: firestoreField(profile.email),
+        role: firestoreField(profile.role),
+        is_active: firestoreField(true),
+        can_view_agreements: firestoreField(false)
+      }
+    })
+  });
+  if (!response.ok) throw new Error(`Firestore user profile creation failed (${response.status}).`);
+}
+
+async function lookupManagedAuthUser(env, accessToken, email) {
+  const endpoint = `https://identitytoolkit.googleapis.com/v1/projects/${encodeURIComponent(env.FIREBASE_PROJECT_ID)}/accounts:lookup`;
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({ email: [email] })
+  });
+  if (!response.ok) throw new Error(`Firebase Auth user lookup failed (${response.status}).`);
+  const result = await response.json();
+  return (result.users || []).find(user => normalizeEmail(user.email) === email) || null;
+}
+
+async function createManagedAuthUser(env, accessToken, email, fullName) {
+  const randomBytes = crypto.getRandomValues(new Uint8Array(32));
+  const endpoint = `https://identitytoolkit.googleapis.com/v1/projects/${encodeURIComponent(env.FIREBASE_PROJECT_ID)}/accounts`;
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      email,
+      password: base64UrlEncode(randomBytes),
+      displayName: fullName,
+      emailVerified: false,
+      disabled: false
+    })
+  });
+  if (!response.ok) {
+    const result = await response.json();
+    const message = result && result.error && typeof result.error.message === 'string'
+      ? result.error.message
+      : 'unknown';
+    throw new Error(`Firebase Auth user creation failed (${response.status}, ${message}).`);
+  }
+  const result = await response.json();
+  if (typeof result.localId !== 'string' || !result.localId) {
+    throw new Error('Firebase Auth returned an invalid user ID.');
+  }
+  return result.localId;
+}
+
+async function sendPasswordSetupEmail(env, email) {
+  const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${encodeURIComponent(env.FIREBASE_API_KEY)}`;
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      requestType: 'PASSWORD_RESET',
+      email,
+      continueUrl: env.APP_ORIGIN
+    })
+  });
+  if (!response.ok) throw new Error(`Firebase password setup email failed (${response.status}).`);
+}
+
+async function createUserForAdmin(request, env) {
+  const body = await readJsonBody(request);
+  if (!body ||
+      typeof body.idToken !== 'string' ||
+      body.idToken.length > 8192 ||
+      typeof body.name !== 'string' ||
+      typeof body.email !== 'string' ||
+      typeof body.role !== 'string') {
+    return jsonResponse({ error: 'יש למלא שם, דוא״ל ותפקיד תקינים.' }, 400);
+  }
+
+  const name = body.name.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, 100);
+  const email = normalizeEmail(body.email);
+  if (!name || !isCompanyEmail(email) || !VALID_ROLES.has(body.role)) {
+    return jsonResponse({ error: 'יש להזין שם, כתובת talthelife.com ותפקיד תקינים.' }, 400);
+  }
+
+  const adminContext = await getAdminRequestContext(env, body.idToken);
+  if (!adminContext) return jsonResponse({ error: 'נדרשת הרשאת מנהל פעילה.' }, 403);
+
+  try {
+    const accessToken = await getGoogleAccessToken(env);
+    const existingAuthUser = await lookupManagedAuthUser(env, accessToken, email);
+    if (existingAuthUser && existingAuthUser.disabled === true) {
+      return jsonResponse({ error: 'חשבון Firebase קיים אך מושבת. יש להפעיל אותו לפני שליחת הזמנה.' }, 409);
+    }
+    const uid = existingAuthUser
+      ? existingAuthUser.localId
+      : await createManagedAuthUser(env, accessToken, email, name);
+
+    if (!uid) throw new Error('Firebase Auth user lookup returned an invalid user ID.');
+    const existingProfile = await getUserProfile(env, uid, body.idToken);
+    if (existingProfile) {
+      return jsonResponse({ error: 'כבר קיים פרופיל CRM עבור כתובת הדוא״ל הזו.' }, 409);
+    }
+
+    await writeUserProfile(env, uid, body.idToken, {
+      fullName: name,
+      email,
+      role: body.role
+    });
+
+    let invitationSent = true;
+    try {
+      await sendPasswordSetupEmail(env, email);
+    } catch (error) {
+      invitationSent = false;
+      console.error('Password setup email failed:', error.message);
+    }
+    return jsonResponse({ uid, invitationSent }, 201);
+  } catch (error) {
+    console.error('Admin user provisioning failed:', error.message);
+    return jsonResponse({
+      error: 'יצירת המשתמש לא הושלמה. בדוק הרשאות שירות ונסה שוב.'
+    }, 502);
+  }
+}
+
+async function sendInviteForAdmin(request, env) {
+  const body = await readJsonBody(request);
+  if (!body ||
+      typeof body.idToken !== 'string' ||
+      body.idToken.length > 8192 ||
+      typeof body.uid !== 'string' ||
+      !/^[A-Za-z0-9_-]{1,128}$/.test(body.uid)) {
+    return jsonResponse({ error: 'בקשת שליחת הקישור אינה תקינה.' }, 400);
+  }
+
+  const adminContext = await getAdminRequestContext(env, body.idToken);
+  if (!adminContext) return jsonResponse({ error: 'נדרשת הרשאת מנהל פעילה.' }, 403);
+
+  try {
+    const profile = await getUserProfile(env, body.uid, body.idToken);
+    if (!profileIsActive(profile) || !isCompanyEmail(profile.email)) {
+      return jsonResponse({ error: 'לא נמצא משתמש פעיל לשליחת קישור.' }, 404);
+    }
+    await sendPasswordSetupEmail(env, profile.email);
+    return jsonResponse({ ok: true }, 200);
+  } catch (error) {
+    console.error('Admin password setup resend failed:', error.message);
+    return jsonResponse({ error: 'שליחת הקישור נכשלה. נסה שוב מאוחר יותר.' }, 502);
+  }
+}
+
 async function sha256Hex(value) {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
   return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
@@ -625,6 +807,10 @@ export default {
         response = await startChallenge(request, env);
       } else if (path === '/auth/verify') {
         response = await verifyChallenge(request, env);
+      } else if (path === '/admin/users/create') {
+        response = await createUserForAdmin(request, env);
+      } else if (path === '/admin/users/invite') {
+        response = await sendInviteForAdmin(request, env);
       } else {
         response = jsonResponse({ error: 'Not found.' }, 404);
       }
